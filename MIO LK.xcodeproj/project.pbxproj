@@ -12,6 +12,15 @@
 		BAA7D01C20BD94BA00AFEA47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */; };
 		BAA7D01E20BD94D200AFEA47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAA7D01D20BD94D200AFEA47 /* Assets.xcassets */; };
 		BAA7D02120BD94D200AFEA47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAA7D01F20BD94D200AFEA47 /* LaunchScreen.storyboard */; };
+		BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02820BD956600AFEA47 /* classPayments.swift */; };
+		BAA7D02B20BD96F700AFEA47 /* classDocuments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */; };
+		BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */; };
+		BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02E20BD9D3600AFEA47 /* ContractsViewController.swift */; };
+		BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */; };
+		BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03220BD9DC300AFEA47 /* BALabel.swift */; };
+		BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03420BDA14100AFEA47 /* viewPayment.swift */; };
+		BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03620BEB5D500AFEA47 /* taskManager.swift */; };
+		BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03820BEE66A00AFEA47 /* classRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +31,15 @@
 		BAA7D01D20BD94D200AFEA47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BAA7D02020BD94D200AFEA47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BAA7D02220BD94D200AFEA47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BAA7D02820BD956600AFEA47 /* classPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classPayments.swift; sourceTree = "<group>"; };
+		BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classDocuments.swift; sourceTree = "<group>"; };
+		BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		BAA7D02E20BD9D3600AFEA47 /* ContractsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractsViewController.swift; sourceTree = "<group>"; };
+		BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewDocument.swift; sourceTree = "<group>"; };
+		BAA7D03220BD9DC300AFEA47 /* BALabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BALabel.swift; sourceTree = "<group>"; };
+		BAA7D03420BDA14100AFEA47 /* viewPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewPayment.swift; sourceTree = "<group>"; };
+		BAA7D03620BEB5D500AFEA47 /* taskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskManager.swift; sourceTree = "<group>"; };
+		BAA7D03820BEE66A00AFEA47 /* classRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +75,15 @@
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
 				BAA7D01820BD94BA00AFEA47 /* ViewController.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
+				BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */,
+				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
+				BAA7D02E20BD9D3600AFEA47 /* ContractsViewController.swift */,
+				BAA7D03820BEE66A00AFEA47 /* classRequest.swift */,
+				BAA7D03620BEB5D500AFEA47 /* taskManager.swift */,
+				BAA7D03420BDA14100AFEA47 /* viewPayment.swift */,
+				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
+				BAA7D02820BD956600AFEA47 /* classPayments.swift */,
+				BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */,
 				BAA7D01D20BD94D200AFEA47 /* Assets.xcassets */,
 				BAA7D01F20BD94D200AFEA47 /* LaunchScreen.storyboard */,
 				BAA7D02220BD94D200AFEA47 /* Info.plist */,
@@ -135,8 +162,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
+				BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */,
+				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
+				BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */,
+				BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */,
 				BAA7D01920BD94BA00AFEA47 /* ViewController.swift in Sources */,
+				BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */,
 				BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */,
+				BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */,
+				BAA7D02B20BD96F700AFEA47 /* classDocuments.swift in Sources */,
+				BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
