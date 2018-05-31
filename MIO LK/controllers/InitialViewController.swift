@@ -20,13 +20,27 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     
     var progressValue: Float = 0
     
+    enum direction: Int {
+        case toTop
+        case toBottom
+    }
+    var direct: direction = .toTop
+    var timer = Timer()
+    
     @IBOutlet weak var viewLoading: UIView!
     @IBOutlet weak var progress: UIProgressView!
     @IBOutlet weak var progressLabel: UILabel!
     
     @IBOutlet weak var tenantLabel: UILabel!
     
+    @IBOutlet weak var frontImage: UIImageView!
+    @IBOutlet weak var backgroundImage: UIImageView!
+    
+    
     @IBAction func enter(_ sender: Any) {
+        defaults.removeObject(forKey: "documents")
+        //defaults.removeObject(forKey: "overdue")
+        
         getUserData()
         
         let uuid = UUID().uuidString
@@ -52,6 +66,10 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        backgroundImage.frame.size = CGSize(width: backgroundImage.frame.width, height: backgroundImage.frame.height*2.5)
+        
+        timer = Timer.scheduledTimer(timeInterval: 3.1, target: self, selector: #selector(animateBack), userInfo: nil, repeats: true)
+        timer.fire()
         // Do any additional setup after loading the view.
     }
     
@@ -61,11 +79,13 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        getUserData()
+        //getUserData()
     }
 
     func getUserData() {
-        request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754") { (true) in
+        //request.getSecurityToken(type: "individual", inn: "507902318711", snilsOgrn: "17248060262") { (true) in
+        request.getSecurityToken(type: "entity", inn: "7812014560", snilsOgrn: "1027809169585") { (true) in
+        //request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754") { (true) in
             print("successToken")
             self.tenantLabel.text = (self.defaults.object(forKey: "tenant") as! String)
             self.tenantLabel.isHidden = false
@@ -96,7 +116,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     }
     
     @objc func errorInPay() {
-        self.progressValue += 0.8/97//Float(docs.count)
+        self.progressValue += 0.8/Float(documents.count)
         self.progress.setProgress(self.progressValue, animated: true)
         self.progressLabel.text = "Загрузка данных \(self.progressValue*100)%"
         
@@ -107,9 +127,27 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
             self.progressLabel.text = "Загрузка данных 100%"
             print("That's all!")
             
+            timer.invalidate()
             performSegue(withIdentifier: "loginComplete", sender: self)
         }
-        
+    }
+    
+    // Анимация герба
+    @objc func animateBack() {
+        switch direct {
+        case .toTop:
+            UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseInOut , animations: {
+                self.backgroundImage.frame.origin.y = self.frontImage.frame.height - self.backgroundImage.frame.height
+            }) { (true) in
+                self.direct = .toBottom
+            }
+        default:
+            UIView.animate(withDuration: 3.0, delay: 0, options: .curveEaseInOut , animations: {
+                self.backgroundImage.frame.origin.y = 0
+            }) { (true) in
+                self.direct = .toTop
+            }
+        }
     }
     /*
     // MARK: - Navigation

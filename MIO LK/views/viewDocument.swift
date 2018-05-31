@@ -26,7 +26,7 @@ class viewDocument: UIView {
         self.layer.cornerRadius = 10.0
         //Shadow
         self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOpacity = 0.8
         self.layer.shadowOffset = CGSize.zero
         self.layer.shadowRadius = 10.0
         
@@ -35,7 +35,7 @@ class viewDocument: UIView {
     func customize() {
     }
     
-    func addSeparators(number: String, date: String, type: String, owner: String) {
+    func addSeparators(number: String, date: String, type: String, owner: String, address: String, rent: String) {
         let area = self.bounds.height - topInset - bottomInset
         let separatorWidth = self.bounds.width - rightInset - leftInset
         
@@ -81,7 +81,7 @@ class viewDocument: UIView {
         typeLbl.frame.origin = CGPoint(x: self.bounds.midX, y: cellHeight*2-5-typeLbl.frame.height)
         
         let tLabel = BALabel()
-        tLabel.initializeLabel(input: "Тип объекта:", size: 15, lines: 1, color: UIColor.lightGray)
+        tLabel.initializeLabel(input: "Объекта:", size: 15, lines: 1, color: UIColor.lightGray)
         tLabel.frame.size = CGSize(width: labelWidth, height: tLabel.frame.height)
         tLabel.frame.origin = CGPoint(x: 10, y: cellHeight+5)// - tLabel.frame.height)
         
@@ -102,6 +102,35 @@ class viewDocument: UIView {
         
         self.addSubview(ownerLbl)
         self.addSubview(oLabel)
+        
+        // Address
+        let addressLbl = BALabel()
+        addressLbl.initializeLabel(input: address, size: 17, lines: 0, color: UIColor.darkGray)
+        addressLbl.textAlignment = .right
+        addressLbl.frame.size = CGSize(width: labelWidth, height: cellHeight-10)
+        addressLbl.frame.origin = CGPoint(x: self.bounds.midX, y: cellHeight*4-5-addressLbl.frame.height)
+        
+        let aLabel = BALabel()
+        aLabel.initializeLabel(input: "Адрес:", size: 15, lines: 1, color: UIColor.lightGray)
+        aLabel.frame.size = CGSize(width: labelWidth, height: aLabel.frame.height)
+        aLabel.frame.origin = CGPoint(x: 10, y: cellHeight*3+5)
+        
+        self.addSubview(addressLbl)
+        self.addSubview(aLabel)
+        
+        let rentLbl = BALabel()
+        rentLbl.initializeLabel(input: "\(rent) руб.", size: 20, lines: 0, color: UIColor.red)
+        rentLbl.textAlignment = .right
+        rentLbl.frame.size = CGSize(width: labelWidth, height: cellHeight-10)
+        rentLbl.frame.origin = CGPoint(x: self.bounds.midX, y: cellHeight*5-5-addressLbl.frame.height)
+        
+        let rLabel = BALabel()
+        rLabel.initializeLabel(input: "Арендная плата:", size: 15, lines: 1, color: UIColor.lightGray)
+        rLabel.frame.size = CGSize(width: labelWidth, height: rLabel.frame.height)
+        rLabel.frame.origin = CGPoint(x: 10, y: cellHeight*4+5)
+        
+        self.addSubview(rentLbl)
+        self.addSubview(rLabel)
         
         for i in 1..<6 {
             let yPos = cellHeight * CGFloat(i)

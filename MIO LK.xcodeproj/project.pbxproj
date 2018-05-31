@@ -21,6 +21,7 @@
 		BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03420BDA14100AFEA47 /* viewPayment.swift */; };
 		BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03620BEB5D500AFEA47 /* taskManager.swift */; };
 		BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03820BEE66A00AFEA47 /* classRequest.swift */; };
+		BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		BAA7D03420BDA14100AFEA47 /* viewPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewPayment.swift; sourceTree = "<group>"; };
 		BAA7D03620BEB5D500AFEA47 /* taskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskManager.swift; sourceTree = "<group>"; };
 		BAA7D03820BEE66A00AFEA47 /* classRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classRequest.swift; sourceTree = "<group>"; };
+		BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,20 +77,45 @@
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
 				BAA7D01820BD94BA00AFEA47 /* ViewController.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
-				BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */,
-				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
-				BAA7D02E20BD9D3600AFEA47 /* ContractsViewController.swift */,
-				BAA7D03820BEE66A00AFEA47 /* classRequest.swift */,
-				BAA7D03620BEB5D500AFEA47 /* taskManager.swift */,
-				BAA7D03420BDA14100AFEA47 /* viewPayment.swift */,
-				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
-				BAA7D02820BD956600AFEA47 /* classPayments.swift */,
-				BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */,
+				BAA7D03E20C05CE800AFEA47 /* controllers */,
+				BAA7D03D20C05CD600AFEA47 /* views */,
+				BAA7D03C20C05CB300AFEA47 /* class */,
 				BAA7D01D20BD94D200AFEA47 /* Assets.xcassets */,
 				BAA7D01F20BD94D200AFEA47 /* LaunchScreen.storyboard */,
 				BAA7D02220BD94D200AFEA47 /* Info.plist */,
 			);
 			path = "MIO LK";
+			sourceTree = "<group>";
+		};
+		BAA7D03C20C05CB300AFEA47 /* class */ = {
+			isa = PBXGroup;
+			children = (
+				BAA7D03620BEB5D500AFEA47 /* taskManager.swift */,
+				BAA7D03820BEE66A00AFEA47 /* classRequest.swift */,
+				BAA7D02820BD956600AFEA47 /* classPayments.swift */,
+				BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */,
+			);
+			path = class;
+			sourceTree = "<group>";
+		};
+		BAA7D03D20C05CD600AFEA47 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */,
+				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
+				BAA7D03420BDA14100AFEA47 /* viewPayment.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		BAA7D03E20C05CE800AFEA47 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
+				BAA7D02E20BD9D3600AFEA47 /* ContractsViewController.swift */,
+				BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */,
+			);
+			path = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +192,7 @@
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
 				BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */,
 				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
+				BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */,
 				BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */,
 				BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */,
 				BAA7D01920BD94BA00AFEA47 /* ViewController.swift in Sources */,

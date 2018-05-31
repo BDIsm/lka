@@ -12,7 +12,10 @@ class classRequest {
     let defaults = UserDefaults.standard
     
     private var documents = [classDocuments]()
-    private var payments = [classPayments]()
+    
+    private var allOverdues = [classPayments]()
+    private var allActual = [classPayments]()
+    private var allPayed = [classPayments]()
     
     private var paymentsDict = [String:[classPayments]]()
     
@@ -191,18 +194,30 @@ class classRequest {
                                     
                                     switch "\(status)" {
                                     case "Не оплачено (неоплаченное начисление прошлого периода)":
+                                        print("\(element) overdue")
                                         overdue.append(element)
-                                    case "Не оплачено (неоплаченное начисление текущего периода)", "Не оплачено (неоплаченное начисление будущих периодов)":
+                                        self.allOverdues.append(element)
+                                    case "Не оплачено (неоплаченное начисление текущего периода)", "Начисление будущих периодов (неоплаченные начисления будущих периодов)":
+                                        print("\(element) Actual")
                                         actual.append(element)
-                                    default: break
+                                        self.allActual.append(element)
+                                    /*case "Начисление будущих периодов (неоплаченные начисления будущих периодов)":
+                                        print("\(element) future")
+                                        actual.append(element)
+                                        self.allActual.append(element)*/
+                                    default:
+                                        self.allPayed.append(element)
                                     }
-                                    
-                                    self.payments.append(element)
                                 }
                             }
                         }
-                        let savedData = NSKeyedArchiver.archivedData(withRootObject: self.payments)
-                        self.defaults.set(savedData, forKey: "allPayments")
+                        let savedOverdues = NSKeyedArchiver.archivedData(withRootObject: self.allOverdues)
+                        let savedActual = NSKeyedArchiver.archivedData(withRootObject: self.allActual)
+                        let savedPayed = NSKeyedArchiver.archivedData(withRootObject: self.allPayed)
+                        
+                        self.defaults.set(savedOverdues, forKey: "overdue")
+                        self.defaults.set(savedActual, forKey: "actual")
+                        self.defaults.set(savedPayed, forKey: "payed")
                         
                         self.paymentsDict.updateValue(overdue, forKey: "\(id)Overdue")
                         self.paymentsDict.updateValue(actual, forKey: "\(id)Actual")
