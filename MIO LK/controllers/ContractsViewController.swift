@@ -33,10 +33,13 @@ class ContractsViewController: UIViewController {
             payDict = NSKeyedUnarchiver.unarchiveObject(with: savedPays) as! [String:[classPayments]]
         }
         
-        addDocuments()
+        DispatchQueue.main.async {
+            self.addDocuments()
+        }
         
         // Do any additional setup after loading the view.
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -44,6 +47,14 @@ class ContractsViewController: UIViewController {
     }
     
     func addDocuments() {
+        if let savedDocs = defaults.object(forKey: "documents") as? Data {
+            documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
+        }
+        
+        if let savedPays = defaults.object(forKey: "sortPayments") as? Data {
+            payDict = NSKeyedUnarchiver.unarchiveObject(with: savedPays) as! [String:[classPayments]]
+        }
+        
         let height = self.view.frame.height*2/3
         let width = self.view.frame.width-20
         

@@ -22,6 +22,8 @@
 		BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03620BEB5D500AFEA47 /* taskManager.swift */; };
 		BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03820BEE66A00AFEA47 /* classRequest.swift */; };
 		BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */; };
+		BAA7D04020C189BB00AFEA47 /* PaymentsCollectonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03F20C189BB00AFEA47 /* PaymentsCollectonViewController.swift */; };
+		BAA7D04420C18FA500AFEA47 /* PaymentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D04320C18FA500AFEA47 /* PaymentsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		BAA7D03620BEB5D500AFEA47 /* taskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskManager.swift; sourceTree = "<group>"; };
 		BAA7D03820BEE66A00AFEA47 /* classRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classRequest.swift; sourceTree = "<group>"; };
 		BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
+		BAA7D03F20C189BB00AFEA47 /* PaymentsCollectonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsCollectonViewController.swift; sourceTree = "<group>"; };
+		BAA7D04320C18FA500AFEA47 /* PaymentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +78,11 @@
 		BAA7D01520BD94BA00AFEA47 /* MIO LK */ = {
 			isa = PBXGroup;
 			children = (
+				BAA7D04320C18FA500AFEA47 /* PaymentsCollectionViewCell.swift */,
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
 				BAA7D01820BD94BA00AFEA47 /* ViewController.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
+				BAA7D03F20C189BB00AFEA47 /* PaymentsCollectonViewController.swift */,
 				BAA7D03E20C05CE800AFEA47 /* controllers */,
 				BAA7D03D20C05CD600AFEA47 /* views */,
 				BAA7D03C20C05CB300AFEA47 /* class */,
@@ -190,12 +196,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
+				BAA7D04020C189BB00AFEA47 /* PaymentsCollectonViewController.swift in Sources */,
 				BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */,
 				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
 				BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */,
 				BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */,
 				BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */,
 				BAA7D01920BD94BA00AFEA47 /* ViewController.swift in Sources */,
+				BAA7D04420C18FA500AFEA47 /* PaymentsCollectionViewCell.swift in Sources */,
 				BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */,
 				BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */,
 				BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */,

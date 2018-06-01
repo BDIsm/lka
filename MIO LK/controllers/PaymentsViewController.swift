@@ -19,9 +19,9 @@ class PaymentsViewController: UIViewController {
     var actualHeight = CGFloat()
     var payedHeight = CGFloat()
     
-    let overdueScroll = UIScrollView()
-    let actualScroll = UIScrollView()
-    let payedScroll = UIScrollView()
+    var overdueScroll = UIScrollView()
+    var actualScroll = UIScrollView()
+    var payedScroll = UIScrollView()
     
     @IBOutlet weak var scroll: UIScrollView!
     
@@ -74,10 +74,13 @@ class PaymentsViewController: UIViewController {
         }
         
         scroll.contentSize.height = 100+overdueHeight+actualHeight+payedHeight
-        addLabelsAndSeparators()
+        
+        DispatchQueue.main.async {
+            self.addLabelsAndSeparators()
+        }
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -101,7 +104,9 @@ class PaymentsViewController: UIViewController {
         
         scroll.addSubview(overdueScroll)
         DispatchQueue.main.async {
-            self.addPaysToScroll(array: self.overdue, height: self.overdueHeight, background: "red", scroll: self.overdueScroll)
+            self.addPaysToScroll(scrll: &self.overdueScroll, array: self.overdue, height: self.overdueHeight, background: "red", completion: {_ in
+                
+            })
         }
         
         let separator = UIView(frame: CGRect(x: 10, y: yPos, width: view.frame.width-20, height: 0.5))
@@ -123,7 +128,9 @@ class PaymentsViewController: UIViewController {
         
         scroll.addSubview(actualScroll)
         DispatchQueue.main.async {
-            self.addPaysToScroll(array: self.actual, height: self.actualHeight, background: "blue", scroll: self.actualScroll)
+            self.addPaysToScroll(scrll: &self.actualScroll, array: self.actual, height: self.actualHeight, background: "blue", completion: {_ in
+                
+            })
         }
         
         let separator1 = UIView(frame: CGRect(x: 10, y: yPos, width: view.frame.width-20, height: 0.5))
@@ -145,61 +152,64 @@ class PaymentsViewController: UIViewController {
         
         scroll.addSubview(payedScroll)
         DispatchQueue.main.async {
-            self.addPaysToScroll(array: self.payed, height: self.payedHeight, background: "gray", scroll: self.payedScroll)
+            self.addPaysToScroll(scrll: &self.payedScroll, array: self.payed, height: self.payedHeight, background: "gray", completion: { _ in
+                
+            })
         }
         
         let separator2 = UIView(frame: CGRect(x: 10, y: yPos, width: view.frame.width-20, height: 0.5))
         separator2.backgroundColor = UIColor(white: 0.7, alpha: 1)
         scroll.addSubview(separator2)
-        
-
     }
     
-    func addPaysToScroll(array: [classPayments], height: CGFloat, background: String, scroll: UIScrollView) {
-        let indicator = UIActivityIndicatorView()
-        indicator.frame.origin = CGPoint(x: (scroll.frame.width-indicator.frame.width)/2, y: scroll.bounds.midY-indicator.frame.height/2)
-        indicator.activityIndicatorViewStyle = .gray
-        indicator.hidesWhenStopped = true
-        scroll.addSubview(indicator)
-        indicator.startAnimating()
-        
-        if height == 110 {
-            scroll.contentSize.width = 10+CGFloat(array.count)*70
-        }
-        else {
-            scroll.contentSize.width = 10+CGFloat(array.count/2+1)*70
-        }
-        
-        if array.count == 0 {
-            scroll.contentSize.width = scroll.frame.width
+    func addPaysToScroll(scrll: inout UIScrollView, array: [classPayments], height: CGFloat, background: String, completion: @escaping (UIScrollView) -> Void) {
+            let indicator = UIActivityIndicatorView()
+            indicator.frame.origin = CGPoint(x: (scroll.frame.width-indicator.frame.width)/2, y: scroll.bounds.midY-indicator.frame.height/2)
+            indicator.activityIndicatorViewStyle = .gray
+            indicator.hidesWhenStopped = true
+            scrll.addSubview(indicator)
+            indicator.startAnimating()
             
-            let label = BALabel()
-            label.initializeLabel(input: "Нет начислений", size: 20, lines: 1, color: UIColor.gray)
-            label.center = CGPoint(x: scroll.bounds.midX, y: scroll.bounds.midY)
-            scroll.addSubview(label)
+            if height == 110 {
+                scrll.contentSize.width = 10+CGFloat(array.count)*70
+            }
+            else {
+                scrll.contentSize.width = 10+CGFloat(array.count/2+1)*70
+            }
             
-            indicator.stopAnimating()
-        }
-        else {
-            for i in 0..<array.count {
-                DispatchQueue.main.async {
-                    var xPos = CGFloat()
-                    var yPos = CGFloat()
-                    
-                    if height == 110 {
-                        xPos = 10+CGFloat(i)*70
-                    }
-                    else {
-                        let rest = CGFloat(i).truncatingRemainder(dividingBy: 2)
+            if array.count == 0 {
+                scrll.contentSize.width = scroll.frame.width
+                
+                let label = BALabel()
+                label.initializeLabel(input: "Нет начислений", size: 20, lines: 1, color: UIColor.gray)
+                label.center = CGPoint(x: scrll.bounds.midX, y: scrll.bounds.midY)
+                scrll.addSubview(label)
+                
+                indicator.stopAnimating()
+            }
+            else {
+                DispatchQueue.main.async { [scrll] in
+                    let scrll = scrll
+                    for i in 0..<array.count {
                         
-                        xPos = 10+CGFloat(i/2)*70
-                        yPos = rest*70
-                    }
+                        var xPos = CGFloat()
+                        var yPos = CGFloat()
+                        
+                        if height == 110 {
+                            xPos = 10+CGFloat(i)*70
+                        }
+                        else {
+                            let rest = CGFloat(i).truncatingRemainder(dividingBy: 2)
+                            
+                            xPos = 10+CGFloat(i/2)*70
+                            yPos = rest*70
+                        }
                     
                     let cell = viewPayment(frame: CGRect(x: xPos, y: yPos, width: 60, height: 60))
                     cell.customize(status: background, amount: array[i].accrual, date: array[i].date)
                     
-                    scroll.addSubview(cell)
+                    scrll.addSubview(cell)
+                    completion(scrll)
                     indicator.stopAnimating()
                 }
             }

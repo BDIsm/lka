@@ -36,6 +36,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     @IBOutlet weak var frontImage: UIImageView!
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    var docsController = ContractsViewController()
     
     @IBAction func enter(_ sender: Any) {
         defaults.removeObject(forKey: "documents")
@@ -68,6 +69,8 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
         super.viewDidLoad()
         backgroundImage.frame.size = CGSize(width: backgroundImage.frame.width, height: backgroundImage.frame.height*2.5)
         
+        docsController = storyboard?.instantiateViewController(withIdentifier: "docs") as! ContractsViewController
+        
         timer = Timer.scheduledTimer(timeInterval: 3.1, target: self, selector: #selector(animateBack), userInfo: nil, repeats: true)
         timer.fire()
         // Do any additional setup after loading the view.
@@ -84,8 +87,8 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
 
     func getUserData() {
         //request.getSecurityToken(type: "individual", inn: "507902318711", snilsOgrn: "17248060262") { (true) in
-        //request.getSecurityToken(type: "entity", inn: "7812014560", snilsOgrn: "1027809169585") { (true) in
-        request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754") { (true) in
+        request.getSecurityToken(type: "entity", inn: "7812014560", snilsOgrn: "1027809169585") { (true) in
+        //request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754") { (true) in
             print("successToken")
             self.tenantLabel.text = (self.defaults.object(forKey: "tenant") as! String)
             self.tenantLabel.isHidden = false
@@ -97,6 +100,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
             
             self.request.getContracts(finished: { (true) in
                 print("successDocs")
+                self.docsController.addDocuments()
                 
                 self.progressValue += 0.1
                 self.progress.setProgress(self.progressValue, animated: true)
