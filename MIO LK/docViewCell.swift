@@ -70,7 +70,6 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            print(overdue.count)
             return overdue.count
         }
         else {

@@ -23,18 +23,14 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
         if let savedOverdues = defaults.object(forKey: "overdue") as? Data {
             overdue = NSKeyedUnarchiver.unarchiveObject(with: savedOverdues) as! [classPayments]
         }
-        
         // Актуальные
         if let savedActual = defaults.object(forKey: "actual") as? Data {
             actual = NSKeyedUnarchiver.unarchiveObject(with: savedActual) as! [classPayments]
         }
-        
         // Оплаченные
         if let savedPayed = defaults.object(forKey: "payed") as? Data {
             payed = NSKeyedUnarchiver.unarchiveObject(with: savedPayed) as! [classPayments]
         }
-        
-        
         // Do any additional setup after loading the view.
     }
 
@@ -48,10 +44,7 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let width = self.view.frame.width-20
-        
-        print(width)
         
         if indexPath.row == 0 {
             let size = getHeight(array: overdue, width: width)
@@ -69,9 +62,24 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! forPaysViewCell
         
-        if cell.frame.height == 180 {
+        cell.customize()
+        
+        if cell.frame.height == 200 {
             cell.paysCollection.frame.origin.y -= 70
             cell.paysCollection.frame.size.height = 130
+        }
+        
+        if indexPath.row == 0 {
+            cell.titleLabel.text = "Просроченные"
+            cell.array = overdue
+        }
+        else if indexPath.row == 1 {
+            cell.titleLabel.text = "Текущие"
+            cell.array = actual
+        }
+        else {
+            cell.titleLabel.text = "Оплаченные"
+            cell.array = payed
         }
         
         return cell
@@ -80,9 +88,9 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func getHeight(array: [classPayments], width: CGFloat) -> CGSize {
         switch array.count {
         case 0...12:
-            return CGSize(width: width, height: 110)
+            return CGSize(width: width, height: 130)
         default:
-            return CGSize(width: width, height: 180)
+            return CGSize(width: width, height: 200)
         }
     }
 
