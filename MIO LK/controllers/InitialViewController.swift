@@ -87,8 +87,8 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
 
     func getUserData() {
         //request.getSecurityToken(type: "individual", inn: "507902318711", snilsOgrn: "17248060262") { (true) in
-        request.getSecurityToken(type: "entity", inn: "7812014560", snilsOgrn: "1027809169585") { (true) in
-        //request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754") { (true) in
+        //request.getSecurityToken(type: "entity", inn: "7812014560", snilsOgrn: "1027809169585") { (true) in
+        request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754") { (true) in
             print("successToken")
             self.tenantLabel.text = (self.defaults.object(forKey: "tenant") as! String)
             self.tenantLabel.isHidden = false

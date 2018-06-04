@@ -21,6 +21,8 @@ class viewDocument: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.layer.masksToBounds = false
+        
         self.backgroundColor = UIColor.white
         //Shape
         self.layer.cornerRadius = 10.0
@@ -30,9 +32,6 @@ class viewDocument: UIView {
         self.layer.shadowOffset = CGSize.zero
         self.layer.shadowRadius = 10.0
         
-    }
-    
-    func customize() {
     }
     
     func addSeparators(number: String, date: String, type: String, owner: String, address: String, rent: String) {

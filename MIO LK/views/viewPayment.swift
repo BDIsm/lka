@@ -19,11 +19,11 @@ class viewPayment: UIView {
         self.frame.size = CGSize(width: 60, height: 60)
         //Shape
         self.layer.cornerRadius = 10.0
-        //Shadow
+        /*Shadow
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowOpacity = 0.5
         self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 4.0
+        self.layer.shadowRadius = 4.0*/
     }
     
     func customize(status: String, amount: String, date: String) {
