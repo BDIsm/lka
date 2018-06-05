@@ -13,10 +13,8 @@
 		BA38D23F20C6CE650011ECC3 /* settingReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D23E20C6CE650011ECC3 /* settingReusableView.swift */; };
 		BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73450F20C53A44003E28C8 /* DocViewController.swift */; };
 		BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73451120C53AE4003E28C8 /* docViewCell.swift */; };
-		BA73451420C547F5003E28C8 /* viewShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73451320C547F5003E28C8 /* viewShadow.swift */; };
 		BA73451620C56561003E28C8 /* payViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73451520C56561003E28C8 /* payViewCell.swift */; };
 		BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */; };
-		BAA7D01920BD94BA00AFEA47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D01820BD94BA00AFEA47 /* ViewController.swift */; };
 		BAA7D01C20BD94BA00AFEA47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */; };
 		BAA7D01E20BD94D200AFEA47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAA7D01D20BD94D200AFEA47 /* Assets.xcassets */; };
 		BAA7D02120BD94D200AFEA47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAA7D01F20BD94D200AFEA47 /* LaunchScreen.storyboard */; };
@@ -39,11 +37,9 @@
 		BA38D23E20C6CE650011ECC3 /* settingReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingReusableView.swift; sourceTree = "<group>"; };
 		BA73450F20C53A44003E28C8 /* DocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
 		BA73451120C53AE4003E28C8 /* docViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docViewCell.swift; sourceTree = "<group>"; };
-		BA73451320C547F5003E28C8 /* viewShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewShadow.swift; sourceTree = "<group>"; };
 		BA73451520C56561003E28C8 /* payViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = payViewCell.swift; sourceTree = "<group>"; };
 		BAA7D01320BD94BA00AFEA47 /* MIO LK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MIO LK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BAA7D01820BD94BA00AFEA47 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BAA7D01B20BD94BA00AFEA47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BAA7D01D20BD94D200AFEA47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BAA7D02020BD94D200AFEA47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -71,6 +67,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA38D24020C6F53E0011ECC3 /* PaymentScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BA38D23C20C5B66A0011ECC3 /* paymentCell.swift */,
+				BA38D23A20C59F830011ECC3 /* forPaysViewCell.swift */,
+				BA38D23820C59EE60011ECC3 /* PayViewController.swift */,
+			);
+			path = PaymentScreen;
+			sourceTree = "<group>";
+		};
+		BA38D24120C6F5530011ECC3 /* ContractScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BA73451520C56561003E28C8 /* payViewCell.swift */,
+				BA73451120C53AE4003E28C8 /* docViewCell.swift */,
+				BA73450F20C53A44003E28C8 /* DocViewController.swift */,
+				BA38D23E20C6CE650011ECC3 /* settingReusableView.swift */,
+			);
+			path = ContractScreen;
+			sourceTree = "<group>";
+		};
 		BAA7D00A20BD94BA00AFEA47 = {
 			isa = PBXGroup;
 			children = (
@@ -91,16 +108,9 @@
 			isa = PBXGroup;
 			children = (
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
-				BAA7D01820BD94BA00AFEA47 /* ViewController.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
-				BA38D23C20C5B66A0011ECC3 /* paymentCell.swift */,
-				BA38D23A20C59F830011ECC3 /* forPaysViewCell.swift */,
-				BA38D23820C59EE60011ECC3 /* PayViewController.swift */,
-				BA73451520C56561003E28C8 /* payViewCell.swift */,
-				BA73451120C53AE4003E28C8 /* docViewCell.swift */,
-				BA73450F20C53A44003E28C8 /* DocViewController.swift */,
-				BA38D23E20C6CE650011ECC3 /* settingReusableView.swift */,
-				BA73451320C547F5003E28C8 /* viewShadow.swift */,
+				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
+				BA38D24120C6F5530011ECC3 /* ContractScreen */,
 				BAA7D03E20C05CE800AFEA47 /* controllers */,
 				BAA7D03D20C05CD600AFEA47 /* views */,
 				BAA7D03C20C05CB300AFEA47 /* class */,
@@ -213,7 +223,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA73451420C547F5003E28C8 /* viewShadow.swift in Sources */,
 				BA73451620C56561003E28C8 /* payViewCell.swift in Sources */,
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
 				BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */,
@@ -224,7 +233,6 @@
 				BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */,
 				BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */,
 				BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */,
-				BAA7D01920BD94BA00AFEA47 /* ViewController.swift in Sources */,
 				BA38D23F20C6CE650011ECC3 /* settingReusableView.swift in Sources */,
 				BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */,
 				BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */,

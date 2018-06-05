@@ -11,6 +11,7 @@ import UIKit
 
 class paymentViewCell: UICollectionViewCell {
     @IBOutlet weak var back: UIImageView!
+    @IBOutlet weak var typeImage: UIImageView!
     
     @IBOutlet weak var amount: UILabel!
     @IBOutlet weak var date: UILabel!
@@ -19,6 +20,7 @@ class paymentViewCell: UICollectionViewCell {
         layer.cornerRadius = 10
         
         back.image = image
+        //typeImage.image = #imageLiteral(resourceName: "DeNiro")
         
         amount.text = "\(a) ₽"
         date.text = "от \(d)"

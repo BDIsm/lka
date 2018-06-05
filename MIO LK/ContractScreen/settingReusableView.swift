@@ -46,8 +46,8 @@ class settingReusableView: UICollectionReusableView {
     }
     
     func decrease() {
-        viewWithButtons.frame.origin.x = 242
-        viewWithButtons.frame.size.width = 70
+        viewWithButtons.frame.origin.x = self.bounds.maxX-settings.frame.width-30
+        viewWithButtons.frame.size.width = settings.frame.width+20
         
         reload.alpha = 0
         exit.alpha = 0
