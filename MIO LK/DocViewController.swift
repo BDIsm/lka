@@ -75,7 +75,8 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
             let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "reusableView", for: indexPath) as! settingReusableView
             
             reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
-            //do other header related calls or settups
+            reusableview.decrease()
+            
             return reusableview
             
             
@@ -131,6 +132,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
             }
         }
     }
+    
     /*
     // MARK: - Navigation
 
