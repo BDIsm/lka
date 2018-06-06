@@ -70,18 +70,16 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        switch kind {
-        case UICollectionElementKindSectionHeader:
+        //switch kind {
+        //case UICollectionElementKindSectionHeader:
             let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "reusableView", for: indexPath) as! settingReusableView
             
             reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
             reusableview.decrease()
             
             return reusableview
-            
-            
-        default:  fatalError("Unexpected element kind")
-        }
+        //default:  fatalError("Unexpected element kind")
+        //}
     }
     // MARK: - UICollectionViewDelegate protocol
     

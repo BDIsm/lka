@@ -21,16 +21,6 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     var overdue = [classPayments]()
     var actual = [classPayments]()
     
-    init(frame: CGRect, overdue: [classPayments], actual: [classPayments]) {
-        super.init(frame: frame)
-        self.overdue = overdue
-        self.actual = actual
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     func customize() {
         number.layer.cornerRadius = 10
         date.layer.cornerRadius = 10

@@ -28,6 +28,10 @@
 		BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03620BEB5D500AFEA47 /* taskManager.swift */; };
 		BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03820BEE66A00AFEA47 /* classRequest.swift */; };
 		BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */; };
+		BACA2FFC20C82B4900BA6C90 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */; };
+		BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */; };
+		BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */; };
+		BACA300220C840DD00BA6C90 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300120C840DC00BA6C90 /* MessageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +58,10 @@
 		BAA7D03620BEB5D500AFEA47 /* taskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskManager.swift; sourceTree = "<group>"; };
 		BAA7D03820BEE66A00AFEA47 /* classRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classRequest.swift; sourceTree = "<group>"; };
 		BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
+		BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
+		BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewCell.swift; sourceTree = "<group>"; };
+		BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatReusableView.swift; sourceTree = "<group>"; };
+		BACA300120C840DC00BA6C90 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +117,10 @@
 			children = (
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
+				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
+				BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */,
+				BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */,
+				BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */,
 				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
 				BA38D24120C6F5530011ECC3 /* ContractScreen */,
 				BAA7D03E20C05CE800AFEA47 /* controllers */,
@@ -229,6 +241,7 @@
 				BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */,
 				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
 				BA38D23920C59EE60011ECC3 /* PayViewController.swift in Sources */,
+				BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */,
 				BA38D23B20C59F830011ECC3 /* forPaysViewCell.swift in Sources */,
 				BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */,
 				BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */,
@@ -239,7 +252,10 @@
 				BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */,
 				BA38D23D20C5B66A0011ECC3 /* paymentCell.swift in Sources */,
 				BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */,
+				BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */,
+				BACA300220C840DD00BA6C90 /* MessageViewController.swift in Sources */,
 				BAA7D02B20BD96F700AFEA47 /* classDocuments.swift in Sources */,
+				BACA2FFC20C82B4900BA6C90 /* SupportViewController.swift in Sources */,
 				BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
