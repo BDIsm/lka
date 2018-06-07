@@ -85,13 +85,19 @@ class MessageViewController: UIViewController {
     
     @objc func contractsShow() {
         print("YEAH")
-        collection.frame = CGRect(x: 8, y: techButt.frame.maxY+8, width: scroll.frame.width-16, height: 150)
-        collection.collection(items: 100, w: greeting.frame.width)
+        collection.frame = CGRect(x: 8, y: techButt.frame.maxY+8, width: scroll.frame.width-16, height: 0)
         
-        
-        let heightAdd = collection.frame.height+8
-        contentView.frame.size.height += heightAdd
-        contentView.frame.origin.y -= heightAdd
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            
+            self.collection.frame.size.height = 150
+            self.collection.collection(items: 100, w: self.greeting.frame.width)
+            
+            let heightAdd = self.collection.frame.height+8
+            self.contentView.frame.size.height += heightAdd
+            self.contentView.frame.origin.y -= heightAdd
+        }) { (true) in
+            //self.collection.collection(items: 100, w: self.greeting.frame.width)
+        }
         
         contentView.addSubview(collection)
     }
