@@ -14,8 +14,6 @@ class chatReusableView: UICollectionReusableView {
     
     func customize() {
         back.layer.cornerRadius = 10
-        
-        
     }
     
 }

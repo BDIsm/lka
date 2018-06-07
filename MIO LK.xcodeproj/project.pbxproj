@@ -32,6 +32,11 @@
 		BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */; };
 		BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */; };
 		BACA300220C840DD00BA6C90 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300120C840DC00BA6C90 /* MessageViewController.swift */; };
+		BACA300420C96C9800BA6C90 /* messageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300320C96C9800BA6C90 /* messageView.swift */; };
+		BACA300620C97C9700BA6C90 /* buttonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300520C97C9700BA6C90 /* buttonView.swift */; };
+		BACA300820C983E400BA6C90 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300720C983E400BA6C90 /* TabBarController.swift */; };
+		BACA300A20C989DE00BA6C90 /* docInChatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */; };
+		BACA300C20C98F4000BA6C90 /* collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300B20C98F4000BA6C90 /* collection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +67,11 @@
 		BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewCell.swift; sourceTree = "<group>"; };
 		BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatReusableView.swift; sourceTree = "<group>"; };
 		BACA300120C840DC00BA6C90 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		BACA300320C96C9800BA6C90 /* messageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageView.swift; sourceTree = "<group>"; };
+		BACA300520C97C9700BA6C90 /* buttonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonView.swift; sourceTree = "<group>"; };
+		BACA300720C983E400BA6C90 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docInChatViewCell.swift; sourceTree = "<group>"; };
+		BACA300B20C98F4000BA6C90 /* collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,10 +127,15 @@
 			children = (
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
+				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
+				BACA300320C96C9800BA6C90 /* messageView.swift */,
 				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
+				BACA300B20C98F4000BA6C90 /* collection.swift */,
+				BACA300520C97C9700BA6C90 /* buttonView.swift */,
 				BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */,
 				BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */,
 				BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */,
+				BACA300720C983E400BA6C90 /* TabBarController.swift */,
 				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
 				BA38D24120C6F5530011ECC3 /* ContractScreen */,
 				BAA7D03E20C05CE800AFEA47 /* controllers */,
@@ -237,11 +252,14 @@
 			files = (
 				BA73451620C56561003E28C8 /* payViewCell.swift in Sources */,
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
+				BACA300C20C98F4000BA6C90 /* collection.swift in Sources */,
 				BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */,
 				BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */,
 				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
 				BA38D23920C59EE60011ECC3 /* PayViewController.swift in Sources */,
+				BACA300A20C989DE00BA6C90 /* docInChatViewCell.swift in Sources */,
 				BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */,
+				BACA300420C96C9800BA6C90 /* messageView.swift in Sources */,
 				BA38D23B20C59F830011ECC3 /* forPaysViewCell.swift in Sources */,
 				BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */,
 				BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */,
@@ -252,6 +270,8 @@
 				BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */,
 				BA38D23D20C5B66A0011ECC3 /* paymentCell.swift in Sources */,
 				BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */,
+				BACA300820C983E400BA6C90 /* TabBarController.swift in Sources */,
+				BACA300620C97C9700BA6C90 /* buttonView.swift in Sources */,
 				BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */,
 				BACA300220C840DD00BA6C90 /* MessageViewController.swift in Sources */,
 				BAA7D02B20BD96F700AFEA47 /* classDocuments.swift in Sources */,
