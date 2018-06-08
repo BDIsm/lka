@@ -21,13 +21,11 @@
 		BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02820BD956600AFEA47 /* classPayments.swift */; };
 		BAA7D02B20BD96F700AFEA47 /* classDocuments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */; };
 		BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */; };
-		BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02E20BD9D3600AFEA47 /* ContractsViewController.swift */; };
 		BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */; };
 		BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03220BD9DC300AFEA47 /* BALabel.swift */; };
 		BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03420BDA14100AFEA47 /* viewPayment.swift */; };
 		BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03620BEB5D500AFEA47 /* taskManager.swift */; };
 		BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03820BEE66A00AFEA47 /* classRequest.swift */; };
-		BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */; };
 		BACA2FFC20C82B4900BA6C90 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */; };
 		BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */; };
 		BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */; };
@@ -56,13 +54,11 @@
 		BAA7D02820BD956600AFEA47 /* classPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classPayments.swift; sourceTree = "<group>"; };
 		BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classDocuments.swift; sourceTree = "<group>"; };
 		BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
-		BAA7D02E20BD9D3600AFEA47 /* ContractsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractsViewController.swift; sourceTree = "<group>"; };
 		BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewDocument.swift; sourceTree = "<group>"; };
 		BAA7D03220BD9DC300AFEA47 /* BALabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BALabel.swift; sourceTree = "<group>"; };
 		BAA7D03420BDA14100AFEA47 /* viewPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewPayment.swift; sourceTree = "<group>"; };
 		BAA7D03620BEB5D500AFEA47 /* taskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskManager.swift; sourceTree = "<group>"; };
 		BAA7D03820BEE66A00AFEA47 /* classRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classRequest.swift; sourceTree = "<group>"; };
-		BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
 		BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewCell.swift; sourceTree = "<group>"; };
 		BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatReusableView.swift; sourceTree = "<group>"; };
@@ -106,6 +102,25 @@
 			path = ContractScreen;
 			sourceTree = "<group>";
 		};
+		BA9897F920CB0597002458FD /* unused */ = {
+			isa = PBXGroup;
+			children = (
+				BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */,
+				BAA7D03420BDA14100AFEA47 /* viewPayment.swift */,
+			);
+			path = unused;
+			sourceTree = "<group>";
+		};
+		BA9897FA20CB05A6002458FD /* MessageScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
+				BACA300B20C98F4000BA6C90 /* collection.swift */,
+				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
+			);
+			path = MessageScreen;
+			sourceTree = "<group>";
+		};
 		BAA7D00A20BD94BA00AFEA47 = {
 			isa = PBXGroup;
 			children = (
@@ -126,13 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
-				BACA300720C983E400BA6C90 /* TabBarController.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
-				BACA300320C96C9800BA6C90 /* messageView.swift */,
-				BACA300520C97C9700BA6C90 /* buttonView.swift */,
-				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
-				BACA300B20C98F4000BA6C90 /* collection.swift */,
-				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
 				BACA300D20CA86C900BA6C90 /* ChatScreen */,
 				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
 				BA38D24120C6F5530011ECC3 /* ContractScreen */,
@@ -160,9 +169,10 @@
 		BAA7D03D20C05CD600AFEA47 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */,
+				BA9897F920CB0597002458FD /* unused */,
 				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
-				BAA7D03420BDA14100AFEA47 /* viewPayment.swift */,
+				BACA300320C96C9800BA6C90 /* messageView.swift */,
+				BACA300520C97C9700BA6C90 /* buttonView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -171,8 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
-				BAA7D02E20BD9D3600AFEA47 /* ContractsViewController.swift */,
-				BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */,
+				BACA300720C983E400BA6C90 /* TabBarController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -183,6 +192,7 @@
 				BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */,
 				BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */,
 				BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */,
+				BA9897FA20CB05A6002458FD /* MessageScreen */,
 			);
 			path = ChatScreen;
 			sourceTree = "<group>";
@@ -269,8 +279,6 @@
 				BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */,
 				BACA300420C96C9800BA6C90 /* messageView.swift in Sources */,
 				BA38D23B20C59F830011ECC3 /* forPaysViewCell.swift in Sources */,
-				BAA7D03B20C042F600AFEA47 /* PaymentsViewController.swift in Sources */,
-				BAA7D02F20BD9D3600AFEA47 /* ContractsViewController.swift in Sources */,
 				BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */,
 				BA38D23F20C6CE650011ECC3 /* settingReusableView.swift in Sources */,
 				BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */,
