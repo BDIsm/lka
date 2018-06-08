@@ -16,20 +16,23 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var rightLabel: UILabel!
     @IBOutlet weak var leftLabel: UILabel!
     
+    // Размеры для лейблов
     var leftFrame = CGRect()
     var rightFrame = CGRect()
     
+    // Приветствие
     var greeting = messageView()
-    
+    // Кнопки выбора категории
     var techButt = buttonView()
     var contractButt = buttonView()
-    
+    // Коллекция договоров
     var collection = collectionDoc()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         leftFrame = leftLabel.frame
+        rightFrame = rightLabel.frame
         
         contentView.frame = CGRect(x: 0, y: scroll.bounds.maxY, width: scroll.frame.width, height: 0)
         
@@ -52,8 +55,6 @@ class MessageViewController: UIViewController {
         let heightAdd = greeting.frame.height+16
         contentView.frame.size.height += heightAdd
         contentView.frame.origin.y -= heightAdd
-        
-        print(greeting.frame)
 
         contentView.addSubview(greeting)
     }
@@ -80,33 +81,47 @@ class MessageViewController: UIViewController {
     }
     
     @objc func technical() {
-        print("YEAH")
+        // Если закрыты договоры
+        if contractButt.isEnabled {
+        }
+        // Если открыты договоры
+        else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                self.collection.alpha = 0
+                
+                // Смещение contentView
+                let heightAdd = self.collection.frame.height+8
+                self.contentView.frame.size.height -= heightAdd
+                self.contentView.frame.origin.y += heightAdd
+            }) { (true) in
+                // Удаление subview
+                self.collection.remove()
+                self.collection.removeFromSuperview()
+                self.contractButt.isEnabled = true
+            }
+        }
     }
     
     @objc func contractsShow() {
-        print("YEAH")
-        collection.frame = CGRect(x: 8, y: techButt.frame.maxY+8, width: scroll.frame.width-16, height: 0)
+        collection.frame = CGRect(x: 8, y: techButt.frame.maxY+8, width: scroll.frame.width-16, height: 150)
+        collection.alpha = 0
+        // Создание collectionView
+        self.collection.collection(cellWidth: self.greeting.frame.width)
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-            
-            self.collection.frame.size.height = 150
-            self.collection.collection(items: 100, w: self.greeting.frame.width)
+            self.collection.alpha = 1
             
             let heightAdd = self.collection.frame.height+8
             self.contentView.frame.size.height += heightAdd
             self.contentView.frame.origin.y -= heightAdd
         }) { (true) in
-            //self.collection.collection(items: 100, w: self.greeting.frame.width)
+            self.contractButt.isEnabled = false
         }
         
         contentView.addSubview(collection)
     }
     
-    /*
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
-    {
-        return UIEdgeInsets(top: 20, left: 8, bottom: 5, right: 8)
-    }*/
+    
     
     /*
      // MARK: - Navigation

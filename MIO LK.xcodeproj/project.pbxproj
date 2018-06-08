@@ -126,16 +126,14 @@
 			isa = PBXGroup;
 			children = (
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
+				BACA300720C983E400BA6C90 /* TabBarController.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
-				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
 				BACA300320C96C9800BA6C90 /* messageView.swift */,
+				BACA300520C97C9700BA6C90 /* buttonView.swift */,
 				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
 				BACA300B20C98F4000BA6C90 /* collection.swift */,
-				BACA300520C97C9700BA6C90 /* buttonView.swift */,
-				BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */,
-				BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */,
-				BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */,
-				BACA300720C983E400BA6C90 /* TabBarController.swift */,
+				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
+				BACA300D20CA86C900BA6C90 /* ChatScreen */,
 				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
 				BA38D24120C6F5530011ECC3 /* ContractScreen */,
 				BAA7D03E20C05CE800AFEA47 /* controllers */,
@@ -177,6 +175,16 @@
 				BAA7D03A20C042F500AFEA47 /* PaymentsViewController.swift */,
 			);
 			path = controllers;
+			sourceTree = "<group>";
+		};
+		BACA300D20CA86C900BA6C90 /* ChatScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */,
+				BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */,
+				BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */,
+			);
+			path = ChatScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

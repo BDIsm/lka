@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 
 class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    let numberOfItemsPerRow: CGFloat = 7.0
+    let defaults = UserDefaults.standard
+    
     let cellReuseIdentifier = "docInChat"
     let flowLayout = UICollectionViewFlowLayout()
     
-    var numberItems = Int()
     var width = CGFloat()
+    
+    var documents = [classDocuments]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,47 +25,69 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        if let savedDocs = defaults.object(forKey: "documents") as? Data {
+            documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
+        }
     }
     
-    func collection(items: Int, w: CGFloat) {
+    func collection(cellWidth: CGFloat) {
         self.isUserInteractionEnabled = true
-        numberItems = items
-        width = w
+        width = cellWidth
         
         flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 5
         flowLayout.minimumInteritemSpacing = 5
         
         let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: flowLayout)
         collectionView.register(docInChatViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.clear
         
+        // Customize
+        collectionView.backgroundColor = UIColor.clear
         collectionView.layer.masksToBounds = false
+        collectionView.allowsMultipleSelection = false
+        collectionView.indicatorStyle = .white
         
         self.addSubview(collectionView)
     }
     
+    func remove() {
+        for i in subviews {
+            i.removeFromSuperview()
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberItems
+        print("numberItems \(documents.count)")
+        return documents.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! docInChatViewCell
+        cell.redraw()
         
+        let element = documents[indexPath.row]
+        cell.numberLabel.text = "Док. №\(element.number)"
+        cell.dateLabel.text = "от \(element.date)"
+        cell.addressLabel.text = "Адрес: \(element.address)"
         
-        //cell.backgroundColor = UIColor.green
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //let width: CGFloat = 150// (screenSize.width-leftAndRightPaddings)/numberOfItemsPerRow
-        let size = CGSize(width: width, height: self.bounds.height/2-6)
+        let size = CGSize(width: width, height: self.bounds.height/2-2.5)
+        
         return size
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         print("You select this Shit in \(indexPath.row)")
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+    }
+    
 }

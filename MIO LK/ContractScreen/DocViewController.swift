@@ -50,8 +50,14 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         if payDict["\(element.id)Overdue"] != nil {
             cell.overdue = payDict["\(element.id)Overdue"]!
         }
+        else {
+            cell.overdue = []
+        }
         if payDict["\(element.id)Actual"] != nil {
             cell.actual = payDict["\(element.id)Actual"]!
+        }
+        else {
+            cell.actual = []
         }
         
         cell.customize()
