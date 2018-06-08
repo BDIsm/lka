@@ -414,19 +414,19 @@
                                 <rect key="frame" x="0.0" y="20" width="190" height="528"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jCj-oU-Bc7">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jCj-oU-Bc7">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="F3c-tq-tXe">
                                     <size key="itemSize" width="300" height="100"/>
-                                    <size key="headerReferenceSize" width="0.0" height="70"/>
+                                    <size key="headerReferenceSize" width="0.0" height="40"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chatCell" id="Znf-Co-Qc2" customClass="chatViewCell" customModule="MIO_LK" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="70" width="300" height="100"/>
+                                        <rect key="frame" x="10" y="40" width="300" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="100"/>
@@ -459,23 +459,20 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="chatReuse" id="w9F-Z5-H6L" customClass="chatReusableView" customModule="MIO_LK" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blue" translatesAutoresizingMaskIntoConstraints="NO" id="uaf-rg-Gaw">
-                                            <rect key="frame" x="10" y="13" width="300" height="45"/>
+                                            <rect key="frame" x="10" y="-3" width="300" height="45"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FbJ-0y-Pdq">
-                                            <rect key="frame" x="10" y="13" width="300" height="45"/>
+                                            <rect key="frame" x="10" y="-3" width="300" height="45"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <state key="normal" title="Создать новый">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
-                                            <connections>
-                                                <segue destination="aQO-uQ-uXr" kind="show" id="WAW-y0-xpP"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                     <connections>
@@ -487,12 +484,26 @@
                                     <outlet property="delegate" destination="WFE-Oa-LDu" id="M4H-rq-Cyd"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRV-eK-mqD">
+                                <rect key="frame" x="10" y="464" width="301" height="45"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Задать вопрос" backgroundImage="blue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="createNew:" destination="WFE-Oa-LDu" eventType="touchUpInside" id="8bA-Kz-Cbo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sge-6T-e3p"/>
                     </view>
                     <navigationItem key="navigationItem" id="Y5e-T3-0b9"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="create" destination="uRV-eK-mqD" id="Zyr-Vj-m4t"/>
+                        <segue destination="aQO-uQ-uXr" kind="show" identifier="toMessages" id="Cr3-fY-OLx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qL6-jh-qb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -664,8 +675,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0CH-7j-Ywa">
-                                        <rect key="frame" x="8" y="8" width="262" height="33"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="8" y="7" width="262" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -673,6 +684,19 @@
                                             <outlet property="delegate" destination="aQO-uQ-uXr" id="dr0-3Z-6cX"/>
                                         </connections>
                                     </textView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nVy-IC-aQH">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FhX-Bz-uL3">
+                                        <rect key="frame" x="277" y="7" width="35" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" backgroundImage="send"/>
+                                        <connections>
+                                            <action selector="send:" destination="aQO-uQ-uXr" eventType="touchUpInside" id="FgY-LL-tUO"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -686,6 +710,7 @@
                     <connections>
                         <outlet property="contentView" destination="uJB-GG-LkE" id="mcq-cf-bEB"/>
                         <outlet property="leftLabel" destination="L1p-K3-qNr" id="BUO-p9-k5H"/>
+                        <outlet property="messView" destination="dE3-DU-9Gk" id="r1c-Co-4YO"/>
                         <outlet property="messageField" destination="0CH-7j-Ywa" id="v54-gX-5Xu"/>
                         <outlet property="rightLabel" destination="ssS-ND-9Fv" id="xj2-mM-7hA"/>
                         <outlet property="scroll" destination="fWJ-CL-HcX" id="ji0-48-tWx"/>
@@ -730,6 +755,7 @@
         <image name="exit" width="100" height="100"/>
         <image name="oplataNew" width="50" height="50"/>
         <image name="reload" width="100" height="100"/>
+        <image name="send" width="100" height="100"/>
         <image name="sett" width="100" height="100"/>
     </resources>
 </document>

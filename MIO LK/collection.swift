@@ -60,7 +60,6 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("numberItems \(documents.count)")
         return documents.count
     }
     

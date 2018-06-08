@@ -10,9 +10,19 @@ import UIKit
 
 class SupportViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     let reuseIdentifier = "chatCell"
+    
+    var new = Bool()
 
+    @IBOutlet weak var create: UIButton!
+    
+    @IBAction func createNew(_ sender: UIButton) {
+        new = true
+        performSegue(withIdentifier: "toMessages", sender: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        create.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
 
@@ -23,7 +33,7 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 7
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -34,6 +44,7 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
         return cell
     }
     
+    /*
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "chatReuse", for: indexPath) as! chatReusableView
@@ -42,23 +53,26 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
         reusableview.customize()
         
         return reusableview
-    }
+    }*/
     // MARK: - UICollectionViewDelegate protocol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
+        new = false
         print("You selected cell #\(indexPath.item)!")
+        performSegue(withIdentifier: "toMessages", sender: self)
     }
     
-    
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MessageViewController {
+            vc.new = new
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }
