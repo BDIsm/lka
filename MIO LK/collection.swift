@@ -33,6 +33,8 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collection(cellWidth: CGFloat) {
+        self.isUserInteractionEnabled = true
+        
         width = cellWidth
         
         flowLayout.scrollDirection = .horizontal
@@ -57,6 +59,10 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
         for i in subviews {
             i.removeFromSuperview()
         }
+    }
+    
+    func selectionDisable() {
+        self.isUserInteractionEnabled = false
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

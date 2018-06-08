@@ -38,6 +38,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         case techIsChosen
         case questionIsChosen
         case docIsChosen
+        case oldChat
     }
     var stateChange: state = .initial
     
@@ -48,6 +49,16 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         if str == "" {
         }
         else {
+            if new {
+                techButt.isEnabled = false
+                contractButt.isEnabled = false
+                
+                collection.selectionDisable()
+            }
+            else {
+                
+            }
+            
             let mess = messageView(frame: rightFrame, text: str, width: rightFrame.width)
             
             let xPosition = rightFrame.maxX - mess.frame.width
@@ -65,6 +76,8 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         messageField.layer.cornerRadius = 10
+        scroll.layer.masksToBounds = false
+        contentView.layer.masksToBounds = false
         
         leftFrame = leftLabel.frame
         rightFrame = rightLabel.frame
@@ -76,7 +89,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
             addButtons()
         }
         else {
-            
+            stateChange = .oldChat
         }
         // Do any additional setup after loading the view.
     }
@@ -238,6 +251,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
     
     @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            print("HIDE ME!")
             view.removeGestureRecognizer(tapGesture)
             self.contentView.frame.origin.y += keyboardSize.height
             self.messView.frame.origin.y += keyboardSize.height

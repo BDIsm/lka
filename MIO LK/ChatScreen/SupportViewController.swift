@@ -36,6 +36,13 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
         return 7
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = view.frame.width-20
+        let multiple = width/300
+        
+        return CGSize(width: width, height: 100*multiple)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! chatViewCell
         

@@ -42,6 +42,13 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         return documents.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = view.frame.width-20
+        let multiple = width/300
+     
+        return CGSize(width: width, height: 400*multiple)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! docViewCell
         
@@ -93,7 +100,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
     }
-
+    /*
     func addPaysToScroll(overdue: [classPayments], actual: [classPayments], oC: Int, aC: Int, scroll: UIScrollView, indicator: UIActivityIndicatorView) {
         print(oC, aC)
         if oC == 0 && aC == 0 {
@@ -135,7 +142,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
                 }
             }
         }
-    }
+    }*/
     
     /*
     // MARK: - Navigation
