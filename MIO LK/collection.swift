@@ -28,10 +28,11 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
         if let savedDocs = defaults.object(forKey: "documents") as? Data {
             documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
         }
+        
+        self.isUserInteractionEnabled = true
     }
     
     func collection(cellWidth: CGFloat) {
-        self.isUserInteractionEnabled = true
         width = cellWidth
         
         flowLayout.scrollDirection = .horizontal
@@ -82,8 +83,9 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let element = documents[indexPath.row]
         
-        print("You select this Shit in \(indexPath.row)")
+        NotificationCenter.default.post(name: NSNotification.Name("isChosen"), object: nil, userInfo: ["docID": element.id])
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

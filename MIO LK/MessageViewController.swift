@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageViewController: UIViewController {
+class MessageViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var scroll: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -16,6 +16,7 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var rightLabel: UILabel!
     @IBOutlet weak var leftLabel: UILabel!
     
+    @IBOutlet weak var messageField: UITextView!
     // Размеры для лейблов
     var leftFrame = CGRect()
     var rightFrame = CGRect()
@@ -28,8 +29,14 @@ class MessageViewController: UIViewController {
     // Коллекция договоров
     var collection = collectionDoc()
     
+    var tapGesture = UITapGestureRecognizer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Открытие/закрытие клавиатуры
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         
         leftFrame = leftLabel.frame
         rightFrame = rightLabel.frame
@@ -46,6 +53,8 @@ class MessageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    // 1. Добавление приветствия
     func addGreeting() {
         let text = "Добрый день!\nПрежде чем написать нам свою хрень, пожалуйста, выберите категорию или засуньте палец себе поглубже в задницу, вы – потные драные тролли!"
         
@@ -59,18 +68,17 @@ class MessageViewController: UIViewController {
         contentView.addSubview(greeting)
     }
     
+    // 2. Добавление кнопок
     func addButtons() {
-        let originOne = CGPoint(x: 8, y: greeting.frame.height+16)
         let size = CGSize(width: greeting.frame.width/2-2, height: 50)
         
+        let originOne = CGPoint(x: 8, y: greeting.frame.height+16)
         techButt = buttonView(frame: CGRect(origin: originOne, size: size), title: "Тех. поддержка")
         techButt.addTarget(self, action: #selector(technical), for: .touchUpInside)
         
         let originTwo = CGPoint(x: techButt.frame.width+12, y: greeting.frame.height+16)
-        
         contractButt = buttonView(frame: CGRect(origin: originTwo, size: size), title: "Вопрос по договору")
         contractButt.addTarget(self, action: #selector(contractsShow), for: .touchUpInside)
-        
         
         let heightAdd = techButt.frame.height+8
         contentView.frame.size.height += heightAdd
@@ -80,6 +88,7 @@ class MessageViewController: UIViewController {
         contentView.addSubview(contractButt)
     }
     
+    // 2.1 Вопрос тех. поддержки
     @objc func technical() {
         // Если закрыты договоры
         if contractButt.isEnabled {
@@ -98,10 +107,15 @@ class MessageViewController: UIViewController {
                 self.collection.remove()
                 self.collection.removeFromSuperview()
                 self.contractButt.isEnabled = true
+                
+                NotificationCenter.default.removeObserver(self, name: NSNotification.Name("isChosen"), object: nil)
             }
         }
+        
+        messageField.becomeFirstResponder()
     }
     
+    // 2.2 Вопрос по договору
     @objc func contractsShow() {
         collection.frame = CGRect(x: 8, y: techButt.frame.maxY+8, width: scroll.frame.width-16, height: 150)
         collection.alpha = 0
@@ -116,12 +130,34 @@ class MessageViewController: UIViewController {
             self.contentView.frame.origin.y -= heightAdd
         }) { (true) in
             self.contractButt.isEnabled = false
+            NotificationCenter.default.addObserver(self, selector: #selector(self.docIsChosen(notification:)), name: NSNotification.Name("isChosen"), object: nil)
         }
         
         contentView.addSubview(collection)
     }
     
+    // 2.2.1 Пользователь выбрал документ
+    @objc func docIsChosen(notification: Notification) {
+        messageField.becomeFirstResponder()
+    }
     
+    
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
+            view.addGestureRecognizer(tapGesture)
+            
+            self.view.frame.origin.y -= keyboardSize.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            view.removeGestureRecognizer(tapGesture)
+            self.view.frame.origin.y += keyboardSize.height
+        }
+    }
     
     /*
      // MARK: - Navigation

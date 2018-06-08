@@ -13,7 +13,6 @@
         <!--Начисления-->
         <scene sceneID="fxl-Iz-Nz4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="N0a-Q5-Kic" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="AVM-6a-FYt" customClass="PaymentsViewController" customModule="MIO_LK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ufe-YT-m0c">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -36,13 +35,13 @@
                         <outlet property="scroll" destination="FqA-96-E9a" id="ot4-Ii-3rx"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N0a-Q5-Kic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2709.375" y="-212.32394366197184"/>
         </scene>
         <!--docs-->
         <scene sceneID="O9N-R6-Mu9">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fKR-KP-L72" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="docs" title="docs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BMz-eB-14k" customClass="ContractsViewController" customModule="MIO_LK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gl7-7o-7ej">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -65,13 +64,13 @@
                         <outlet property="scroll" destination="EG9-7b-mzC" id="n2Z-xS-50S"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fKR-KP-L72" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1198" y="-996"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="w2Z-l9-aCT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a6W-G5-gdl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController autoresizesArchivedViewToFullSize="NO" id="wKq-PP-aLl" customClass="TabBarController" customModule="MIO_LK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ohp-kj-KKm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -84,6 +83,7 @@
                         <segue destination="SZ8-Cb-40C" kind="relationship" relationship="viewControllers" id="OxW-sl-PRl"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a6W-G5-gdl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1509" y="-568"/>
         </scene>
@@ -655,6 +655,7 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                     </view>
                                 </subviews>
                             </scrollView>
@@ -666,15 +667,18 @@
                                         <rect key="frame" x="8" y="8" width="262" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="aQO-uQ-uXr" id="dr0-3Z-6cX"/>
+                                        </connections>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6VN-S5-1kl"/>
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -682,6 +686,7 @@
                     <connections>
                         <outlet property="contentView" destination="uJB-GG-LkE" id="mcq-cf-bEB"/>
                         <outlet property="leftLabel" destination="L1p-K3-qNr" id="BUO-p9-k5H"/>
+                        <outlet property="messageField" destination="0CH-7j-Ywa" id="v54-gX-5Xu"/>
                         <outlet property="rightLabel" destination="ssS-ND-9Fv" id="xj2-mM-7hA"/>
                         <outlet property="scroll" destination="fWJ-CL-HcX" id="ji0-48-tWx"/>
                     </connections>
