@@ -101,7 +101,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
     
     // 1. Добавление приветствия
     func addGreeting() {
-        let text = "Добрый день!\nПрежде чем написать нам свою хрень, пожалуйста, выберите категорию или засуньте палец себе поглубже в задницу, вы – потные драные тролли!"
+        let text = "Здравствуйте!\nПрежде чем задать интересующий Вас вопрос, выберите, пожалуйста, его категорию. Это поможет нашим специалистам предоставить Вам наиболее полный ответ в короткие сроки:"
         
         greeting = messageView(frame: leftFrame, text: text, width: leftFrame.width)
         greeting.frame.origin = CGPoint(x: 8, y: 8)
@@ -227,6 +227,8 @@ class MessageViewController: UIViewController, UITextViewDelegate {
             contentView.frame.size.height += heightAdd
             contentView.frame.origin.y = 0
             
+            print(scroll.contentSize.height, contentView.frame.origin.y)
+            
             let offset = CGPoint(x: 0, y: contentView.frame.maxY - scroll.bounds.height)
             scroll.setContentOffset(offset, animated: true)
         }
@@ -244,8 +246,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
             tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
             view.addGestureRecognizer(tapGesture)
             
-            self.contentView.frame.origin.y -= keyboardSize.height
-            self.messView.frame.origin.y -= keyboardSize.height
+            self.view.frame.origin.y -= keyboardSize.height
         }
     }
     
@@ -253,8 +254,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             print("HIDE ME!")
             view.removeGestureRecognizer(tapGesture)
-            self.contentView.frame.origin.y += keyboardSize.height
-            self.messView.frame.origin.y += keyboardSize.height
+            self.view.frame.origin.y += keyboardSize.height
         }
     }
     

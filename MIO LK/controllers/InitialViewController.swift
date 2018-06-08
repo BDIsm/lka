@@ -36,15 +36,13 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     @IBOutlet weak var frontImage: UIImageView!
     @IBOutlet weak var backgroundImage: UIImageView!
     
-    var docsController = ContractsViewController()
-    
     @IBAction func enter(_ sender: Any) {
         defaults.removeObject(forKey: "documents")
         //defaults.removeObject(forKey: "overdue")
         
         getUserData()
         
-        let uuid = UUID().uuidString
+        //let uuid = UUID().uuidString
         /*
         request.authorize(uuid: uuid) { (true) in
             let urlString = self.defaults.object(forKey: "url") as! String
@@ -68,8 +66,6 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     override func viewDidLoad() {
         super.viewDidLoad()
         backgroundImage.frame.size = CGSize(width: backgroundImage.frame.width, height: backgroundImage.frame.height*2.5)
-        
-        docsController = storyboard?.instantiateViewController(withIdentifier: "docs") as! ContractsViewController
         
         timer = Timer.scheduledTimer(timeInterval: 3.1, target: self, selector: #selector(animateBack), userInfo: nil, repeats: true)
         timer.fire()
@@ -100,8 +96,6 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
             
             self.request.getContracts(finished: { (true) in
                 print("successDocs")
-                self.docsController.addDocuments()
-                
                 self.progressValue += 0.1
                 self.progress.setProgress(self.progressValue, animated: true)
                 self.progressLabel.text = "Загрузка данных \(self.progressValue*100)%"
