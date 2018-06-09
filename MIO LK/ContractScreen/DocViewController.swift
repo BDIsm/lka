@@ -14,6 +14,8 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     var documents = [classDocuments]()
     var payDict = [String:[classPayments]]()
     
+    var controller = FullPayViewController()
+    
     let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
     
     @IBOutlet weak var docsCollection: UICollectionView!
@@ -29,12 +31,36 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
             payDict = NSKeyedUnarchiver.unarchiveObject(with: savedPays) as! [String:[classPayments]]
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(showFullPayment(notification: )), name: NSNotification.Name("chooseCellInDocs"), object: nil)
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func showFullPayment(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String,classPayments> {
+            controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
+            
+            tabBarController?.tabBar.isHidden = true
+            animateOpenController(view: controller.view, aimFrame: controller.view.frame)
+            
+            print(userInfo["chosenPayInDoc"])
+        }
+    }
+    
+    func animateOpenController(view: UIView, aimFrame: CGRect) {
+        view.alpha = 0
+        view.frame.size = CGSize(width: 60, height: 60)
+        view.center = self.view.center
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            view.frame = aimFrame
+            view.alpha = 1
+        }) { (true) in
+            self.view.addSubview(view)
+        }
     }
     
     // tell the collection view how many cells to make
@@ -100,6 +126,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
     }
+    
     /*
     func addPaysToScroll(overdue: [classPayments], actual: [classPayments], oC: Int, aC: Int, scroll: UIScrollView, indicator: UIActivityIndicatorView) {
         print(oC, aC)

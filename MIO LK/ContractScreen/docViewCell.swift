@@ -82,4 +82,22 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
+        var dict = [String: classPayments]()
+        
+        if indexPath.section == 0 {
+            let element = overdue[indexPath.row]
+            dict.updateValue(element, forKey: "chosenPayInDoc")
+        }
+        else {
+            let element = actual[indexPath.row]
+            dict.updateValue(element, forKey: "chosenPayInDoc")
+        }
+        print(dict)
+        
+        NotificationCenter.default.post(name: NSNotification.Name("chooseCellInDocs"), object: nil, userInfo: dict)
+    }
 }

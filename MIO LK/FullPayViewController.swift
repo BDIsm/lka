@@ -1,35 +1,29 @@
 //
-//  TabBarController.swift
+//  FullPayViewController.swift
 //  MIO LK
 //
-//  Created by Исматуллоев Бежан on 07.06.2018.
+//  Created by Исматуллоев Бежан on 09.06.2018.
 //  Copyright © 2018 Исматуллоев Бежан. All rights reserved.
 //
 
 import UIKit
 
-class TabBarController: UITabBarController {
-
+class FullPayViewController: UIViewController {
+    
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: <#T##UIViewAnimationOptions#>, animations: <#T##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+        
+        self.view.removeFromSuperview()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if item == (self.tabBar.items)![0]{
-            
-        }
-        else if item == (self.tabBar.items)![1]{
-            
-        }
-        else {
-        }
     }
     
 

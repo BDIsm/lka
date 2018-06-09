@@ -29,6 +29,41 @@
             </objects>
             <point key="canvasLocation" x="-1509" y="-568"/>
         </scene>
+        <!--fullPay-->
+        <scene sceneID="B32-pt-BmG">
+            <objects>
+                <viewController storyboardIdentifier="fullPay" title="fullPay" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BlI-iX-U1R" customClass="FullPayViewController" customModule="MIO_LK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dcq-oJ-Xc7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f4I-fU-UQg">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="pL1-P3-Q1t">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <gestureRecognizers/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="9HP-dx-Jg7" appends="YES" id="Mky-HS-rEt"/>
+                                    </connections>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="hhv-7M-rVC"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8AN-YE-WTg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="9HP-dx-Jg7">
+                    <connections>
+                        <action selector="tap:" destination="BlI-iX-U1R" id="otU-RG-VVr"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-514" y="-1328"/>
+        </scene>
         <!--Doc View Controller-->
         <scene sceneID="lB8-f0-ta9">
             <objects>
@@ -125,6 +160,7 @@
                                                     <rect key="frame" x="0.0" y="310" width="300" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <gestureRecognizers/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MiD-GR-knn">
                                                         <size key="itemSize" width="60" height="60"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -408,23 +444,6 @@
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="chatReuse" id="w9F-Z5-H6L" customClass="chatReusableView" customModule="MIO_LK" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blue" translatesAutoresizingMaskIntoConstraints="NO" id="uaf-rg-Gaw">
-                                            <rect key="frame" x="10" y="-3" width="300" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FbJ-0y-Pdq">
-                                            <rect key="frame" x="10" y="-3" width="300" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <state key="normal" title="Создать новый">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                        </button>
-                                    </subviews>
-                                    <connections>
-                                        <outlet property="back" destination="uaf-rg-Gaw" id="NmV-oZ-VEY"/>
-                                    </connections>
                                 </collectionReusableView>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dqL-rs-6IY">
                                     <rect key="frame" x="0.0" y="140" width="320" height="60"/>
