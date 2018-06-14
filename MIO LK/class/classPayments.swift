@@ -17,16 +17,20 @@ class classPayments: NSObject, NSCoding {
     var period = String()
     var status = String()
     var type = String()
+    var docId = String()
     
     var year = String()
     
-    init(id: String, accrual: String, date: String, payment: String, period: String, status: String, type: String) {
+    init(id: String, accrual: String, date: String, payment: String, period: String, status: String, type: String, docId: String) {
         self.id = id
-        self.status = status
-        self.period = period
-        self.payment = payment
         self.accrual = accrual
+        
+        self.payment = payment
+        self.period = period
+        self.status = status
         self.type = type
+        self.docId = docId
+        
         super.init()
         
         let dateNew = filterFormat(symbol: "T", string: String(describing: date))
@@ -54,6 +58,7 @@ class classPayments: NSObject, NSCoding {
         payment = aDecoder.decodeObject(forKey: "payPayment") as! String
         accrual = aDecoder.decodeObject(forKey: "payAccrual") as! String
         type = aDecoder.decodeObject(forKey: "payType") as! String
+        docId = aDecoder.decodeObject(forKey: "payDId") as! String
     }
     
     func encode(with aCoder: NSCoder) {
@@ -64,6 +69,7 @@ class classPayments: NSObject, NSCoding {
         aCoder.encode(payment, forKey: "payPayment")
         aCoder.encode(accrual, forKey: "payAccrual")
         aCoder.encode(type, forKey: "payType")
+        aCoder.encode(docId, forKey: "payDId")
     }
     
     func filterFormat (symbol: Character, string: String) -> String{

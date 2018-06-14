@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import CoreLocation
+import MapKit
 
-class classDocuments: NSObject, NSCoding {
+class classDocuments: NSObject, NSCoding, MKMapViewDelegate {
     var address = String()
     var use = String()
     var date = String()
@@ -75,5 +77,29 @@ class classDocuments: NSObject, NSCoding {
         }
         return text
     }
+    /*
+    func getLocation(address: String) -> CLLocationCoordinate2D {
+        print(address)
+        var coordinates = CLLocationCoordinate2D()
+        
+        let localSearchRequest = MKLocalSearchRequest()
+        localSearchRequest.naturalLanguageQuery = address
+        
+        let localSearch = MKLocalSearch(request: localSearchRequest)
+        localSearch.start { [weak self]  (localSearchResponse, error) -> Void in
+            print("ohNO")
+            if localSearchResponse == nil {
+                coordinates = CLLocationCoordinate2D(latitude: 50, longitude: 50)
+                self?.coordinates = coordinates
+            }
+            else {
+                coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
+                self?.coordinates = coordinates
+            }
+        }
+        
+        return coordinates
+    }*/
+    
 }
 

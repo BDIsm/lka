@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import GoogleMaps
+import CoreLocation
+import MapKit
 
 class DocViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     let defaults = UserDefaults.standard
@@ -16,13 +19,15 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     
     var controller = FullPayViewController()
     
-    let reuseIdentifier = "cell" // also enter this string as the cell identifier in the storyboard
+    let reuseIdentifier = "docViewCell"
     
     @IBOutlet weak var docsCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //docsCollection.register(UINib.init(nibName: "docView", bundle: Bundle.main), forCellWithReuseIdentifier: "docViewCell")
+        
         if let savedDocs = defaults.object(forKey: "documents") as? Data {
             documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
         }
@@ -43,25 +48,22 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     @objc func showFullPayment(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String,classPayments> {
             controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
+        
+            // Настройка контроллера
+            controller.element = userInfo["chosenPayInDoc"].self
+            controller.view.alpha = 0
             
-            tabBarController?.tabBar.isHidden = true
-            animateOpenController(view: controller.view, aimFrame: controller.view.frame)
+            // Добавление и анимация
+            self.view.addSubview(controller.view)
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                self.controller.view.alpha = 1
+            }) { (true) in
+                
+            }
             
-            print(userInfo["chosenPayInDoc"])
         }
     }
     
-    func animateOpenController(view: UIView, aimFrame: CGRect) {
-        view.alpha = 0
-        view.frame.size = CGSize(width: 60, height: 60)
-        view.center = self.view.center
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-            view.frame = aimFrame
-            view.alpha = 1
-        }) { (true) in
-            self.view.addSubview(view)
-        }
-    }
     
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -80,6 +82,37 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         
         let element = documents[indexPath.row]
         
+        // Сбросить карту
+        cell.map.clear()
+        
+        // Серая тема для карты
+        do {
+            if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
+                cell.map.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            }
+            else {
+                NSLog("Unable to find style.json")
+            }
+        }
+        catch {
+            NSLog("One or more of the map styles failed to load. \(error)")
+        }
+        
+        // Координаты участка
+        let localSearchRequest = MKLocalSearchRequest()
+        localSearchRequest.naturalLanguageQuery = element.address
+        
+        let localSearch = MKLocalSearch(request: localSearchRequest)
+        localSearch.start { (localSearchResponse, error) -> Void in
+            if localSearchResponse == nil {
+                cell.coordinates = CLLocationCoordinate2D(latitude: 50, longitude: 50)
+            }
+            else {
+                cell.coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
+            }
+        }
+        
+        // Добавление начислений
         if payDict["\(element.id)Overdue"] != nil {
             cell.overdue = payDict["\(element.id)Overdue"]!
         }
@@ -92,17 +125,14 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         else {
             cell.actual = []
         }
-        
-        cell.customize()
-        
-        cell.number.text = "№ \(element.number)"
-        cell.date.text = "от \(element.date)"
-        
-        cell.type.text = element.type
-        cell.owner.text = element.owner
-        cell.address.text = element.address
-        
         cell.paysCollection.reloadData()
+    
+        // Информация в ячейке
+        cell.docNumber = "№ \(element.number)"
+        cell.docDate = "от \(element.date)"
+        cell.docType = element.type
+        cell.docOwner = element.owner
+        cell.docAddress = element.address
         
         return cell
     }
@@ -126,50 +156,6 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
     }
-    
-    /*
-    func addPaysToScroll(overdue: [classPayments], actual: [classPayments], oC: Int, aC: Int, scroll: UIScrollView, indicator: UIActivityIndicatorView) {
-        print(oC, aC)
-        if oC == 0 && aC == 0 {
-            let label = BALabel()
-            label.initializeLabel(input: "Нет актуальных начислений", size: 20, lines: 1, color: UIColor.gray)
-            label.center = CGPoint(x: scroll.bounds.midX, y: scroll.bounds.midY)
-            scroll.addSubview(label)
-            
-            indicator.stopAnimating()
-        }
-        else {
-            DispatchQueue.main.async {
-                if oC != 0 {
-                    for i in 0..<oC {
-                        let xPos = 10+CGFloat(i)*70
-                        
-                        let cell = viewPayment(frame: CGRect(x: 5, y: 0, width: 60, height: 60))
-                        cell.customize(status: "red", amount: overdue[i].accrual, date: overdue[i].date)
-                        cell.frame.origin = CGPoint(x: xPos, y: 0)
-                        
-                        scroll.addSubview(cell)
-                    }
-                    indicator.stopAnimating()
-                }
-            }
-            
-            DispatchQueue.main.async {
-                if aC != 0 {
-                    for i in 0..<aC {
-                        let xPos = 10+CGFloat(oC)*70+CGFloat(i)*70
-                        
-                        let cell = viewPayment(frame: CGRect(x: 5, y: 0, width: 60, height: 60))
-                        cell.customize(status: "blue", amount: actual[i].accrual, date: actual[i].date)
-                        cell.frame.origin = CGPoint(x: xPos, y: 0)
-                        
-                        scroll.addSubview(cell)
-                    }
-                    indicator.stopAnimating()
-                }
-            }
-        }
-    }*/
     
     /*
     // MARK: - Navigation

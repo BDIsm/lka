@@ -162,7 +162,7 @@ class classRequest {
         }
     }
     
-    public func getPayments(id: String) {//, finished: @escaping (_ isSuccess: Bool) -> Void) {
+    public func getPayments(id: String) {
         let token = defaults.object(forKey: "token") as! String
         
         var overdue = [classPayments]()
@@ -190,7 +190,8 @@ class classRequest {
                                     let status = pay["status"] as AnyObject
                                     let type = pay["type"] as AnyObject
                                     
-                                    let element = classPayments(id: "\(idPay)", accrual: "\(accrual)", date: "\(date)", payment: "\(payment)", period: "\(period)", status: "\(status)", type: "\(type)")
+                                    print(id)
+                                    let element = classPayments(id: "\(idPay)", accrual: "\(accrual)", date: "\(date)", payment: "\(payment)", period: "\(period)", status: "\(status)", type: "\(type)", docId: "\(id)")
                                     
                                     switch "\(status)" {
                                     case "Не оплачено (неоплаченное начисление прошлого периода)":
