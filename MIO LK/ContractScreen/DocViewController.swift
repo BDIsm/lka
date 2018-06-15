@@ -17,16 +17,21 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     var documents = [classDocuments]()
     var payDict = [String:[classPayments]]()
     
-    var controller = FullPayViewController()
-    
     let reuseIdentifier = "docViewCell"
     
     @IBOutlet weak var docsCollection: UICollectionView!
     
+    override func viewWillLayoutSubviews() {
+        // Если открыт контейнер начислений
+        if let childVC = childViewControllers.last as? FullPayViewController {
+            self.view.frame = childVC.frameLayout
+            //childVC.removeFromParentViewController()
+            docsCollection.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //docsCollection.register(UINib.init(nibName: "docView", bundle: Bundle.main), forCellWithReuseIdentifier: "docViewCell")
         
         if let savedDocs = defaults.object(forKey: "documents") as? Data {
             documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
@@ -47,20 +52,16 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     
     @objc func showFullPayment(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String,classPayments> {
-            controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
-        
-            // Настройка контроллера
-            controller.element = userInfo["chosenPayInDoc"].self
-            controller.view.alpha = 0
-            
-            // Добавление и анимация
-            self.view.addSubview(controller.view)
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-                self.controller.view.alpha = 1
-            }) { (true) in
+            if let element = userInfo["chosenPayInDoc"] {
+                let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
+                self.addChildViewController(controller)
                 
+                // Настройка контроллера
+                self.view.addSubview(controller.view)
+                controller.setLabels(element: element)
+                
+                controller.didMove(toParentViewController: self)
             }
-            
         }
     }
     
@@ -83,9 +84,9 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         let element = documents[indexPath.row]
         
         // Сбросить карту
-        cell.map.clear()
+        //cell.map.clear()
         
-        // Серая тема для карты
+        /* Серая тема для карты
         do {
             if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
                 cell.map.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
@@ -110,7 +111,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
             else {
                 cell.coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
             }
-        }
+        }*/
         
         // Добавление начислений
         if payDict["\(element.id)Overdue"] != nil {
@@ -156,6 +157,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
     }
+    
     
     /*
     // MARK: - Navigation
