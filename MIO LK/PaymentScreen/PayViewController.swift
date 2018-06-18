@@ -17,6 +17,8 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var actual = [classPayments]()
     var payed = [classPayments]()
 
+    @IBOutlet weak var content: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,12 +33,29 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
         if let savedPayed = defaults.object(forKey: "payed") as? Data {
             payed = NSKeyedUnarchiver.unarchiveObject(with: savedPayed) as! [classPayments]
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showFullPayment(notification: )), name: NSNotification.Name("chooseCellInPays"), object: nil)
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func showFullPayment(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String,classPayments> {
+            if let element = userInfo["chosenPayInPays"] {
+                let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
+                self.addChildViewController(controller)
+                
+                // Настройка контроллера
+                self.view.addSubview(controller.view)
+                controller.setLabels(element: element)
+                
+                controller.didMove(toParentViewController: self)
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -80,6 +99,7 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
         else {
             cell.titleLabel.text = "Оплаченные"
             cell.array = payed
+            cell.line.isHidden = true
         }
         
         return cell

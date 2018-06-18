@@ -19,16 +19,8 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     
     let reuseIdentifier = "docViewCell"
     
+    @IBOutlet weak var content: UIView!
     @IBOutlet weak var docsCollection: UICollectionView!
-    
-    override func viewWillLayoutSubviews() {
-        // Если открыт контейнер начислений
-        if let childVC = childViewControllers.last as? FullPayViewController {
-            self.view.frame = childVC.frameLayout
-            //childVC.removeFromParentViewController()
-            docsCollection.reloadData()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,18 +57,17 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         }
     }
     
-    
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return documents.count
     }
-    
+    /*
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width-20
         let multiple = width/300
      
         return CGSize(width: width, height: 400*multiple)
-    }
+    }*/
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! docViewCell

@@ -10,7 +10,7 @@ import UIKit
 
 class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     @IBOutlet weak var paysCollection: UICollectionView!
-    
+    @IBOutlet weak var line: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
     var array = [classPayments]()
@@ -18,7 +18,6 @@ class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollect
     func customize() {
         paysCollection.dataSource = self
         paysCollection.delegate = self
-        
         /*
         self.layer.masksToBounds = false
         
@@ -62,5 +61,12 @@ class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollect
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var dict = [String: classPayments]()
+        
+        let element = array[indexPath.row]
+        dict.updateValue(element, forKey: "chosenPayInPays")
+        
+        NotificationCenter.default.post(name: NSNotification.Name("chooseCellInPays"), object: nil, userInfo: dict)
+    }
 }

@@ -7,14 +7,10 @@
 //
 
 import UIKit
+import SafariServices
 
-class FullPayViewController: UIViewController {
+class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     let defaults = UserDefaults.standard
-    
-    var frame = CGRect()
-    var frameLayout = CGRect()
-    
-    var center = CGPoint()
     
     var close = Bool()
     
@@ -29,35 +25,58 @@ class FullPayViewController: UIViewController {
     
     @IBOutlet weak var payButton: UIButton!
     
-    @IBAction func tap(_ sender: UITapGestureRecognizer) {
-        removeFromParentViewController()
+    
+    @IBAction func pressPay(_ sender: UIButton) {
+        let urlString = "https://www.gosuslugi.ru/help/faq/avtovladelcam/2015"
+        if let url = URL(string: urlString) {
+            let vc = SFSafariViewController(url: url)
+            vc.delegate = self
+            vc.title = "Оплата"
+            
+            UIApplication.shared.statusBarStyle = .default
+            
+            if var topController = UIApplication.shared.keyWindow?.rootViewController {
+                while let presentedViewController = topController.presentedViewController {
+                    topController = presentedViewController
+                    topController.title = "Оплата"
+                }
+                
+                topController.present(vc, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func viewIsMoving(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
+        let edgePoint = UIScreen.main.bounds.height*9/40
         
-        let borderPoint = UIScreen.main.bounds.height*1/4
-        if close {
+        if close { // предотвращение вызова при анимации закрытия
         }
         else {
-            if self.view.center.y+translation.y >= center.y {
-                self.view.center.y += translation.y
-                if self.view.frame.origin.y > borderPoint {
-                    removeFromParentViewController()
-                    close = true
+            if self.view.frame.origin.y > edgePoint { // контроллер прошел через точку закрытия
+                removeFromParentViewController()
+                close = true
+            }
+            else {
+                if self.view.frame.origin.y+translation.y <= 30 { // попытка поднять контроллер выше начального положения
                 }
                 else {
-                    let multiplicator = self.view.frame.origin.y/borderPoint
-                    
-                    let xPos = 10*(1-multiplicator)
-                    let yPos = 20*(1-multiplicator)
-                    let width = frame.width-20*(1-multiplicator)
-                    
-                    frameLayout = CGRect(x: xPos, y: yPos, width: width, height: frame.height)
-                    
-                    let vc = parent as! DocViewController
-                    vc.view.frame = frameLayout
-                    vc.docsCollection.reloadData()
+                    self.view.frame.origin.y += translation.y
+                    if let vc = parent as? DocViewController {
+                        scaleOnDragg(view: vc.content, frame: vc.view.frame, edge: edgePoint) // увеличение заднего контроллера
+                    }
+                    else if let vc = parent as? PayViewController {
+                        scaleOnDragg(view: vc.content, frame: vc.view.frame, edge: edgePoint)
+                    }
+                }
+                
+                if sender.state == .ended {
+                    if let vc = parent as? DocViewController {
+                        animateOnDraggingEnding(view: vc.content, frame: vc.view.frame) // анимация, если контроллер не закрыли
+                    }
+                    else if let vc = parent as? PayViewController {
+                        animateOnDraggingEnding(view: vc.content, frame: vc.view.frame)
+                    }
                 }
             }
         }
@@ -71,21 +90,10 @@ class FullPayViewController: UIViewController {
         self.view.layer.masksToBounds = false
         self.view.layer.cornerRadius = 10
         
-        self.view.layer.shadowColor = UIColor.lightGray.cgColor
-        self.view.layer.shadowOpacity = 0.8
-        self.view.layer.shadowOffset = CGSize.zero
-        self.view.layer.shadowRadius = 10.0
-        
-        //Тень
-        content.layer.shadowColor = UIColor.lightGray.cgColor
-        content.layer.shadowOpacity = 0.8
-        content.layer.shadowOffset = CGSize.zero
-        content.layer.shadowRadius = 10.0
         content.layer.masksToBounds = false
-        
         content.layer.cornerRadius = 10
-        imageBack.layer.cornerRadius = 10
         
+        imageBack.layer.cornerRadius = 10
         date.layer.cornerRadius = 10
         number.layer.cornerRadius = 10
         
@@ -100,55 +108,105 @@ class FullPayViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
     override func didMove(toParentViewController parent: UIViewController?) {
-        self.tabBarController?.tabBar.isHidden = true
-        
-        frame = parent!.view.frame
-        frameLayout = CGRect(x: 10, y: 20, width: frame.width-20, height: frame.height)
-        
-        // Указание размеров контроллера с начислением
-        self.view.frame.origin = CGPoint(x: -10, y: frame.maxY-40)
-        self.view.frame.size = CGSize(width: frame.width+20, height: frame.height-20)
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
-            // Смена статус бара
-            UIApplication.shared.statusBarStyle = .lightContent
-            // Уменьшение родительского контроллера
-            parent!.view.frame.origin = self.frameLayout.origin
-            parent!.view.frame.size = self.frameLayout.size
-            // Закругление углов
-            parent!.view.layer.cornerRadius = 10
-            // Анимация child контроллера
-            self.view.frame.origin = CGPoint(x: -10, y: 10)
-        }) { (true) in
-            self.center = self.view.center
+        if let vc = parent! as? DocViewController {
+            moveTo(view: vc.content, frame: vc.view.frame)
+        }
+        else if let vc = parent! as? PayViewController {
+            moveTo(view: vc.content, frame: vc.view.frame)
         }
     }
     
     override func removeFromParentViewController() {
-        self.tabBarController?.tabBar.isHidden = false
+        if let vc = parent as? DocViewController {
+            removeFrom(view: vc.content, frame: vc.view.frame)
+        }
+        else if let vc = parent as? PayViewController {
+            removeFrom(view: vc.content, frame: vc.view.frame)
+        }
+    }
+    
+    func moveTo(view: UIView, frame: CGRect) {
+        self.tabBarController?.tabBar.isHidden = true
         
-        let vc = parent as! DocViewController
-        frameLayout = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        let scaleX = 1-20/frame.width
+        let scaleY = 1-40/frame.height
+        
+        // Указание размеров контроллера с начислением
+        self.view.frame = CGRect(x: 0, y: frame.maxY-40, width: frame.width, height: frame.height-20)
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
+            let transformScale = CGAffineTransform(scaleX: scaleX, y: scaleY)
+            view.transform = transformScale
+            
+            // Смена статус бара
+            UIApplication.shared.statusBarStyle = .lightContent
+            // Закругление углов
+            view.layer.cornerRadius = 10
+            // Анимация child контроллера
+            self.view.frame.origin.y = 30
+        }) { (true) in
+            self.shadow(opacity: 0.8, color: .lightGray, radius: 10.0)
+            view.isUserInteractionEnabled = false
+        }
+    }
+    
+    func removeFrom(view: UIView, frame: CGRect) {
+        self.tabBarController?.tabBar.isHidden = false
+        
+        self.shadow(opacity: 0, color: .white, radius: 0)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
+            let transformScale = CGAffineTransform(scaleX: 1, y: 1)
+            view.transform = transformScale
+            
             // Смена статус бара
             UIApplication.shared.statusBarStyle = .default
-            // Увеличение родительского контроллера
-            vc.view.frame.origin = self.frameLayout.origin
-            vc.view.frame.size = self.frameLayout.size
+            
             // Закругление углов
-            vc.view.layer.cornerRadius = 0
+            view.layer.cornerRadius = 0
             // Анимация child контроллера
-            self.view.frame.origin = CGPoint(x: -10, y: self.frame.maxY-40)
+            self.view.frame.origin.y = frame.maxY-40
         }) { (true) in
-            //vc.docsCollection.
+            self.view.removeFromSuperview()
+            view.isUserInteractionEnabled = true
+        }
+    }
+    
+    func scaleOnDragg(view: UIView, frame: CGRect, edge: CGFloat) {
+        let scaleX = 1-20/frame.width
+        let scaleY = 1-40/frame.height
+        
+        let multiplicator = self.view.frame.origin.y/edge
+        
+        let changeScaleX = scaleX+(1-scaleX)*multiplicator
+        let changeScaleY = scaleY+(1-scaleY)*multiplicator
+        
+        let transformScale = CGAffineTransform(scaleX: changeScaleX, y: changeScaleY)
+        view.transform = transformScale
+    }
+    
+    func animateOnDraggingEnding(view: UIView, frame: CGRect) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
+            let scaleX = 1-20/frame.width
+            let scaleY = 1-40/frame.height
+            
+            let transformScale = CGAffineTransform(scaleX: scaleX, y: scaleY)
+            view.transform = transformScale
+            
+            // Анимация child контроллера
+            self.view.frame.origin.y = 30
+        }) { (true) in
         }
     }
     
@@ -168,15 +226,27 @@ class FullPayViewController: UIViewController {
         document.text = element.docId
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func shadow(opacity: Float, color: UIColor, radius: CGFloat) {
+        self.view.layer.shadowColor = color.cgColor
+        self.view.layer.shadowOpacity = opacity
+        self.view.layer.shadowOffset = CGSize.zero
+        self.view.layer.shadowRadius = radius
+        
+        //Тень
+        self.content.layer.shadowColor = color.cgColor
+        self.content.layer.shadowOpacity = opacity
+        self.content.layer.shadowOffset = CGSize.zero
+        self.content.layer.shadowRadius = radius
     }
-    */
-
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
