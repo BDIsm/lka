@@ -77,6 +77,14 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 {
+            return UIEdgeInsets(top: 40, left: 0, bottom: 20, right: 0)
+        }
+        else {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! forPaysViewCell

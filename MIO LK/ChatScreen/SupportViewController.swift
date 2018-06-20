@@ -12,17 +12,14 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     let reuseIdentifier = "chatCell"
     
     var new = Bool()
-
-    @IBOutlet weak var create: UIButton!
     
-    @IBAction func createNew(_ sender: UIButton) {
+    @IBAction func create(_ sender: UIBarButtonItem) {
         new = true
         performSegue(withIdentifier: "toMessages", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        create.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
 
@@ -50,17 +47,6 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         return cell
     }
-    
-    /*
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "chatReuse", for: indexPath) as! chatReusableView
-        
-        reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
-        reusableview.customize()
-        
-        return reusableview
-    }*/
     // MARK: - UICollectionViewDelegate protocol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

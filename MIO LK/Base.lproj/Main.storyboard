@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="1" green="1" blue="1" alpha="0.79716930650684936" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="Gqu-1l-ea8" kind="relationship" relationship="viewControllers" id="W1t-Gl-i4t"/>
@@ -195,8 +195,8 @@
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="6bq-XA-uAA">
                                             <size key="itemSize" width="300" height="400"/>
                                             <size key="headerReferenceSize" width="0.0" height="70"/>
-                                            <size key="footerReferenceSize" width="0.0" height="20"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="20"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="docViewCell" reuseIdentifier="docViewCell" id="NUB-aN-ZFs" customClass="docViewCell" customModule="MIO_LK">
@@ -432,10 +432,6 @@
                                                 <outlet property="viewWithButtons" destination="ubl-NQ-A3f" id="CHL-4i-H0I"/>
                                             </connections>
                                         </collectionReusableView>
-                                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="footerInDocs" id="IgG-9M-G15">
-                                            <rect key="frame" x="0.0" y="470" width="320" height="20"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionReusableView>
                                         <connections>
                                             <outlet property="dataSource" destination="Gqu-1l-ea8" id="2f7-Uv-nFm"/>
                                             <outlet property="delegate" destination="Gqu-1l-ea8" id="Sdf-wA-mDJ"/>
@@ -563,13 +559,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="F3c-tq-tXe">
                                     <size key="itemSize" width="300" height="100"/>
-                                    <size key="headerReferenceSize" width="0.0" height="40"/>
-                                    <size key="footerReferenceSize" width="0.0" height="60"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chatCell" id="Znf-Co-Qc2" customClass="chatViewCell" customModule="MIO_LK" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="40" width="300" height="100"/>
+                                        <rect key="frame" x="10" y="0.0" width="300" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="100"/>
@@ -601,37 +597,24 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="chatReuse" id="w9F-Z5-H6L" customClass="chatReusableView" customModule="MIO_LK" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionReusableView>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dqL-rs-6IY">
-                                    <rect key="frame" x="0.0" y="140" width="320" height="60"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="WFE-Oa-LDu" id="Fac-7L-MCG"/>
                                     <outlet property="delegate" destination="WFE-Oa-LDu" id="M4H-rq-Cyd"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRV-eK-mqD">
-                                <rect key="frame" x="10" y="464" width="301" height="45"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Задать вопрос" backgroundImage="blue">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="createNew:" destination="WFE-Oa-LDu" eventType="touchUpInside" id="8bA-Kz-Cbo"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sge-6T-e3p"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Y5e-T3-0b9"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="Y5e-T3-0b9">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="Apf-HY-yrl"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="compose" id="xse-kQ-Mcz">
+                            <connections>
+                                <action selector="create:" destination="WFE-Oa-LDu" id="wPI-55-YF9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="create" destination="uRV-eK-mqD" id="Zyr-Vj-m4t"/>
                         <segue destination="aQO-uQ-uXr" kind="show" identifier="toMessages" id="Cr3-fY-OLx"/>
                     </connections>
                 </viewController>
@@ -661,9 +644,9 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="7gr-ez-17W">
                                             <size key="itemSize" width="300" height="180"/>
-                                            <size key="headerReferenceSize" width="0.0" height="40"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="20"/>
+                                            <inset key="sectionInset" minX="0.0" minY="40" maxX="0.0" maxY="20"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="forPays" id="2G0-og-lAW" customClass="forPaysViewCell" customModule="MIO_LK" customModuleProvider="target">
@@ -743,10 +726,6 @@
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
-                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="headerInPays" id="EvT-9U-wy4">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionReusableView>
                                         <connections>
                                             <outlet property="dataSource" destination="46h-su-g7i" id="RSm-xm-bBK"/>
                                             <outlet property="delegate" destination="46h-su-g7i" id="Lxt-XJ-1YU"/>
@@ -817,9 +796,9 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0CH-7j-Ywa">
                                         <rect key="frame" x="8" y="7" width="262" height="35"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="1" alpha="0.1032630565068493" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
                                         <connections>
                                             <outlet property="delegate" destination="aQO-uQ-uXr" id="dr0-3Z-6cX"/>
                                         </connections>
@@ -830,8 +809,8 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FhX-Bz-uL3">
-                                        <rect key="frame" x="277" y="7" width="35" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="271" y="0.0" width="49" height="49"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                         <state key="normal" backgroundImage="send"/>
                                         <connections>
                                             <action selector="send:" destination="aQO-uQ-uXr" eventType="touchUpInside" id="FgY-LL-tUO"/>
@@ -863,10 +842,10 @@
         <!--Связь-->
         <scene sceneID="mpx-nl-aj9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SZ8-Cb-40C" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SZ8-Cb-40C" customClass="NavigationViewController" customModule="MIO_LK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Связь" id="R0L-J6-EZm"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="W8b-yk-5fc">
+                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="W8b-yk-5fc">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

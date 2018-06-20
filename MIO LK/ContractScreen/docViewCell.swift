@@ -19,6 +19,8 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     @IBOutlet weak var map: GMSMapView!
     @IBOutlet weak var paysCollection: UICollectionView!
     
+    var noPays = UILabel()
+    
     var docType: String? {
         didSet {
             type.text = docType
@@ -70,8 +72,8 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.map.clear()
         self.paysCollection.reloadData()
+        noPays.removeFromSuperview()
         
         // reset custom properties to default values
     }

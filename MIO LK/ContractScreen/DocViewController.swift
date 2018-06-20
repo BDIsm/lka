@@ -74,36 +74,6 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         
         let element = documents[indexPath.row]
         
-        // Сбросить карту
-        //cell.map.clear()
-        
-        /* Серая тема для карты
-        do {
-            if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
-                cell.map.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            }
-            else {
-                NSLog("Unable to find style.json")
-            }
-        }
-        catch {
-            NSLog("One or more of the map styles failed to load. \(error)")
-        }
-        
-        // Координаты участка
-        let localSearchRequest = MKLocalSearchRequest()
-        localSearchRequest.naturalLanguageQuery = element.address
-        
-        let localSearch = MKLocalSearch(request: localSearchRequest)
-        localSearch.start { (localSearchResponse, error) -> Void in
-            if localSearchResponse == nil {
-                cell.coordinates = CLLocationCoordinate2D(latitude: 50, longitude: 50)
-            }
-            else {
-                cell.coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
-            }
-        }*/
-        
         // Добавление начислений
         if payDict["\(element.id)Overdue"] != nil {
             cell.overdue = payDict["\(element.id)Overdue"]!
@@ -125,6 +95,15 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         cell.docType = element.type
         cell.docOwner = element.owner
         cell.docAddress = element.address
+        
+        if cell.overdue?.count == 0 && cell.actual?.count == 0 {
+            cell.noPays.frame = cell.paysCollection.frame
+            cell.noPays.font = UIFont.preferredFont(forTextStyle: .title2)
+            cell.noPays.textColor = .gray
+            cell.noPays.textAlignment = .center
+            cell.noPays.text = "Нет текущих начислений"
+            cell.addSubview(cell.noPays)
+        }
         
         return cell
     }
