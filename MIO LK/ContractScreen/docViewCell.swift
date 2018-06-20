@@ -63,21 +63,6 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
         }
     }
     
-    var coordinates: CLLocationCoordinate2D? {
-        didSet {
-            let marker = GMSMarker()
-            marker.position = coordinates!
-            marker.icon = GMSMarker.markerImage(with: UIColor.darkGray)
-            marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.5)
-            marker.title = self.docAddress
-            marker.snippet = "Земельный участок"
-            marker.map = self.map
-            
-            let camera = GMSCameraPosition.camera(withLatitude: coordinates!.latitude, longitude: coordinates!.longitude, zoom: 9.0)
-            self.map.animate(to: camera)
-        }
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         customize()
