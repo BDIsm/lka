@@ -39,9 +39,8 @@ class messageView: UIView {
         myLabel.setNeedsDisplay()
         
         // Инициализация View для лейбла
-        let viewForLbl = UIImageView(image: #imageLiteral(resourceName: "blue"))
-        viewForLbl.frame = (myLabel.bounds.insetBy(dx: -10, dy: -5).offsetBy(dx: 10, dy: 5))
-        viewForLbl.alpha = 0.85
+        let viewForLbl = UIImageView(frame: myLabel.bounds.insetBy(dx: -10, dy: -5).offsetBy(dx: 10, dy: 5))
+        viewForLbl.backgroundColor = UIColor(red:0.60, green:0.78, blue:0.94, alpha:1.0)
         viewForLbl.clipsToBounds = true
         viewForLbl.layer.cornerRadius = 10.0
         viewForLbl.insertSubview(myLabel, at: 1)
@@ -50,11 +49,5 @@ class messageView: UIView {
         
         self.frame = viewForLbl.frame
         self.addSubview(viewForLbl)
-        /*
-         let viewForLabel = UIVisualEffectView(effect:UIBlurEffect(style: .dark ))
-         viewForLabel.frame = (myLabel.bounds.insetBy(dx: -10, dy: -5).offsetBy(dx: 10, dy: 5))
-         viewForLabel.clipsToBounds = true
-         viewForLabel.layer.cornerRadius = 10.0
-         viewForLabel.contentView.insertSubview(myLabel, at: 1)*/
     }
 }

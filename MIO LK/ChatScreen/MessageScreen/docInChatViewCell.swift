@@ -61,7 +61,7 @@ class docInChatViewCell: UICollectionViewCell {
         didSet {
             if self.isSelected
             {
-                select.backgroundColor = UIColor(red: 0.25, green: 0.35, blue: 0.7, alpha: 1)
+                select.backgroundColor = UIColor(red:0.60, green:0.78, blue:0.94, alpha:1.0)
             }
             else
             {

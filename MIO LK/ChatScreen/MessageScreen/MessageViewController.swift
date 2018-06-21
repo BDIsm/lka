@@ -22,6 +22,9 @@ class MessageViewController: UIViewController, UITextViewDelegate {
     var leftFrame = CGRect()
     var rightFrame = CGRect()
     
+    // Начальная позиция текстового поля
+    var textViewPosition = CGFloat()
+    
     var new = Bool()
     // Приветствие
     var greeting = messageView()
@@ -55,9 +58,6 @@ class MessageViewController: UIViewController, UITextViewDelegate {
                 
                 collection.selectionDisable()
             }
-            else {
-                
-            }
             
             let mess = messageView(frame: rightFrame, text: str, width: rightFrame.width)
             
@@ -66,6 +66,9 @@ class MessageViewController: UIViewController, UITextViewDelegate {
             
             align(message: mess)
             messageField.text = ""
+            
+            messView.frame.size.height = 49
+            messView.frame.origin.y = textViewPosition
         }
     }
     
@@ -74,6 +77,8 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         // Открытие/закрытие клавиатуры
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        textViewPosition = messView.frame.minY
         
         messageField.layer.cornerRadius = 10
         scroll.layer.masksToBounds = false
@@ -93,7 +98,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         }
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -217,6 +222,24 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        messageField.isScrollEnabled = false
+        let heightChange = getHeightChange(fixedWidth: messageField.frame.width, text: messageField.text)
+        
+        messView.frame.size.height += heightChange
+        messView.frame.origin.y -= heightChange
+    }
+    
+    func getHeightChange(fixedWidth: CGFloat, text: String) -> CGFloat {
+        let newSize: CGSize = messageField.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat(MAXFLOAT)))
+        
+        var newFrame = messageField.frame
+        
+        newFrame.size = CGSize(width: CGFloat(fmaxf(Float(newSize.width), Float(fixedWidth))), height: newSize.height)
+        
+        let delta = newFrame.height - messageField.frame.height
+        return delta
+    }
     
     // Добавление сообщения, перемещение contentView
     func align(message: UIView) {
@@ -226,8 +249,6 @@ class MessageViewController: UIViewController, UITextViewDelegate {
             scroll.contentSize.height = contentView.frame.height + heightAdd
             contentView.frame.size.height += heightAdd
             contentView.frame.origin.y = 0
-            
-            print(scroll.contentSize.height, contentView.frame.origin.y)
             
             let offset = CGPoint(x: 0, y: contentView.frame.maxY - scroll.bounds.height)
             scroll.setContentOffset(offset, animated: true)
@@ -252,7 +273,6 @@ class MessageViewController: UIViewController, UITextViewDelegate {
     
     @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            print("HIDE ME!")
             view.removeGestureRecognizer(tapGesture)
             self.view.frame.origin.y += keyboardSize.height
         }

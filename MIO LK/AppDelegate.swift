@@ -33,6 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        if let tb = application.keyWindow?.rootViewController as? TabBarController {
+            if let nv = tb.selectedViewController as? NavigationViewController {
+                if let vc = nv.visibleViewController as? MessageViewController {
+                    vc.view.endEditing(true)
+                }
+            }
+        }
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
