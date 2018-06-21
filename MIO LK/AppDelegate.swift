@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        GMSServices.provideAPIKey("AIzaSyDfc7n4n_r9o88AdU31xbuYHQkZBRAkgAE")
+        //GMSPlacesClient.provideAPIKey("AIzaSyDfc7n4n_r9o88AdU31xbuYHQkZBRAkgAE")
         // Override point for customization after application launch.
         return true
     }
@@ -30,6 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        if let tb = application.keyWindow?.rootViewController as? TabBarController {
+            if let nv = tb.selectedViewController as? NavigationViewController {
+                if let vc = nv.visibleViewController as? MessageViewController {
+                    vc.view.endEditing(true)
+                }
+            }
+        }
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
