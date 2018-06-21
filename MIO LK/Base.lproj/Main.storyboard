@@ -13,11 +13,10 @@
         <scene sceneID="w2Z-l9-aCT">
             <objects>
                 <tabBarController autoresizesArchivedViewToFullSize="NO" id="wKq-PP-aLl" customClass="TabBarController" customModule="MIO_LK" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ohp-kj-KKm">
+                    <tabBar key="tabBar" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ohp-kj-KKm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="Gqu-1l-ea8" kind="relationship" relationship="viewControllers" id="W1t-Gl-i4t"/>

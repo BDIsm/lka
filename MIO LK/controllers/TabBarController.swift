@@ -12,7 +12,15 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let blur = UIVisualEffectView.init(effect: UIBlurEffect(style: .light))
+        blur.frame = self.tabBar.bounds.insetBy(dx: 0, dy: -1)
+        
+        //let image = UIImageView(frame: self.tabBar.bounds.insetBy(dx: 0, dy: -1))
+        //image.backgroundColor = .white
+        
+        self.tabBar.insertSubview(blur, at: 0)
+        self.tabBar.shadowImage = UIImage()
         // Do any additional setup after loading the view.
     }
 
