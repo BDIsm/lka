@@ -9,17 +9,21 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    let line = UIImageView(image: #imageLiteral(resourceName: "blue"))
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let statusLine = UIImageView(frame: CGRect(x: 0, y: 0, width: self.tabBar.frame.width, height: 3))
+        statusLine.backgroundColor = UIColor.lightText
+        self.tabBar.addSubview(statusLine)
         
-        let blur = UIVisualEffectView.init(effect: UIBlurEffect(style: .light))
-        blur.frame = self.tabBar.bounds.insetBy(dx: 0, dy: -1)
+        line.frame = CGRect(x: 0, y: 0, width: self.tabBar.frame.width/4, height: 3)
+        self.tabBar.addSubview(line)
         
-        //let image = UIImageView(frame: self.tabBar.bounds.insetBy(dx: 0, dy: -1))
-        //image.backgroundColor = .white
+        let image = UIImageView(frame: self.tabBar.bounds.insetBy(dx: 0, dy: -1))
+        image.backgroundColor = .white
         
-        self.tabBar.insertSubview(blur, at: 0)
+        self.tabBar.insertSubview(image, at: 0)
         self.tabBar.shadowImage = UIImage()
         // Do any additional setup after loading the view.
     }
@@ -31,12 +35,24 @@ class TabBarController: UITabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item == (self.tabBar.items)![0]{
-            
+            UIView.animate(withDuration: 0.5) {
+                self.line.frame.origin.x = 0
+            }
         }
         else if item == (self.tabBar.items)![1]{
-            
+            UIView.animate(withDuration: 0.5) {
+                self.line.frame.origin.x = self.tabBar.frame.width/4
+            }
+        }
+        else if item == (self.tabBar.items)![2]{
+            UIView.animate(withDuration: 0.5) {
+                self.line.frame.origin.x = self.tabBar.frame.width/4*2
+            }
         }
         else {
+            UIView.animate(withDuration: 0.5) {
+                self.line.frame.origin.x = self.tabBar.frame.width/4*3
+            }
         }
     }
     

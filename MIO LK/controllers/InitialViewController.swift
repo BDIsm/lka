@@ -12,11 +12,18 @@ import SafariServices
 class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariViewControllerDelegate {
     let defaults = UserDefaults.standard
     
-    var documents = [classDocuments]()
-    var token = String()
+    private var uuid = String()
+
+    private let tokenNot = NSNotification.Name("token")
+    private let urlNot = NSNotification.Name("url")
+    private let docNot = NSNotification.Name("documents")
+    private let payNot = NSNotification.Name("pay")
     
     let request = classRequest()
-    var paysDone = 0
+    
+    var documents = [classDocuments]()
+    var numberOfDocuments: Int = 1
+    var numberOfPays = Int()
     
     var progressValue: Float = 0
     
@@ -38,29 +45,11 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     
     @IBAction func enter(_ sender: Any) {
         defaults.removeObject(forKey: "documents")
-        //defaults.removeObject(forKey: "overdue")
         
-        getUserData()
+        uuid = UUID().uuidString
+        request.authorize(uuid: uuid)
         
-        //let uuid = UUID().uuidString
-        /*
-        request.authorize(uuid: uuid) { (true) in
-            let urlString = self.defaults.object(forKey: "url") as! String
-            if let url = URL(string: urlString) {
-                let vc = SFSafariViewController(url: url)
-                vc.delegate = self
-                vc.title = "Авторизация"
-                
-                if var topController = UIApplication.shared.keyWindow?.rootViewController {
-                    while let presentedViewController = topController.presentedViewController {
-                        topController = presentedViewController
-                        topController.title = "Авторизация"
-                    }
-                    
-                    topController.present(vc, animated: true, completion: nil)
-                }
-            }
-        }*/
+        NotificationCenter.default.addObserver(self, selector: #selector(urlComplete(notification:)), name: urlNot, object: nil)
     }
 
     override func viewDidLoad() {
@@ -78,42 +67,115 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        //getUserData()
+        print("here income")
+        request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(tokenComplete(notification:)), name: tokenNot, object: nil)
     }
 
-    func getUserData() {
-        //request.getSecurityToken(type: "individual", inn: "507902318711", snilsOgrn: "17248060262") { (true) in
-        request.getSecurityToken(type: "entity", inn: "7812014560", snilsOgrn: "1027809169585") { (true) in
-        //request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754") { (true) in
-            print("successToken")
-            self.tenantLabel.text = (self.defaults.object(forKey: "tenant") as! String)
-            self.tenantLabel.isHidden = false
-            
-            self.viewLoading.isHidden = false
-            self.progressValue += 0.1
-            self.progress.setProgress(self.progressValue, animated: true)
-            self.progressLabel.text = "Загрузка данных \(self.progressValue*100)%"
-            
-            self.request.getContracts(finished: { (true) in
-                print("successDocs")
-                self.progressValue += 0.1
-                self.progress.setProgress(self.progressValue, animated: true)
-                self.progressLabel.text = "Загрузка данных \(self.progressValue*100)%"
+    @objc func urlComplete(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            if userInfo["error"] != "nil" {
+                print("Here is that \(userInfo["error"]!)")
+                uuid = UUID().uuidString
+                request.authorize(uuid: uuid)
+            }
+            else {
+                NotificationCenter.default.removeObserver(self, name: urlNot, object: nil)
                 
-                if let savedDocs = self.defaults.object(forKey: "documents") as? Data {
-                    self.documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
+                let urlString = userInfo["response"]
+                print(urlString!)
+                
+                if let url = URL(string: urlString!) {
+                    let vc = SFSafariViewController(url: url)
+                    vc.delegate = self
+                    vc.title = "Авторизация"
+                    
+                    if var topController = UIApplication.shared.keyWindow?.rootViewController {
+                        while let presentedViewController = topController.presentedViewController {
+                            topController = presentedViewController
+                            topController.title = "Авторизация"
+                        }
+                        
+                        topController.present(vc, animated: true, completion: nil)
+                    }
                 }
-                
-                NotificationCenter.default.addObserver(self, selector: #selector(self.errorInPay), name: NSNotification.Name("pay"), object: nil)
-                
-                for i in self.documents {
-                    self.request.getPayments(id: i.id)
-                }
-            })
+            }
         }
     }
     
-    @objc func errorInPay() {
+    @objc func tokenComplete(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            if userInfo["error"] != "nil" {
+                print(userInfo["error"]!)
+            }
+            else {
+                updateProgress("token")
+                
+                NotificationCenter.default.removeObserver(self, name: tokenNot, object: nil)
+                
+                let token = userInfo["response"]!
+                request.getContracts(token: token)
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(docComplete(notification:)), name: docNot, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(payComplete(notification:)), name: payNot, object: nil)
+            }
+        }
+    }
+    
+    @objc func docComplete(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            if userInfo["error"] != "nil" {
+                print(userInfo["error"]!)
+            }
+            else {
+                updateProgress("documents")
+                
+                NotificationCenter.default.removeObserver(self, name: docNot, object: nil)
+                
+                numberOfDocuments = Int(userInfo["response"]!)!
+                print("count: \(numberOfDocuments)")
+            }
+        }
+    }
+    
+    @objc func payComplete(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            numberOfPays += 1
+            print(numberOfPays)
+            
+            updateProgress("pay")
+            
+            if userInfo["error"] != "nil" {
+                print(userInfo["error"]!)
+            }
+            else {
+                if numberOfPays == numberOfDocuments {
+                    NotificationCenter.default.removeObserver(self, name: payNot, object: nil)
+                    
+                    timer.invalidate()
+                    performSegue(withIdentifier: "loginComplete", sender: self)
+                }
+                else {
+                }
+            }
+        }
+    }
+    
+    func updateProgress(_ divideBy: String) {
+        viewLoading.isHidden = false
+        
+        switch divideBy {
+        case "pay":
+            progress.progress += 0.8/Float(numberOfDocuments)//*numberOfPays)
+        default:
+            progress.progress += 0.1
+        }
+        progress.setProgress(progress.progress, animated: true)
+        progressLabel.text = "Загрузка \(progress.progress*100)%"
+    }
+    
+    /*@objc func errorInPay() {
         self.progressValue += 0.8/Float(documents.count)
         self.progress.setProgress(self.progressValue, animated: true)
         self.progressLabel.text = "Загрузка данных \(self.progressValue*100)%"
@@ -128,7 +190,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
             timer.invalidate()
             performSegue(withIdentifier: "loginComplete", sender: self)
         }
-    }
+    }*/
     
     // Анимация герба
     @objc func animateBack() {
