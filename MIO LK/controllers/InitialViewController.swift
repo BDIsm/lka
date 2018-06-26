@@ -67,18 +67,22 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        print("here income")
         request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754")
-        
         NotificationCenter.default.addObserver(self, selector: #selector(tokenComplete(notification:)), name: tokenNot, object: nil)
     }
 
     @objc func urlComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             if userInfo["error"] != "nil" {
-                print("Here is that \(userInfo["error"]!)")
-                uuid = UUID().uuidString
-                request.authorize(uuid: uuid)
+                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)\nДавай еще разок?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
+                    self.uuid = UUID().uuidString
+                    self.request.authorize(uuid: self.uuid)
+                }))
+                ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
+                    
+                }))
+                present(ac, animated: true)
             }
             else {
                 NotificationCenter.default.removeObserver(self, name: urlNot, object: nil)
