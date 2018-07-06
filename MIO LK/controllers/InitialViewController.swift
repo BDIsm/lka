@@ -108,7 +108,6 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                 }
             }
         }
-        
     }
 
     @objc func urlComplete(notification: Notification) {
@@ -117,7 +116,8 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                 let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)\nДавай еще разок?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
                     self.uuid = UUID().uuidString
-                    self.request.authorize(uuid: self.uuid)
+                    //self.request.authorize(uuid: self.uuid)
+                    self.request.authorize(uuid: "1111")
                 }))
                 ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
                     

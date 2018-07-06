@@ -26,6 +26,7 @@ class classRequest {
     private var paymentsDict = [String:[classPayments]]()
     
     public func testCheckAuth() {
+        print("acacasd")
         let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/author?uuid=1111")
         
         _ = TaskManager.shared.dataTask(with: url!) { (data, response, error) in
@@ -36,10 +37,13 @@ class classRequest {
                 if httpResponse.statusCode == 200 {
                     if let content = data {
                         do {
-                            if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
-                                if let code = myJsonObject["Code"] as? Int {
-                                    NotificationCenter.default.post(name: self.authNot, object: nil, userInfo: ["error": "nil", "response": "\(code)"])
-                                }
+                            print(content)
+                            if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? String {
+                                print(myJsonObject)
+                                //let code = myJsonObject["Code:"] //as? String //{
+                                //print(code)
+                                    //NotificationCenter.default.post(name: self.authNot, object: nil, userInfo: ["error": "nil", "response": "\(code)"])
+                                //}
                             }
                         }
                         catch {
