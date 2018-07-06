@@ -11,8 +11,9 @@ import Foundation
 class classRequest {
     let defaults = UserDefaults.standard
     
-    private let tokenNot = NSNotification.Name("token")
+    private let authNot = NSNotification.Name("auth")
     private let urlNot = NSNotification.Name("url")
+    private let tokenNot = NSNotification.Name("token")
     private let docNot = NSNotification.Name("documents")
     private let payNot = NSNotification.Name("pay")
     
@@ -23,6 +24,34 @@ class classRequest {
     private var allPayed = [classPayments]()
     
     private var paymentsDict = [String:[classPayments]]()
+    
+    public func testCheckAuth() {
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/author?uuid=1111")
+        
+        _ = TaskManager.shared.dataTask(with: url!) { (data, response, error) in
+            if error != nil {
+                NotificationCenter.default.post(name: self.authNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    if let content = data {
+                        do {
+                            if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
+                                if let code = myJsonObject["Code"] as? Int {
+                                    NotificationCenter.default.post(name: self.authNot, object: nil, userInfo: ["error": "nil", "response": "\(code)"])
+                                }
+                            }
+                        }
+                        catch {
+                        }
+                    }
+                }
+                else {
+                    NotificationCenter.default.post(name: self.authNot, object: nil, userInfo: ["error": "\(httpResponse.statusCode)", "response": "nil"])
+                }
+            }
+        }
+    }
     
     public func authorize(uuid: String) {
         let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/init?uuid=\(uuid)")

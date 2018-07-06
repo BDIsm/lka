@@ -14,8 +14,9 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     
     private var uuid = String()
 
-    private let tokenNot = NSNotification.Name("token")
+    private let authNot = NSNotification.Name("auth")
     private let urlNot = NSNotification.Name("url")
+    private let tokenNot = NSNotification.Name("token")
     private let docNot = NSNotification.Name("documents")
     private let payNot = NSNotification.Name("pay")
     
@@ -43,17 +44,22 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     @IBOutlet weak var frontImage: UIImageView!
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    @IBOutlet weak var enterButton: UIButton!
+    
     @IBAction func enter(_ sender: Any) {
         defaults.removeObject(forKey: "documents")
         
         uuid = UUID().uuidString
-        request.authorize(uuid: uuid)
+        //request.authorize(uuid: uuid)
+        request.authorize(uuid: "1111")
         
         NotificationCenter.default.addObserver(self, selector: #selector(urlComplete(notification:)), name: urlNot, object: nil)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        enterButton.layer.cornerRadius = 10
+        
         backgroundImage.frame.size = CGSize(width: backgroundImage.frame.width, height: backgroundImage.frame.height*2.5)
         
         timer = Timer.scheduledTimer(timeInterval: 3.1, target: self, selector: #selector(animateBack), userInfo: nil, repeats: true)
@@ -67,8 +73,42 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        request.testCheckAuth()
+        NotificationCenter.default.addObserver(self, selector: #selector(authComplete(notification:)), name: authNot, object: nil)
+        
         request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754")
         NotificationCenter.default.addObserver(self, selector: #selector(tokenComplete(notification:)), name: tokenNot, object: nil)
+    }
+    
+    @objc func authComplete(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            if userInfo["error"] != "nil" {
+                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)\nДавай еще разок?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
+                    self.request.testCheckAuth()
+                }))
+                ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
+                }))
+                present(ac, animated: true)
+            }
+            else {
+                NotificationCenter.default.removeObserver(self, name: authNot, object: nil)
+                
+                let authCode = userInfo["response"]
+                print(authCode!)
+                
+                if authCode == "2" {
+                    let ac = UIAlertController.init(title: nil, message: "Авторизация прошла успешно", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
+                    }))
+                    present(ac, animated: true)
+                }
+                else {
+                    request.testCheckAuth()
+                }
+            }
+        }
+        
     }
 
     @objc func urlComplete(notification: Notification) {
@@ -111,7 +151,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     @objc func tokenComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             if userInfo["error"] != "nil" {
-                print(userInfo["error"]!)
+                //print(userInfo["error"]!)
             }
             else {
                 updateProgress("token")
