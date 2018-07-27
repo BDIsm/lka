@@ -72,6 +72,8 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
         viewEntering.layer.shadowOffset = CGSize.zero
         viewEntering.layer.shadowRadius = 10.0
         
+        enterButton.setBackgroundImage(#imageLiteral(resourceName: "lilka"), for: .highlighted)
+        
         backgroundImage.frame.size = CGSize(width: backgroundImage.frame.width, height: backgroundImage.frame.height*2.5)
         
         timer = Timer.scheduledTimer(timeInterval: 3.1, target: self, selector: #selector(animateBack), userInfo: nil, repeats: true)
@@ -84,7 +86,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
         else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 UIView.animate(withDuration: 1, animations: {
-                    //self.backgroundImage.alpha = 0.3
+                    self.backgroundImage.alpha = 0.3
                     self.viewEntering.alpha = 1
                 })
             }
