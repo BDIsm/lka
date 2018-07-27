@@ -25,7 +25,6 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     
     @IBOutlet weak var payButton: UIButton!
     
-    
     @IBAction func pressPay(_ sender: UIButton) {
         let urlString = "https://www.gosuslugi.ru/help/faq/avtovladelcam/2015"
         if let url = URL(string: urlString) {
