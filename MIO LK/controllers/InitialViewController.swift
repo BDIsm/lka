@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariViewControllerDelegate {
+class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariViewControllerDelegate, UITextFieldDelegate {
     let defaults = UserDefaults.standard
     
     private var uuid = String()
@@ -47,14 +47,45 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     @IBOutlet weak var backgroundImage: UIImageView!
     
     @IBOutlet weak var viewEntering: UIView!
+    @IBOutlet weak var esiaEnter: UIView!
+    @IBOutlet weak var formView: UIView!
+    @IBOutlet weak var innField: UITextField!
+    @IBOutlet weak var ogrnField: UITextField!
+    @IBOutlet weak var formCheckEnter: UIButton!
+    
     @IBOutlet weak var enterButton: UIButton!
+    @IBOutlet weak var blurIndicator: UIVisualEffectView!
+    
+    @IBAction func sendInn(_ sender: UIButton) {
+        if innField.text?.count == 10 {
+            if ogrnField.text?.count == 13 {
+                uuid = UUID().uuidString
+                request.authorize(uuid: uuid)
+            }
+            else {
+                let ac = UIAlertController(title: "", message: "Введите корректный ОГРН", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+                    self.ogrnField.becomeFirstResponder()
+                }))
+                present(ac, animated: true)
+            }
+        }
+        else {
+            let ac = UIAlertController(title: "", message: "Введите корректный ИНН", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+                self.innField.becomeFirstResponder()
+            }))
+            present(ac, animated: true)
+        }
+    }
     
     @IBAction func enter(_ sender: Any) {
-        defaults.removeObject(forKey: "documents")
+        blurIndicator.isHidden = false
+        enterButton.isEnabled = false
         
         uuid = UUID().uuidString
-        //request.authorize(uuid: uuid)
-        request.authorize(uuid: "1111")
+        request.authorize(uuid: uuid)
+
         NotificationCenter.default.addObserver(self, selector: #selector(urlComplete(notification:)), name: urlNot, object: nil)
     }
 
@@ -99,26 +130,31 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
         // Dispose of any resources that can be recreated.
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let text = textField.text! as NSString
+        let replaceString = text.replacingCharacters(in: range, with: string) as NSString
+    
+        switch textField {
+        case innField:
+            return replaceString.length <= 10
+        default:
+            return replaceString.length <= 13
+        }
+    }
+    
     @objc func urlComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            // #1 -> Error
             if userInfo["error"] != "nil" {
-                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)\nДавай еще разок?", preferredStyle: .alert)
+                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
-                    self.uuid = UUID().uuidString
-                    //self.request.authorize(uuid: self.uuid)
-                    self.request.authorize(uuid: "1111")
-                }))
-                ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
-                    
+                    self.resetToEnterState()
                 }))
                 present(ac, animated: true)
             }
-            else {
-                NotificationCenter.default.removeObserver(self, name: urlNot, object: nil)
-                
+            // #1 -> Web-browser
+            else if userInfo["server"] == "0" {
                 let urlString = userInfo["response"]
-                print(urlString!)
-                
                 if let url = URL(string: urlString!) {
                     let vc = SFSafariViewController(url: url)
                     vc.delegate = self
@@ -133,80 +169,76 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                         topController.present(vc, animated: true, completion: nil)
                     }
                 }
+                NotificationCenter.default.removeObserver(self, name: urlNot, object: nil)
+            }
+            // #1 -> formView
+            else {
+                blurIndicator.isHidden = true
+                formView.center.x = esiaEnter.center.x + formView.frame.width
+                formView.isHidden = false
+                
+                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+                    self.esiaEnter.center.x -= self.esiaEnter.frame.width
+                    self.formView.center.x -= self.formView.frame.width
+                }) { (_) in
+                    
+                }
             }
         }
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        viewEntering.alpha = 0
-        request.testCheckAuth()
+        request.checkAuth(uuid)
         NotificationCenter.default.addObserver(self, selector: #selector(authComplete(notification:)), name: authNot, object: nil)
+    }
+    
+    func safariViewController(_ controller: SFSafariViewController, initialLoadDidRedirectTo URL: URL) {
+        print(URL.absoluteString)
     }
     
     @objc func authComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            // #2 –> Error
             if userInfo["error"] != "nil" {
                 let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)\nДавай еще разок?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
-                    self.request.testCheckAuth()
+                    self.request.checkAuth(self.uuid)
                 }))
                 ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
-                    UIView.animate(withDuration: 1, animations: {
-                        self.backgroundImage.alpha = 0.3
-                        self.viewEntering.alpha = 1
-                    })
+                    self.resetToEnterState()
                 }))
                 present(ac, animated: true)
             }
             else {
                 let authCode = userInfo["response"]
-                print(authCode!)
+                print(authCode!+" – authCode")
                 
-                if authCode == "2" {
-                    let ac = UIAlertController.init(title: nil, message: "Авторизация прошла успешно", preferredStyle: .alert)
+                // #2 -> Loading Docs
+                if authCode == "2"  {
+                    viewEntering.isHidden = true
+                    updateProgress("start")
+                    
+                    request.getContractsFromBack()
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.docComplete(notification:)), name: self.docNot, object: nil)
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.payComplete(notification:)), name: self.payNot, object: nil)
+                    print("Авторизация прошла успешно")
+                }
+                // #2 –> User not found
+                else {
+                    let ac = UIAlertController.init(title: nil, message: "Не удалось найти пользователя", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
-                        NotificationCenter.default.removeObserver(self, name: self.authNot, object: nil)
-                        
-                        self.updateProgress("")
-                        //request.getSecurityToken(type: "entity", inn: "7710044140", snilsOgrn: "1027700251754")
-                        self.request.getContractsFromBack()
-                        //NotificationCenter.default.addObserver(self, selector: #selector(self.tokenComplete(notification:)), name: self.tokenNot, object: nil)
-                        
-                        NotificationCenter.default.addObserver(self, selector: #selector(self.docComplete(notification:)), name: self.docNot, object: nil)
-                        NotificationCenter.default.addObserver(self, selector: #selector(self.payComplete(notification:)), name: self.payNot, object: nil)
+                        self.resetToEnterState()
                     }))
                     present(ac, animated: true)
                 }
-                else {
-                    request.testCheckAuth()
-                }
+                NotificationCenter.default.removeObserver(self, name: self.authNot, object: nil)
             }
         }
     }
     
-//    @objc func tokenComplete(notification: Notification) {
-//        if let userInfo = notification.userInfo as? Dictionary<String, String> {
-//            if userInfo["error"] != "nil" {
-//                //print(userInfo["error"]!)
-//            }
-//            else {
-//                updateProgress("token")
-//
-//                NotificationCenter.default.removeObserver(self, name: tokenNot, object: nil)
-//
-//                let token = userInfo["response"]!
-//                request.getContracts(token: token)
-//
-//                NotificationCenter.default.addObserver(self, selector: #selector(docComplete(notification:)), name: docNot, object: nil)
-//                NotificationCenter.default.addObserver(self, selector: #selector(payComplete(notification:)), name: payNot, object: nil)
-//            }
-//        }
-//    }
-    
     @objc func docComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             if userInfo["error"] != "nil" {
-                print(userInfo["error"]!)
                 let ac = UIAlertController(title: "", message: "Ошибка при обработке запроса", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
                     self.request.getContractsFromBack()
@@ -218,7 +250,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                             // Войти с сохранением
                         }))
                         acSaved.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in
-                            self.reset()
+                            
                         }))
                         self.present(acSaved, animated: true)
                     }
@@ -229,11 +261,10 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                 present(ac, animated: true)
             }
             else {
-                updateProgress("documents")
-                
                 NotificationCenter.default.removeObserver(self, name: docNot, object: nil)
-//                numberOfDocuments = Int(userInfo["response"]!)!
-//                print("count: \(numberOfDocuments)")
+                numberOfDocuments = Int(userInfo["response"]!)!
+                
+                updateProgress("documents")
             }
         }
     }
@@ -241,8 +272,6 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     @objc func payComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             numberOfPays += 1
-            print(numberOfPays)
-            
             updateProgress("pay")
             
             if userInfo["error"] != "nil" {
@@ -267,19 +296,28 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
         
         switch divideBy {
         case "pay":
-            progress.progress += 0.8/Float(numberOfDocuments)//*numberOfPays)
-        default:
+            if numberOfDocuments != 0 {
+                progress.progress += 0.8/Float(numberOfDocuments)
+            }
+        case "documents":
             progress.progress += 0.1
+        default: break
         }
+        
         progress.setProgress(progress.progress, animated: true)
         progressLabel.text = "Загрузка \(Int(progress.progress*100))%"
     }
     
-    func reset() {
-        progress.setProgress(0, animated: false)
-        progress.isHidden = true
-        
+    func resetToEnterState() {
+        viewEntering.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
+        viewEntering.isHidden = false
+        esiaEnter.center = viewEntering.center
+        esiaEnter.isHidden = false
+        enterButton.isEnabled = true
+        blurIndicator.isHidden = true
+        formView.isHidden = true
     }
+    
     
     // Анимация герба
     @objc func animateBack() {
@@ -297,6 +335,11 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                 self.direct = .toTop
             }
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        innField.resignFirstResponder()
+        ogrnField.resignFirstResponder()
     }
     /*
     // MARK: - Navigation
