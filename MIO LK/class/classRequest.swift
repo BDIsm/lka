@@ -39,7 +39,8 @@ class classRequest {
                         do {
                             if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                                 if let esiaUrl = myJsonObject["Url"] as? String {
-                                    NotificationCenter.default.post(name: self.urlNot, object: nil, userInfo: ["error": "nil", "response": esiaUrl, "server": "1"])
+                                    let serverStatus = myJsonObject["Regim"] as! String
+                                    NotificationCenter.default.post(name: self.urlNot, object: nil, userInfo: ["error": "nil", "response": esiaUrl, "server": serverStatus])
                                 }
                             }
                         }
