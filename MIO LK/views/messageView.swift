@@ -34,15 +34,17 @@ class messageView: UIView {
         let myLabel = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width, height: 35.0)))
         myLabel.numberOfLines = 0
         myLabel.text = text
-        myLabel.textColor = UIColor.white
+        myLabel.textColor = UIColor.darkText
         myLabel.sizeToFit()
         myLabel.setNeedsDisplay()
         
         // Инициализация View для лейбла
         let viewForLbl = UIImageView(frame: myLabel.bounds.insetBy(dx: -10, dy: -5).offsetBy(dx: 10, dy: 5))
-        viewForLbl.backgroundColor = UIColor(red:0.60, green:0.78, blue:0.94, alpha:1.0)
+        viewForLbl.backgroundColor = .white
         viewForLbl.clipsToBounds = true
         viewForLbl.layer.cornerRadius = 10.0
+        viewForLbl.layer.borderColor = UIColor.lightGray.cgColor
+        viewForLbl.layer.borderWidth = 0.5
         viewForLbl.insertSubview(myLabel, at: 1)
         
         myLabel.center = viewForLbl.center

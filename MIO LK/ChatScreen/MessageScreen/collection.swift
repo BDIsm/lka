@@ -82,9 +82,14 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = CGSize(width: width, height: self.bounds.height/2-2.5)
-        
-        return size
+        if documents.count == 1 {
+            let size = CGSize(width: width, height: self.bounds.height-2.5)
+            return size
+        }
+        else {
+            let size = CGSize(width: width, height: self.bounds.height/2-2.5)
+            return size
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

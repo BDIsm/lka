@@ -11,10 +11,10 @@ import Foundation
 class classRequest {
     let defaults = UserDefaults.standard
     
-    private let authNot = NSNotification.Name("auth")
-    private let authWithInnNot = NSNotification.Name("authWithInn")
+    private let authNot = NSNotification.Name("authViaEsia")
+    private let authWithInnNot = NSNotification.Name("authViaInn")
     private let urlNot = NSNotification.Name("url")
-    private let tokenNot = NSNotification.Name("token")
+    //private let tokenNot = NSNotification.Name("token")
     private let docNot = NSNotification.Name("documents")
     private let payNot = NSNotification.Name("pay")
     

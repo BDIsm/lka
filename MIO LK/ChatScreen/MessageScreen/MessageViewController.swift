@@ -9,6 +9,11 @@
 import UIKit
 
 class MessageViewController: UIViewController, UITextViewDelegate {
+    let defaults = UserDefaults.standard
+    
+    var documents = [classDocuments]()
+    
+    let whiteViewForNavi = UIView()
     
     @IBOutlet weak var scroll: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -77,6 +82,10 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         // Открытие/закрытие клавиатуры
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        if let savedDocs = defaults.object(forKey: "documents") as? Data {
+            documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
+        }
         
         textViewPosition = messView.frame.minY
         
@@ -175,7 +184,12 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         stateChange = .questionIsChosen
         contractButt.isEnabled = false
         
-        collection.frame = CGRect(x: 8, y: techButt.frame.maxY+8, width: scroll.frame.width-16, height: 150)
+        if documents.count == 1 {
+            collection.frame = CGRect(x: 8, y: techButt.frame.maxY+8, width: scroll.frame.width-16, height: 75)
+        }
+        else {
+            collection.frame = CGRect(x: 8, y: techButt.frame.maxY+8, width: scroll.frame.width-16, height: 150)
+        }
         collection.alpha = 0
         // Создание collectionView
         self.collection.collection(cellWidth: self.greeting.frame.width)
@@ -267,6 +281,12 @@ class MessageViewController: UIViewController, UITextViewDelegate {
             tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
             view.addGestureRecognizer(tapGesture)
             
+            whiteViewForNavi.frame = (navigationController?.navigationBar.bounds)!
+            whiteViewForNavi.frame.size.height += UIApplication.shared.statusBarFrame.height
+            whiteViewForNavi.frame.origin.y -= UIApplication.shared.statusBarFrame.height
+            whiteViewForNavi.backgroundColor = .white
+            navigationController?.navigationBar.insertSubview(whiteViewForNavi, at: 0)
+            
             self.view.frame.origin.y -= keyboardSize.height
         }
     }
@@ -275,6 +295,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             view.removeGestureRecognizer(tapGesture)
             self.view.frame.origin.y += keyboardSize.height
+            whiteViewForNavi.removeFromSuperview()
         }
     }
     
