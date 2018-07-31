@@ -12,6 +12,7 @@ class classRequest {
     let defaults = UserDefaults.standard
     
     private let authNot = NSNotification.Name("auth")
+    private let authWithInnNot = NSNotification.Name("authWithInn")
     private let urlNot = NSNotification.Name("url")
     private let tokenNot = NSNotification.Name("token")
     private let docNot = NSNotification.Name("documents")
@@ -38,7 +39,6 @@ class classRequest {
                         do {
                             if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                                 if let esiaUrl = myJsonObject["Url"] as? String {
-                                    self.defaults.set(esiaUrl, forKey: "url")
                                     NotificationCenter.default.post(name: self.urlNot, object: nil, userInfo: ["error": "nil", "response": esiaUrl, "server": "1"])
                                 }
                             }
@@ -52,6 +52,40 @@ class classRequest {
                 }
             }
         }
+    }
+    
+    public func authorizeWithInn(uuid: String, inn: String, ogrn: String) {
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/review?uuid=\(uuid)&inn=\(inn)&snils&ogrn=\(ogrn)")!
+        
+        var quest = URLRequest(url: url)
+        quest.httpMethod = "POST"
+        //quest.httpBody
+        
+        let session = URLSession.shared.dataTask(with: quest) { (data, response, error) in
+            if error != nil {
+                NotificationCenter.default.post(name: self.authWithInnNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    if let content = data {
+                        do {
+                            if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
+                                print(myJsonObject)
+                                if let authCode = myJsonObject["Code:"] as? String {
+                                    NotificationCenter.default.post(name: self.authWithInnNot, object: nil, userInfo: ["error": "nil", "response": authCode])
+                                }
+                            }
+                        }
+                        catch {
+                        }
+                    }
+                }
+                else {
+                    NotificationCenter.default.post(name: self.authWithInnNot, object: nil, userInfo: ["error": "\(httpResponse.statusCode)", "response": "nil"])
+                }
+            }
+        }
+        session.resume()
     }
     
     public func checkAuth(_ uuid: String) {
@@ -82,8 +116,8 @@ class classRequest {
         }
     }
     
-    public func getContractsFromBack() {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=1111&query=%2FleaseContract%3FsecurityToken%3D%5ftoken%5f%26showClosed%3D0")
+    public func getContractsFromBack(_ uuid: String) {
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2FleaseContract%3FsecurityToken%3D%5ftoken%5f%26showClosed%3D0")
         
         let newTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {
@@ -108,7 +142,7 @@ class classRequest {
                                                 let rent = contract["rentAmount"] as AnyObject
                                                 
                                                 DispatchQueue.main.async {
-                                                    self.getPaymentsFromBack(id: "\(id)")
+                                                    self.getPaymentsFromBack(uuid, id: "\(id)")
                                                 }
                                                 
                                                 let element = classDocuments(address: "\(address)", use: "\(use)", date: "\(date)", number: "\(number)", id: "\(id)", type: "\(type)", owner: "\(owner)", payDate: "\(payDate)", rent: "\(rent)")
@@ -133,11 +167,11 @@ class classRequest {
         newTask.resume()
     }
     
-    public func getPaymentsFromBack(id: String) {
+    public func getPaymentsFromBack(_ uuid: String, id: String) {
         var overdue = [classPayments]()
         var actual = [classPayments]()
         
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=1111&query=%2FleaseContract%2F\(id)%3FsecurityToken%3D%5ftoken%5f%26payedAccruals%3D1")
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2FleaseContract%2F\(id)%3FsecurityToken%3D%5ftoken%5f%26payedAccruals%3D1")
         
         TaskManager.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {

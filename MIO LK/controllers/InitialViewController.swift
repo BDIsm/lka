@@ -15,6 +15,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     private var uuid = String()
 
     private let authNot = NSNotification.Name("auth")
+    private let authWithInnNot = NSNotification.Name("authWithInn")
     private let urlNot = NSNotification.Name("url")
     private let tokenNot = NSNotification.Name("token")
     private let docNot = NSNotification.Name("documents")
@@ -59,8 +60,12 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     @IBAction func sendInn(_ sender: UIButton) {
         if innField.text?.count == 10 {
             if ogrnField.text?.count == 13 {
-                uuid = UUID().uuidString
-                request.authorize(uuid: uuid)
+                blurIndicator.isHidden = false
+                
+                //uuid = UUID().uuidString
+                request.authorizeWithInn(uuid: uuid, inn: innField.text!, ogrn: ogrnField.text!)
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(authWithInn(notification:)), name: authWithInnNot, object: nil)
             }
             else {
                 let ac = UIAlertController(title: "", message: "Введите корректный ОГРН", preferredStyle: .alert)
@@ -178,8 +183,9 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                 formView.isHidden = false
                 
                 UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-                    self.esiaEnter.center.x -= self.esiaEnter.frame.width
+                    //self.esiaEnter.center.x -= self.esiaEnter.frame.width
                     self.formView.center.x -= self.formView.frame.width
+                    self.esiaEnter.alpha = 0
                 }) { (_) in
                     
                 }
@@ -194,6 +200,46 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     
     func safariViewController(_ controller: SFSafariViewController, initialLoadDidRedirectTo URL: URL) {
         print(URL.absoluteString)
+    }
+    
+    @objc func authWithInn(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            if userInfo["error"] != "nil" {
+                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
+                    self.request.authorizeWithInn(uuid: self.uuid, inn: self.innField.text!, ogrn: self.ogrnField.text!)
+                }))
+                ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
+                    self.resetToEnterState()
+                }))
+                present(ac, animated: true)
+            }
+            else {
+                let authCode = userInfo["response"]
+                print(authCode!+" – authCode")
+                
+                // #2 -> Loading Docs
+                if authCode == "2"  {
+                    DispatchQueue.main.async {
+                        self.viewEntering.isHidden = true
+                        self.updateProgress("start")
+                    }
+                    
+                    request.getContractsFromBack(uuid)
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.docComplete(notification:)), name: self.docNot, object: nil)
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.payComplete(notification:)), name: self.payNot, object: nil)
+                    print("Авторизация прошла успешно")
+                }
+                    // #2 –> User not found
+                else {
+                    let ac = UIAlertController.init(title: nil, message: "Не удалось найти пользователя", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
+                        self.resetToEnterState()
+                    }))
+                    present(ac, animated: true)
+                }
+            }
+        }
     }
     
     @objc func authComplete(notification: Notification) {
@@ -215,10 +261,12 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                 
                 // #2 -> Loading Docs
                 if authCode == "2"  {
-                    viewEntering.isHidden = true
-                    updateProgress("start")
+                    DispatchQueue.main.async {
+                        self.viewEntering.isHidden = true
+                        self.updateProgress("start")
+                    }
                     
-                    request.getContractsFromBack()
+                    request.getContractsFromBack(uuid)
                     NotificationCenter.default.addObserver(self, selector: #selector(self.docComplete(notification:)), name: self.docNot, object: nil)
                     NotificationCenter.default.addObserver(self, selector: #selector(self.payComplete(notification:)), name: self.payNot, object: nil)
                     print("Авторизация прошла успешно")
@@ -241,7 +289,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
             if userInfo["error"] != "nil" {
                 let ac = UIAlertController(title: "", message: "Ошибка при обработке запроса", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
-                    self.request.getContractsFromBack()
+                    self.request.getContractsFromBack(self.uuid)
                 }))
                 ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
                     if self.isAuthorized {
@@ -264,7 +312,9 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                 NotificationCenter.default.removeObserver(self, name: docNot, object: nil)
                 numberOfDocuments = Int(userInfo["response"]!)!
                 
-                updateProgress("documents")
+                DispatchQueue.main.async {
+                    self.updateProgress("documents")
+                }
             }
         }
     }
@@ -272,7 +322,10 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     @objc func payComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             numberOfPays += 1
-            updateProgress("pay")
+            
+            DispatchQueue.main.async {
+                self.updateProgress("pay")
+            }
             
             if userInfo["error"] != "nil" {
                 print(userInfo["error"]!)
@@ -311,13 +364,13 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     func resetToEnterState() {
         viewEntering.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
         viewEntering.isHidden = false
-        esiaEnter.center = viewEntering.center
+        esiaEnter.center = CGPoint(x: viewEntering.bounds.midX, y: viewEntering.bounds.midY)
+        esiaEnter.alpha = 1
         esiaEnter.isHidden = false
         enterButton.isEnabled = true
         blurIndicator.isHidden = true
         formView.isHidden = true
     }
-    
     
     // Анимация герба
     @objc func animateBack() {
