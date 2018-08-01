@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //GMSPlacesClient.provideAPIKey("AIzaSyDfc7n4n_r9o88AdU31xbuYHQkZBRAkgAE")
         // Override point for customization after application launch.
         
-        //Switcher.updateRootVC()
+        Switcher.updateRootVC()
         return true
     }
 

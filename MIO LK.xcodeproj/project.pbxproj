@@ -15,6 +15,9 @@
 		BA442D1221109F9D00ABC2E5 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D1121109F9D00ABC2E5 /* AuthViewController.swift */; };
 		BA442D142110A00100ABC2E5 /* authView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D132110A00100ABC2E5 /* authView.swift */; };
 		BA442D162110B25900ABC2E5 /* switcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D152110B25900ABC2E5 /* switcher.swift */; };
+		BA442D182111E15C00ABC2E5 /* classChats.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D172111E15B00ABC2E5 /* classChats.swift */; };
+		BA442D1A2111E3FF00ABC2E5 /* classMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D192111E3FF00ABC2E5 /* classMessages.swift */; };
+		BA442D1C2111F5A900ABC2E5 /* offlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D1B2111F5A900ABC2E5 /* offlineView.swift */; };
 		BA5A341C20D9561F001B6417 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A341B20D9561F001B6417 /* MapViewController.swift */; };
 		BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73450F20C53A44003E28C8 /* DocViewController.swift */; };
 		BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73451120C53AE4003E28C8 /* docViewCell.swift */; };
@@ -56,6 +59,9 @@
 		BA442D1121109F9D00ABC2E5 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		BA442D132110A00100ABC2E5 /* authView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = authView.swift; sourceTree = "<group>"; };
 		BA442D152110B25900ABC2E5 /* switcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = switcher.swift; sourceTree = "<group>"; };
+		BA442D172111E15B00ABC2E5 /* classChats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classChats.swift; sourceTree = "<group>"; };
+		BA442D192111E3FF00ABC2E5 /* classMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classMessages.swift; sourceTree = "<group>"; };
+		BA442D1B2111F5A900ABC2E5 /* offlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = offlineView.swift; path = "MIO LK/views/offlineView.swift"; sourceTree = SOURCE_ROOT; };
 		BA5A341B20D9561F001B6417 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BA73450F20C53A44003E28C8 /* DocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
 		BA73451120C53AE4003E28C8 /* docViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docViewCell.swift; sourceTree = "<group>"; };
@@ -209,8 +215,10 @@
 				BAA7D03620BEB5D500AFEA47 /* taskManager.swift */,
 				BA442D152110B25900ABC2E5 /* switcher.swift */,
 				BAA7D03820BEE66A00AFEA47 /* classRequest.swift */,
-				BAA7D02820BD956600AFEA47 /* classPayments.swift */,
 				BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */,
+				BAA7D02820BD956600AFEA47 /* classPayments.swift */,
+				BA442D172111E15B00ABC2E5 /* classChats.swift */,
+				BA442D192111E3FF00ABC2E5 /* classMessages.swift */,
 			);
 			path = class;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 			children = (
 				BA9897F920CB0597002458FD /* unused */,
 				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
+				BA442D1B2111F5A900ABC2E5 /* offlineView.swift */,
 				BA442D132110A00100ABC2E5 /* authView.swift */,
 				BACA300320C96C9800BA6C90 /* messageView.swift */,
 				BACA300520C97C9700BA6C90 /* buttonView.swift */,
@@ -365,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA442D182111E15C00ABC2E5 /* classChats.swift in Sources */,
 				BA73451620C56561003E28C8 /* payViewCell.swift in Sources */,
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
 				BACA300C20C98F4000BA6C90 /* collection.swift in Sources */,
@@ -384,7 +394,9 @@
 				BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */,
 				BA442D142110A00100ABC2E5 /* authView.swift in Sources */,
 				BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */,
+				BA442D1A2111E3FF00ABC2E5 /* classMessages.swift in Sources */,
 				BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */,
+				BA442D1C2111F5A900ABC2E5 /* offlineView.swift in Sources */,
 				BA38D23D20C5B66A0011ECC3 /* paymentCell.swift in Sources */,
 				BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */,
 				BA9897FC20CC0B4B002458FD /* FullPayViewController.swift in Sources */,

@@ -17,6 +17,8 @@ class classRequest {
     //private let tokenNot = NSNotification.Name("token")
     private let docNot = NSNotification.Name("documents")
     private let payNot = NSNotification.Name("pay")
+    private let chatNot = NSNotification.Name("chat")
+    private let chatMNot = NSNotification.Name("chatM")
     
     private var documents = [classDocuments]()
     
@@ -25,6 +27,9 @@ class classRequest {
     private var allPayed = [classPayments]()
     
     private var paymentsDict = [String:[classPayments]]()
+    
+    private var chats = [classChats]()
+    private var messages = [classMessages]()
     
     public func authorize(uuid: String) {
         let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/init?uuid=\(uuid)")
@@ -236,6 +241,97 @@ class classRequest {
                 }
             }
         }
+    }
+    
+    public func getChatsFromBack(_ uuid: String, active: Int) {
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2Fchat%3FsecurityToken%3D%5ftoken%5f%26active%3D\(active)")
+        
+        let newTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            if error != nil {
+                NotificationCenter.default.post(name: self.chatNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    if let content = data {
+                        do {
+                            let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSMutableDictionary
+                            if let response = myJsonObject["response"] as? NSDictionary {
+                                if let items = response["items"] as? NSArray {
+                                for i in 0 ..< items.count {
+                                    if let chat = items[i] as? NSDictionary {
+                                        let type = chat["chatType"] as AnyObject
+                                        let date = chat["createDate"] as AnyObject
+                                        let id = chat["id"] as AnyObject
+                                        let status = chat["status"] as AnyObject
+                                        let theme = chat["theme"] as AnyObject
+
+                                        DispatchQueue.main.async {
+                                            self.getChatMFromBack(uuid, id: "\(id)")
+                                        }
+
+                                        let element = classChats(type: "\(type)", date: "\(date)", id: "\(id)", status: "\(status)", theme: "\(theme)")
+                                        self.chats.append(element)
+                                    }
+                                }
+                                }
+                                let savedData = NSKeyedArchiver.archivedData(withRootObject: self.chats)
+                                self.defaults.set(savedData, forKey: "chats")
+                                NotificationCenter.default.post(name: self.chatNot, object: nil, userInfo: ["error": "nil", "response": "\(self.chats.count)"])
+                            }
+                        }
+                        catch {
+                        }
+                    }
+                }
+                else { // Ошибка сервера
+                    NotificationCenter.default.post(name: self.chatNot, object: nil, userInfo: ["error": "\(httpResponse.statusCode)", "response": "nil"])
+                }
+            }
+        }
+        newTask.resume()
+    }
+    
+    public func getChatMFromBack(_ uuid: String, id: String) {
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2Fchat%2F\(id)%3FsecurityToken%3D%5ftoken%5f")
+        
+        let newTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            if error != nil {
+                NotificationCenter.default.post(name: self.chatMNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    if let content = data {
+                        do {
+                            let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSMutableDictionary
+                            if let response = myJsonObject["response"] as? NSDictionary {
+                                if let items = response["items"] as? NSArray {
+                                    for i in 0 ..< items.count {
+                                        if let messages = items[i] as? NSDictionary {
+                                            let date = messages["dateTime"] as AnyObject
+                                            let out = messages["fromLka"] as AnyObject
+                                            let id = messages["id"] as AnyObject
+                                            let message = messages["message"] as AnyObject
+                                            
+                                            let element = classMessages(date: "\(date)", out: "\(out)", id: "\(id)", message: "\(message)")
+                                            self.messages.append(element)
+                                        }
+                                    }
+                                }
+                                let savedData = NSKeyedArchiver.archivedData(withRootObject: self.messages)
+                                self.defaults.set(savedData, forKey: "chatM")
+                                NotificationCenter.default.post(name: self.chatMNot, object: nil, userInfo: ["error": "nil", "response": "complete"])
+                            }
+                        }
+                        catch {
+                        }
+                    }
+                }
+                else { // Ошибка сервера
+                    NotificationCenter.default.post(name: self.chatMNot, object: nil, userInfo: ["error": "\(httpResponse.statusCode)", "response": "nil"])
+                }
+            }
+        }
+        newTask.resume()
     }
     
     //    public func getSecurityToken(type: String, inn: String, snilsOgrn: String) {

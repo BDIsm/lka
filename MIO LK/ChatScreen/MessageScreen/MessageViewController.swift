@@ -31,6 +31,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
     var textViewPosition = CGFloat()
     
     var new = Bool()
+    var selected = String()
     // Приветствие
     var greeting = messageView()
     // Кнопки выбора категории

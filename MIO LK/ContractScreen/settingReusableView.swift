@@ -28,7 +28,7 @@ class settingReusableView: UICollectionReusableView {
     
     @IBAction func exitTap(_ sender: UIButton) {
         defaults.set(false, forKey: "isAuthorized")
-        Switcher.updateRootVC()
+        //Switcher.updateRootVC()
     }
     
     @IBAction func settingsTap(_ sender: Any) {

@@ -13,6 +13,7 @@ import MapKit
 
 class DocViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     let defaults = UserDefaults.standard
+    var offline = Bool()
     
     var documents = [classDocuments]()
     var payDict = [String:[classPayments]]()
@@ -24,6 +25,13 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let vc = tabBarController as! TabBarController
+        let offline: Bool = vc.offline
+        if offline {
+            let offlineView = viewOffline(frame: CGRect(x: view.bounds.midX-view.frame.width/4.0, y: 20, width: view.frame.width/2.0, height: 40))
+            view.addSubview(offlineView)
+        }
         
         if let savedDocs = defaults.object(forKey: "documents") as? Data {
             documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
