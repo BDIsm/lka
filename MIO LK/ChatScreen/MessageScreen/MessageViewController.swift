@@ -10,6 +10,7 @@ import UIKit
 
 class MessageViewController: UIViewController, UITextViewDelegate {
     let defaults = UserDefaults.standard
+    let request = classRequest()
     
     var documents = [classDocuments]()
     
@@ -32,6 +33,7 @@ class MessageViewController: UIViewController, UITextViewDelegate {
     
     var new = Bool()
     var selected = String()
+    
     // Приветствие
     var greeting = messageView()
     // Кнопки выбора категории
@@ -51,6 +53,8 @@ class MessageViewController: UIViewController, UITextViewDelegate {
     }
     var stateChange: state = .initial
     
+    var id = ""
+    
     @IBAction func send(_ sender: UIButton) {
         var str = messageField.text!
         str = str.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
@@ -63,6 +67,14 @@ class MessageViewController: UIViewController, UITextViewDelegate {
                 contractButt.isEnabled = false
                 
                 collection.selectionDisable()
+                
+                let uuid = defaults.string(forKey: "uuid")
+                if id != "" && stateChange == .docIsChosen {
+                    request.chatInit(uuid!, type: "CURATOR%5fQUESTION", message: str, id: id)
+                }
+                else {
+                    request.chatInit(uuid!, type: "COMMON%5fQUESTION", message: str, id: "")
+                }
             }
             
             let mess = messageView(frame: rightFrame, text: str, width: rightFrame.width)
@@ -214,8 +226,11 @@ class MessageViewController: UIViewController, UITextViewDelegate {
     
     // 2.2.1 Пользователь выбрал документ
     @objc func docIsChosen(notification: Notification) {
-        stateChange = .docIsChosen
-        messageField.becomeFirstResponder()
+        if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            id = userInfo["docID"]!
+            stateChange = .docIsChosen
+            messageField.becomeFirstResponder()
+        }
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {

@@ -71,6 +71,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     
     @objc func docComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            print(notification.name)
             if userInfo["error"] != "nil" {
                 let ac = UIAlertController(title: "", message: "Ошибка при обработке запроса \(userInfo["error"]!)", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
@@ -128,6 +129,7 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     
     @objc func payComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            print(notification.name)
             if notification.name == payNot {
                 self.numberOfPays += 1
                 DispatchQueue.main.async {

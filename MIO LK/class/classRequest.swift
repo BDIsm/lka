@@ -14,11 +14,14 @@ class classRequest {
     private let authNot = NSNotification.Name("authViaEsia")
     private let authWithInnNot = NSNotification.Name("authViaInn")
     private let urlNot = NSNotification.Name("url")
-    //private let tokenNot = NSNotification.Name("token")
+    
     private let docNot = NSNotification.Name("documents")
     private let payNot = NSNotification.Name("pay")
     private let chatNot = NSNotification.Name("chat")
     private let chatMNot = NSNotification.Name("chatM")
+    
+    private let chatInitNot = NSNotification.Name("chatInit")
+    //private let chatMNot = NSNotification.Name("chatM")
     
     private var documents = [classDocuments]()
     
@@ -334,6 +337,38 @@ class classRequest {
         newTask.resume()
     }
     
+    public func chatInit(_ uuid: String, type: String, message: String, id: String) {
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2Fchat%2Finit%3FsecurityToken%3D%5ftoken%5f%26chatType%3D\(type)%26chatMessage%3D\(message)%26lawInstanceId%3D\(id)")!
+        
+        var quest = URLRequest(url: url)
+        quest.httpMethod = "POST"
+        
+        let session = URLSession.shared.dataTask(with: quest) { (data, response, error) in
+            if error != nil {
+                NotificationCenter.default.post(name: self.chatInitNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
+            }
+            else if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    if let content = data {
+                        do {
+                            if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
+                                print(myJsonObject)
+                                //if let authCode = myJsonObject["Code:"] as? String {
+                                NotificationCenter.default.post(name: self.chatInitNot, object: nil, userInfo: ["error": "nil", "response": ""])
+                                //}
+                            }
+                        }
+                        catch {
+                        }
+                    }
+                }
+                else {
+                    NotificationCenter.default.post(name: self.chatInitNot, object: nil, userInfo: ["error": "\(httpResponse.statusCode)", "response": "nil"])
+                }
+            }
+        }
+        session.resume()
+    }
     //    public func getSecurityToken(type: String, inn: String, snilsOgrn: String) {
     //        var snils = String()
     //        var ogrn = String()

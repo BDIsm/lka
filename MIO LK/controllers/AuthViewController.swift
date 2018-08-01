@@ -36,10 +36,12 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         innField.resignFirstResponder()
         snilsField.resignFirstResponder()
         
+        let snils = snilsField.text!
+        
         if innField.text?.count == 10 {
-            if snilsField.text?.count == 13 {
+            if snils.count == 13 {
                 uuid = UUID().uuidString
-                request.authorizeWithInn(uuid: uuid, inn: innField.text!, ogrn: snilsField.text!)
+                request.authorizeWithInn(uuid: uuid, inn: innField.text!, ogrn: snils)
                 
                 NotificationCenter.default.addObserver(self, selector: #selector(authComplete(notification:)), name: authViaInnNot, object: nil)
                 
@@ -186,13 +188,43 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = textField.text! as NSString
         let replaceString = text.replacingCharacters(in: range, with: string) as NSString
+
+        print(range.location, range.length, range.lowerBound, range.upperBound)
         
-        switch textField {
-        case innField:
-            return replaceString.length <= 10
-        default:
+        if textField == snilsField {
             return replaceString.length <= 13
         }
+        else {
+            return replaceString.length <= 10
+        }
+    }
+    
+    func addSeparators(text: String) -> String {
+        var output = ""
+        var count = 0
+        for i in text {
+            if count == 3 || count == 6 {
+                output.append(i)
+                output.append("-")
+            }
+            else {
+                output.append(i)
+            }
+            count += 1
+        }
+        return output
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        esiaButton.isEnabled = false
+        lawButton.isEnabled = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardEnableButtons), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+    }
+    
+    @objc func hideKeyboardEnableButtons() {
+        esiaButton.isEnabled = true
+        lawButton.isEnabled = true
     }
     
     func startIndicator(view: UIView) {
@@ -202,10 +234,23 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         indicator.startAnimating()
         indicator.hidesWhenStopped = true
         view.addSubview(indicator)
+        
+        enterButton.isEnabled = false
+        esiaButton.isEnabled = false
+        lawButton.isEnabled = false
+        
+        innField.isEnabled = false
+        snilsField.isEnabled = false
     }
     
     func stopIndicator() {
         indicator.stopAnimating()
+        enterButton.isEnabled = true
+        esiaButton.isEnabled = true
+        lawButton.isEnabled = true
+        
+        innField.isEnabled = true
+        snilsField.isEnabled = true
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -223,6 +268,5 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-
 
 }
