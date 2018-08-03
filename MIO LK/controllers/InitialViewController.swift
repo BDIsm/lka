@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import SafariServices
 
-class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariViewControllerDelegate, UITextFieldDelegate {
+class InitialViewController: UIViewController {
     let defaults = UserDefaults.standard
     
     var offline = Bool()
@@ -18,14 +17,9 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
     private let request = classRequest()
     private let docNot = NSNotification.Name("documents")
     private let payNot = NSNotification.Name("pay")
-    private let chatNot = NSNotification.Name("chat")
-    private let chatMNot = NSNotification.Name("chatM")
     
     var numberOfDocuments: Int = 1
     var numberOfPays = Int()
-    
-    var numberOfChats = Int()
-    var numberOfChatM = Int()
     
     @IBOutlet weak var viewLoading: authView!
     @IBOutlet weak var progress: UIProgressView!
@@ -60,27 +54,18 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
         updateProgress("start")
         
         request.getContractsFromBack(uuid)
-        request.getChatsFromBack(uuid, active: 1)
         print(uuid)
         
         NotificationCenter.default.addObserver(self, selector: #selector(docComplete(notification:)), name: docNot, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(payComplete(notification:)), name: payNot, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(docComplete(notification:)), name: chatNot, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(payComplete(notification:)), name: chatMNot, object: nil)
     }
     
     @objc func docComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
-            print(notification.name)
             if userInfo["error"] != "nil" {
                 let ac = UIAlertController(title: "", message: "Ошибка при обработке запроса \(userInfo["error"]!)", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
-                    if notification.name == self.docNot {
-                        self.request.getContractsFromBack(self.uuid)
-                    }
-                    else {
-                        self.request.getChatsFromBack(self.uuid, active: 1)
-                    }
+                    self.request.getContractsFromBack(self.uuid)
                 }))
                 ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
                     if self.defaults.bool(forKey: "isAuthorized") {
@@ -106,84 +91,54 @@ class InitialViewController: UIViewController, URLSessionDataDelegate, SFSafariV
                 present(ac, animated: true)
             }
             else {
-                if notification.name == docNot {
-                    NotificationCenter.default.removeObserver(self, name: docNot, object: nil)
-                    numberOfDocuments = Int(userInfo["response"]!)!
-                    print(numberOfDocuments, "LOLOLO")
-                    
-                    DispatchQueue.main.async {
-                        self.updateProgress("base")
-                    }
-                }
-                else {
-                    NotificationCenter.default.removeObserver(self, name: chatNot, object: nil)
-                    numberOfChats = Int(userInfo["response"]!)!
-                    
-                    DispatchQueue.main.async {
-                        self.updateProgress("base")
-                    }
+                NotificationCenter.default.removeObserver(self, name: docNot, object: nil)
+                numberOfDocuments = Int(userInfo["response"]!)!
+                
+                DispatchQueue.main.async {
+                    self.updateProgress("base")
                 }
             }
         }
     }
     
     @objc func payComplete(notification: Notification) {
-        if let userInfo = notification.userInfo as? Dictionary<String, String> {
-            print(notification.name)
-            if notification.name == payNot {
-                self.numberOfPays += 1
-                DispatchQueue.main.async {
-                    self.updateProgress("divide")
-                }
-            }
-            else {
-                self.numberOfChatM += 1
-                DispatchQueue.main.async {
-                    self.updateProgress("divide")
-                }
+        self.numberOfPays += 1
+        DispatchQueue.main.async {
+            self.updateProgress("divide")
+        }
+        
+        print(numberOfPays, numberOfDocuments)
+        if numberOfPays == numberOfDocuments {
+            NotificationCenter.default.removeObserver(self, name: payNot, object: nil)
+            
+            if !defaults.bool(forKey: "isAuthorized") {
+                defaults.set(true, forKey: "isAuthorized")
+                defaults.set(uuid, forKey: "uuid")
             }
             
-            if userInfo["error"] != "nil" {
-                print(userInfo["error"]!)
-            }
-            else {
-                if numberOfPays == numberOfDocuments {
-                    NotificationCenter.default.removeObserver(self, name: payNot, object: nil)
-                    NotificationCenter.default.removeObserver(self, name: chatMNot, object: nil)
-                    
-                    if !defaults.bool(forKey: "isAuthorized") {
-                        defaults.set(true, forKey: "isAuthorized")
-                        defaults.set(uuid, forKey: "uuid")
-                    }
-                    
-                    let date = Date()
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateStyle = .short
-                    let dateString = dateFormatter.string(from: date)
-                    
-                    let calendar = NSCalendar.current
-                    let hour = calendar.component(.hour, from: date)
-                    let minutes = calendar.component(.minute, from: date)
-                    
-                    let actualDateTime = dateString + " \(hour):\(minutes)"
-                    defaults.set(actualDateTime, forKey: "actualDate")
-                    
-                    performSegue(withIdentifier: "loginComplete", sender: self)
-                }
-            }
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            let dateString = dateFormatter.string(from: date)
+            
+            let calendar = NSCalendar.current
+            let hour = calendar.component(.hour, from: date)
+            let minutes = calendar.component(.minute, from: date)
+            
+            let actualDateTime = dateString + " \(hour):\(minutes)"
+            defaults.set(actualDateTime, forKey: "actualDate")
+            
+            performSegue(withIdentifier: "loginComplete", sender: self)
         }
     }
     
     func updateProgress(_ divideBy: String) {
         container.isHidden = false
         
-        viewLoading.isHidden = false
-        viewLoading.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
-        
         switch divideBy {
         case "divide":
             if numberOfDocuments != 0 {
-                progress.progress += 0.8/Float(numberOfDocuments+numberOfChats)
+                progress.progress += 0.9/Float(numberOfDocuments)
             }
         case "base":
             progress.progress += 0.1

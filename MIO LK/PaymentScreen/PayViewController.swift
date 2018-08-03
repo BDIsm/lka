@@ -12,16 +12,31 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     let reuseIdentifier = "forPays"
     
     let defaults = UserDefaults.standard
+    let request = classRequest()
+    let payNot = NSNotification.Name("pay")
     
+    var numberOfPays = Int()
+    
+    var documents = [classDocuments]()
     var overdue = [classPayments]()
     var actual = [classPayments]()
     var payed = [classPayments]()
 
     @IBOutlet weak var content: UIView!
+    @IBOutlet weak var collection: UICollectionView!
+    
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(refreshStream), for: .valueChanged)
+        collection.addSubview(refresher)
+        
+        if let savedDocs = defaults.object(forKey: "documents") as? Data {
+            documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
+        }
         if let savedOverdues = defaults.object(forKey: "overdue") as? Data {
             overdue = NSKeyedUnarchiver.unarchiveObject(with: savedOverdues) as! [classPayments]
         }
@@ -41,6 +56,50 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func refreshStream() {
+        NotificationCenter.default.addObserver(self, selector: #selector(payComplete), name: payNot, object: nil)
+        
+        numberOfPays = 0
+        let uuid = defaults.object(forKey: "uuid") as! String
+        
+        request.allOverdues.removeAll()
+        request.allActual.removeAll()
+        request.allPayed.removeAll()
+        
+        for i in documents {
+            request.getPaymentsFromBack(uuid, id: i.id)
+        }
+    }
+    
+    @objc func payComplete() {
+        self.numberOfPays += 1
+        print(numberOfPays, documents.count)
+        if numberOfPays == documents.count {
+            NotificationCenter.default.removeObserver(self, name: payNot, object: nil)
+            
+            overdue.removeAll()
+            actual.removeAll()
+            payed.removeAll()
+            
+            if let savedOverdues = defaults.object(forKey: "overdue") as? Data {
+                overdue = NSKeyedUnarchiver.unarchiveObject(with: savedOverdues) as! [classPayments]
+            }
+            // Актуальные
+            if let savedActual = defaults.object(forKey: "actual") as? Data {
+                actual = NSKeyedUnarchiver.unarchiveObject(with: savedActual) as! [classPayments]
+            }
+            // Оплаченные
+            if let savedPayed = defaults.object(forKey: "payed") as? Data {
+                payed = NSKeyedUnarchiver.unarchiveObject(with: savedPayed) as! [classPayments]
+            }
+            
+            DispatchQueue.main.async {
+                self.collection.reloadData()
+                self.refresher.endRefreshing()
+            }
+        }
     }
     
     @objc func showFullPayment(notification: Notification) {
@@ -91,11 +150,6 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
         
         cell.customize()
         
-        if cell.frame.height == 200 {
-            cell.paysCollection.frame.origin.y -= 70
-            cell.paysCollection.frame.size.height = 130
-        }
-        
         if indexPath.row == 0 {
             cell.titleLabel.text = "Просроченные"
             cell.array = overdue
@@ -108,6 +162,19 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
             cell.titleLabel.text = "Оплаченные"
             cell.array = payed
             cell.line.isHidden = true
+        }
+        cell.paysCollection.reloadData()
+        
+        cell.layoutSubviews()
+        cell.line.frame.origin.y = cell.bounds.maxY-1
+        
+        if cell.frame.height == 200 {
+            cell.paysCollection.frame.size.height = 130
+            cell.paysCollection.frame.origin.y = 60
+        }
+        else {
+            cell.paysCollection.frame.size.height = 60
+            cell.paysCollection.frame.origin.y = 60
         }
         
         return cell

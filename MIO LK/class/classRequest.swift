@@ -21,18 +21,24 @@ class classRequest {
     private let chatMNot = NSNotification.Name("chatM")
     
     private let chatInitNot = NSNotification.Name("chatInit")
-    //private let chatMNot = NSNotification.Name("chatM")
     
     private var documents = [classDocuments]()
     
-    private var allOverdues = [classPayments]()
-    private var allActual = [classPayments]()
-    private var allPayed = [classPayments]()
+    public var allOverdues = [classPayments]()
+    public var allActual = [classPayments]()
+    public var allPayed = [classPayments]()
     
-    private var paymentsDict = [String:[classPayments]]()
+    public var paymentsDict = [String:[classPayments]]()
     
     private var chats = [classChats]()
     private var messages = [classMessages]()
+    
+    enum NetworkError: Error {
+        case unauthorised
+        case timeout
+        case serverError
+        case invalidResponse
+    }
     
     public func authorize(uuid: String) {
         let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/init?uuid=\(uuid)")
@@ -68,7 +74,6 @@ class classRequest {
         
         var quest = URLRequest(url: url)
         quest.httpMethod = "POST"
-        //quest.httpBody
         
         let session = URLSession.shared.dataTask(with: quest) { (data, response, error) in
             if error != nil {
@@ -128,7 +133,11 @@ class classRequest {
     public func getContractsFromBack(_ uuid: String) {
         let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2FleaseContract%3FsecurityToken%3D%5ftoken%5f%26showClosed%3D0")
         
-        let newTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+        var request = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        request.timeoutInterval = 5.0
+        
+        let newTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 NotificationCenter.default.post(name: self.docNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
             }
@@ -136,33 +145,41 @@ class classRequest {
                 if httpResponse.statusCode == 200 {
                     if let content = data {
                         do {
-                            let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSMutableDictionary
-                                if let response = myJsonObject["response"] as? NSDictionary {                                    if let items = response["items"] as? NSArray {
-                                        for i in 0 ..< items.count {
-                                            if let contract = items[i] as? NSDictionary {
-                                                let address = contract["addresses"] as AnyObject
-                                                let use = contract["allowedUseType"] as AnyObject
-                                                let date = contract["docDate"] as AnyObject
-                                                let number = contract["docNumber"] as AnyObject
-                                                let id = contract["id"] as AnyObject
-                                                let type = contract["objectType"] as AnyObject
-                                                let owner = contract["ownerName"] as AnyObject
-                                                let payDate = contract["paymentDate"] as AnyObject
-                                                let rent = contract["rentAmount"] as AnyObject
-                                                
-                                                DispatchQueue.main.async {
-                                                    self.getPaymentsFromBack(uuid, id: "\(id)")
-                                                }
-                                                
-                                                let element = classDocuments(address: "\(address)", use: "\(use)", date: "\(date)", number: "\(number)", id: "\(id)", type: "\(type)", owner: "\(owner)", payDate: "\(payDate)", rent: "\(rent)")
-                                                self.documents.append(element)
-                                            }
+                            guard let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSMutableDictionary else {
+                                throw NetworkError.invalidResponse
+                            }
+                            print(myJsonObject)
+                            if let response = myJsonObject["response"] as? NSDictionary {                                    if let items = response["items"] as? NSArray {
+                                for i in 0 ..< items.count {
+                                    if let contract = items[i] as? NSDictionary {
+                                        var address = String()
+                                        if let addresses = contract["addresses"] as? NSArray {
+                                            let additional = addresses.firstObject as AnyObject
+                                            address = "\(additional)"
                                         }
+                                        let use = contract["allowedUseType"] as AnyObject
+                                        let date = contract["docDate"] as AnyObject
+                                        let number = contract["docNumber"] as AnyObject
+                                        let id = contract["id"] as AnyObject
+                                        let type = contract["objectType"] as AnyObject
+                                        let owner = contract["ownerName"] as AnyObject
+                                        let payDate = contract["paymentDate"] as AnyObject
+                                        let rent = contract["rentAmount"] as AnyObject
+                                        
+                                        DispatchQueue.main.async {
+                                            self.getPaymentsFromBack(uuid, id: "\(id)")
+                                        }
+                                        
+                                        let element = classDocuments(address: address, use: "\(use)", date: "\(date)", number: "\(number)", id: "\(id)", type: "\(type)", owner: "\(owner)", payDate: "\(payDate)", rent: "\(rent)")
+                                        self.documents.append(element)
                                     }
-                                    let savedData = NSKeyedArchiver.archivedData(withRootObject: self.documents)
-                                    self.defaults.set(savedData, forKey: "documents")
-                                    NotificationCenter.default.post(name: self.docNot, object: nil, userInfo: ["error": "nil", "response": "\(self.documents.count)"])
                                 }
+                                }
+                                let savedData = NSKeyedArchiver.archivedData(withRootObject: self.documents)
+                                self.defaults.removeObject(forKey: "documents")
+                                self.defaults.set(savedData, forKey: "documents")
+                                NotificationCenter.default.post(name: self.docNot, object: nil, userInfo: ["error": "nil", "response": "\(self.documents.count)"])
+                            }
                         }
                         catch {
                         }
@@ -182,7 +199,7 @@ class classRequest {
         
         let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2FleaseContract%2F\(id)%3FsecurityToken%3D%5ftoken%5f%26payedAccruals%3D1")
         
-        TaskManager.shared.dataTask(with: url!) { (data, response, error) in
+        let session = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {
                 NotificationCenter.default.post(name: self.payNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
             }
@@ -191,6 +208,7 @@ class classRequest {
                     if let content = data {
                         do {
                             let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSMutableDictionary
+                            print(myJsonObject)
                                 if let response = myJsonObject["response"] as? NSDictionary {
                                     if let accruals = response["accruals"] as? NSArray {
                                         for i in 0 ..< accruals.count {
@@ -222,14 +240,18 @@ class classRequest {
                                     let savedActual = NSKeyedArchiver.archivedData(withRootObject: self.allActual)
                                     let savedPayed = NSKeyedArchiver.archivedData(withRootObject: self.allPayed)
                                     
+                                    self.defaults.removeObject(forKey: "overdue")
                                     self.defaults.set(savedOverdues, forKey: "overdue")
+                                    self.defaults.removeObject(forKey: "actual")
                                     self.defaults.set(savedActual, forKey: "actual")
+                                    self.defaults.removeObject(forKey: "payed")
                                     self.defaults.set(savedPayed, forKey: "payed")
                                     
                                     self.paymentsDict.updateValue(overdue, forKey: "\(id)Overdue")
                                     self.paymentsDict.updateValue(actual, forKey: "\(id)Actual")
                                     
                                     let savedDict = NSKeyedArchiver.archivedData(withRootObject: self.paymentsDict)
+                                    self.defaults.removeObject(forKey: "sortPayments")
                                     self.defaults.set(savedDict, forKey: "sortPayments")
                                     
                                     NotificationCenter.default.post(name: self.payNot, object: nil, userInfo: ["error": "nil", "response": "complete"])
@@ -244,6 +266,7 @@ class classRequest {
                 }
             }
         }
+        session.resume()
     }
     
     public func getChatsFromBack(_ uuid: String, active: Int) {
@@ -258,26 +281,28 @@ class classRequest {
                     if let content = data {
                         do {
                             let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSMutableDictionary
+                            print(myJsonObject)
                             if let response = myJsonObject["response"] as? NSDictionary {
                                 if let items = response["items"] as? NSArray {
-                                for i in 0 ..< items.count {
-                                    if let chat = items[i] as? NSDictionary {
-                                        let type = chat["chatType"] as AnyObject
-                                        let date = chat["createDate"] as AnyObject
-                                        let id = chat["id"] as AnyObject
-                                        let status = chat["status"] as AnyObject
-                                        let theme = chat["theme"] as AnyObject
-
-                                        DispatchQueue.main.async {
-                                            self.getChatMFromBack(uuid, id: "\(id)")
+                                    for i in 0 ..< items.count {
+                                        if let chat = items[i] as? NSDictionary {
+                                            let type = chat["chatType"] as AnyObject
+                                            let date = chat["createDate"] as AnyObject
+                                            let id = chat["id"] as AnyObject
+                                            let status = chat["status"] as AnyObject
+                                            let theme = chat["theme"] as AnyObject
+                                            
+                                            DispatchQueue.main.async {
+                                                self.getChatMFromBack(uuid, id: "\(id)")
+                                            }
+                                            
+                                            let element = classChats(type: "\(type)", date: "\(date)", id: "\(id)", status: "\(status)", theme: "\(theme)")
+                                            self.chats.append(element)
                                         }
-
-                                        let element = classChats(type: "\(type)", date: "\(date)", id: "\(id)", status: "\(status)", theme: "\(theme)")
-                                        self.chats.append(element)
                                     }
                                 }
-                                }
                                 let savedData = NSKeyedArchiver.archivedData(withRootObject: self.chats)
+                                self.defaults.removeObject(forKey: "chats")
                                 self.defaults.set(savedData, forKey: "chats")
                                 NotificationCenter.default.post(name: self.chatNot, object: nil, userInfo: ["error": "nil", "response": "\(self.chats.count)"])
                             }
@@ -321,6 +346,7 @@ class classRequest {
                                     }
                                 }
                                 let savedData = NSKeyedArchiver.archivedData(withRootObject: self.messages)
+                                self.defaults.removeObject(forKey: "chatM")
                                 self.defaults.set(savedData, forKey: "chatM")
                                 NotificationCenter.default.post(name: self.chatMNot, object: nil, userInfo: ["error": "nil", "response": "complete"])
                             }
@@ -337,9 +363,10 @@ class classRequest {
         newTask.resume()
     }
     
-    public func chatInit(_ uuid: String, type: String, message: String, id: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2Fchat%2Finit%3FsecurityToken%3D%5ftoken%5f%26chatType%3D\(type)%26chatMessage%3D\(message)%26lawInstanceId%3D\(id)")!
+    public func chatInit(_ uuid: String, _ type: String, _ message: String, _ id: String) {
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2Fchat%2Finit%3FsecurityToken%3D%5ftoken%5f%26chatType%3D\(type)%26chatTheme%26chatMessage%3D\(message)%26lawInstanceId%3D\(id)")!
         
+        print(url)
         var quest = URLRequest(url: url)
         quest.httpMethod = "POST"
         

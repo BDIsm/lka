@@ -12,6 +12,20 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     let defaults = UserDefaults.standard
     let reuseIdentifier = "chatCell"
     
+    // Запросы к б/э
+    private let request = classRequest()
+    private var uuid = String()
+    private let chatNot = NSNotification.Name("chat")
+    private let chatMNot = NSNotification.Name("chatM")
+    
+    var numberOfChats = Int()
+    var numberOfChatM = Int()
+    
+    var refresher: UIRefreshControl!
+    
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var collection: UICollectionView!
+    
     var new = Bool()
     var selectedId = String()
     
@@ -26,19 +40,70 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let savedChats = defaults.object(forKey: "chats") as? Data {
-            chats = NSKeyedUnarchiver.unarchiveObject(with: savedChats) as! [classChats]
-        }
+        self.refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(refreshStream), for: .valueChanged)
+        collection.addSubview(refresher)
         
-        if let savedChatM = defaults.object(forKey: "chatM") as? Data {
-            messages = NSKeyedUnarchiver.unarchiveObject(with: savedChatM) as! [classMessages]
-        }
+        uuid = defaults.string(forKey: "uuid")!
+        request.getChatsFromBack(uuid, active: 1)
+        NotificationCenter.default.addObserver(self, selector: #selector(downloadComplete(notification:)), name: chatNot, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(downloadComplete(notification:)), name: chatMNot, object: nil)
+        
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func refreshStream() {
+        uuid = defaults.string(forKey: "uuid")!
+        request.getChatsFromBack(uuid, active: 1)
+        NotificationCenter.default.addObserver(self, selector: #selector(downloadComplete(notification:)), name: chatNot, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(downloadComplete(notification:)), name: chatMNot, object: nil)
+    }
+    
+    @objc func downloadComplete(notification: Notification) {
+        if let userInfo = notification.userInfo as? Dictionary<String, String> {
+            if userInfo["error"] != "nil" {
+                let ac = UIAlertController(title: "", message: "Не удалось загрузить диалоги", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
+                    self.request.getChatsFromBack(self.uuid, active: 1)
+                }))
+                ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
+                    
+                    
+                }))
+                present(ac, animated: true)
+            }
+            else {
+                switch notification.name {
+                case chatNot:
+                    numberOfChats = Int(userInfo["response"]!)!
+                    NotificationCenter.default.removeObserver(self, name: chatNot, object: nil)
+                case chatMNot:
+                    numberOfChatM += 1
+                default: break
+                }
+                
+                if numberOfChats == numberOfChatM {
+                    if let savedChats = defaults.object(forKey: "chats") as? Data {
+                        chats = NSKeyedUnarchiver.unarchiveObject(with: savedChats) as! [classChats]
+                    }
+                    if let savedChatM = defaults.object(forKey: "chatM") as? Data {
+                        messages = NSKeyedUnarchiver.unarchiveObject(with: savedChatM) as! [classMessages]
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.refresher.endRefreshing()
+                        self.activity.stopAnimating()
+                        self.collection.reloadData()
+                        self.collection.isHidden = false
+                    }
+                }
+            }
+        }
     }
     
     // tell the collection view how many cells to make

@@ -15,6 +15,23 @@ class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollect
     
     var array = [classPayments]()
     
+    override func prepareForReuse() {
+        array = [classPayments]()
+        paysCollection.reloadData()
+        line.isHidden = false
+        //array = []
+        //paysCollection.reloadData()
+        //paysCollection.layoutSubviews()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     func customize() {
         paysCollection.dataSource = self
         paysCollection.delegate = self

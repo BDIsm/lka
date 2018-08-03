@@ -68,13 +68,24 @@ class MessageViewController: UIViewController, UITextViewDelegate {
                 
                 collection.selectionDisable()
                 
+                
+                
+                let messageToSend = replaceCharacters(str)
+                print(messageToSend)
+                let this = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                print(this!)
+                
                 let uuid = defaults.string(forKey: "uuid")
                 if id != "" && stateChange == .docIsChosen {
-                    request.chatInit(uuid!, type: "CURATOR%5fQUESTION", message: str, id: id)
+                    request.chatInit(uuid!, "CURATOR%5fQUESTION", this!, id)
                 }
                 else {
-                    request.chatInit(uuid!, type: "COMMON%5fQUESTION", message: str, id: "")
+                    request.chatInit(uuid!, "COMMON%5fQUESTION", this!, "")
+                    //request.chatInit(uuid!, "3", this!, "")
                 }
+            }
+            else {
+                
             }
             
             let mess = messageView(frame: rightFrame, text: str, width: rightFrame.width)
@@ -260,6 +271,20 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         messView.frame.origin.y -= heightChange
     }
     
+    func replaceCharacters(_ str: String) -> String {
+        var output = ""
+        let replace = ["%": "%25", " ": "%20", "\t": "%20", "\n": "%20", "\r": "%20", "!": "%21", "\"": "%22", "#": "%23", "$": "%24", "&": "%26", "'": "%27", "(": "%28", ")": "%29", "*": "%2a", "+": "%2b", ",": "%2c", "-": "%2d", ".": "%2e", "/": "%2f", ":": "%3a", ";": "%3b", "<": "%3c", "=": "%3d", ">": "%3e", "?": "%3f", "@": "%40", "[": "%5b", "\\": "%5c", "]": "%5d", "^": "%5e", "_": "%5f", "`": "%60", "{": "%7b", "|": "%7c", "}": "%7d", "~": "%7e"]
+        for i in str {
+            if replace.keys.contains(String(i)) {
+                output.append(replace[String(i)]!)
+            }
+            else {
+                output.append(i)
+            }
+        }
+        return output
+    }
+    
     func getHeightChange(fixedWidth: CGFloat, text: String) -> CGFloat {
         let newSize: CGSize = messageField.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat(MAXFLOAT)))
         
@@ -290,7 +315,6 @@ class MessageViewController: UIViewController, UITextViewDelegate {
         
         contentView.addSubview(message)
     }
-    
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {

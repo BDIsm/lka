@@ -125,7 +125,10 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
                 // -> Loading Docs
                 if authCode == "2"  {
                     // Авторизация прошла успешно
-                    performSegue(withIdentifier: "goToDownload", sender: self)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "goToDownload", sender: self)
+                    }
+                    //performSegue(withIdentifier: "goToDownload", sender: self)
                 }
                 // –> User not found
                 else {
