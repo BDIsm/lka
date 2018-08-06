@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         if let tb = application.keyWindow?.rootViewController as? TabBarController {
             if let nv = tb.selectedViewController as? NavigationViewController {
-                if let vc = nv.visibleViewController as? MessageViewController {
+                if let vc = nv.visibleViewController as? ChatViewController {
                     vc.view.endEditing(true)
                 }
             }

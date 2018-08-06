@@ -8,12 +8,12 @@
 
 import UIKit
 
-class NavigationViewController: UINavigationController {
-
+class NavigationViewController: UINavigationController, UINavigationBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.setBackgroundImage(UIImage(),for: .default)
         self.navigationBar.shadowImage = UIImage()
+        
 
         // Do any additional setup after loading the view.
     }
@@ -22,7 +22,6 @@ class NavigationViewController: UINavigationController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

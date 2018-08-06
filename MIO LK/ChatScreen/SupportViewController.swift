@@ -34,11 +34,14 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     @IBAction func create(_ sender: UIBarButtonItem) {
         new = true
-        performSegue(withIdentifier: "toMessages", sender: self)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "toMessages", sender: self)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         
         self.refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(refreshStream), for: .valueChanged)
@@ -153,16 +156,18 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
         let element = chats[indexPath.item]
         selectedId = element.id
         print("You selected cell #\(indexPath.item)!")
-        performSegue(withIdentifier: "toMessages", sender: self)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "toMessages", sender: self)
+        }
     }
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? MessageViewController {
-            vc.new = new
-            vc.selected = selectedId
+        if let vc = segue.destination as? ChatViewController {
+            //vc.new = new
+            //vc.selected = selectedId
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

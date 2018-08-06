@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA12214021184D7900C6D493 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA12213F21184D7900C6D493 /* ChatViewController.swift */; };
+		BA12214221184DC600C6D493 /* messageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA12214121184DC600C6D493 /* messageViewCell.swift */; };
+		BA122144211870D800C6D493 /* messageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA122143211870D800C6D493 /* messageTextView.swift */; };
 		BA17F69C20D267A9008EDF09 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = BA17F69B20D267A9008EDF09 /* style.json */; };
 		BA38D23920C59EE60011ECC3 /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D23820C59EE60011ECC3 /* PayViewController.swift */; };
 		BA38D23B20C59F830011ECC3 /* forPaysViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D23A20C59F830011ECC3 /* forPaysViewCell.swift */; };
@@ -40,17 +43,21 @@
 		BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */; };
 		BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */; };
 		BACA300220C840DD00BA6C90 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300120C840DC00BA6C90 /* MessageViewController.swift */; };
-		BACA300420C96C9800BA6C90 /* messageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300320C96C9800BA6C90 /* messageView.swift */; };
+		BACA300420C96C9800BA6C90 /* messageViewONE.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300320C96C9800BA6C90 /* messageViewONE.swift */; };
 		BACA300620C97C9700BA6C90 /* buttonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300520C97C9700BA6C90 /* buttonView.swift */; };
 		BACA300820C983E400BA6C90 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300720C983E400BA6C90 /* TabBarController.swift */; };
 		BACA300A20C989DE00BA6C90 /* docInChatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */; };
 		BACA300C20C98F4000BA6C90 /* collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300B20C98F4000BA6C90 /* collection.swift */; };
+		BAD9DE0E2118A75300DC13B9 /* messageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD9DE0D2118A75300DC13B9 /* messageView.swift */; };
 		FD669EE1175C5CF1B10549B3 /* Pods_MIO_LK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6F9D8BB6A283E95649A9E23 /* Pods_MIO_LK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		75DBCCD35962EDEAEB19D1CD /* Pods-MIO LK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIO LK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIO LK/Pods-MIO LK.release.xcconfig"; sourceTree = "<group>"; };
 		A6F9D8BB6A283E95649A9E23 /* Pods_MIO_LK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIO_LK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA12213F21184D7900C6D493 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		BA12214121184DC600C6D493 /* messageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageViewCell.swift; sourceTree = "<group>"; };
+		BA122143211870D800C6D493 /* messageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageTextView.swift; sourceTree = "<group>"; };
 		BA17F69B20D267A9008EDF09 /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
 		BA38D23820C59EE60011ECC3 /* PayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayViewController.swift; sourceTree = "<group>"; };
 		BA38D23A20C59F830011ECC3 /* forPaysViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forPaysViewCell.swift; sourceTree = "<group>"; };
@@ -86,11 +93,12 @@
 		BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewCell.swift; sourceTree = "<group>"; };
 		BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatReusableView.swift; sourceTree = "<group>"; };
 		BACA300120C840DC00BA6C90 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
-		BACA300320C96C9800BA6C90 /* messageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageView.swift; sourceTree = "<group>"; };
+		BACA300320C96C9800BA6C90 /* messageViewONE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageViewONE.swift; sourceTree = "<group>"; };
 		BACA300520C97C9700BA6C90 /* buttonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonView.swift; sourceTree = "<group>"; };
 		BACA300720C983E400BA6C90 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docInChatViewCell.swift; sourceTree = "<group>"; };
 		BACA300B20C98F4000BA6C90 /* collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collection.swift; sourceTree = "<group>"; };
+		BAD9DE0D2118A75300DC13B9 /* messageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageView.swift; sourceTree = "<group>"; };
 		CE8697903662023FD0CC91D1 /* Pods-MIO LK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIO LK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIO LK/Pods-MIO LK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,6 +166,7 @@
 			children = (
 				BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */,
 				BAA7D03420BDA14100AFEA47 /* viewPayment.swift */,
+				BACA300320C96C9800BA6C90 /* messageViewONE.swift */,
 			);
 			path = unused;
 			sourceTree = "<group>";
@@ -165,6 +174,9 @@
 		BA9897FA20CB05A6002458FD /* MessageScreen */ = {
 			isa = PBXGroup;
 			children = (
+				BA12213F21184D7900C6D493 /* ChatViewController.swift */,
+				BA122143211870D800C6D493 /* messageTextView.swift */,
+				BA12214121184DC600C6D493 /* messageViewCell.swift */,
 				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
 				BACA300B20C98F4000BA6C90 /* collection.swift */,
 				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
@@ -230,8 +242,8 @@
 				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
 				BA442D1B2111F5A900ABC2E5 /* offlineView.swift */,
 				BA442D132110A00100ABC2E5 /* authView.swift */,
-				BACA300320C96C9800BA6C90 /* messageView.swift */,
 				BACA300520C97C9700BA6C90 /* buttonView.swift */,
+				BAD9DE0D2118A75300DC13B9 /* messageView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -374,19 +386,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA12214221184DC600C6D493 /* messageViewCell.swift in Sources */,
 				BA442D182111E15C00ABC2E5 /* classChats.swift in Sources */,
 				BA73451620C56561003E28C8 /* payViewCell.swift in Sources */,
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
+				BA12214021184D7900C6D493 /* ChatViewController.swift in Sources */,
 				BACA300C20C98F4000BA6C90 /* collection.swift in Sources */,
 				BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */,
 				BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */,
 				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
 				BA442D1221109F9D00ABC2E5 /* AuthViewController.swift in Sources */,
+				BA122144211870D800C6D493 /* messageTextView.swift in Sources */,
 				BA442D162110B25900ABC2E5 /* switcher.swift in Sources */,
 				BA38D23920C59EE60011ECC3 /* PayViewController.swift in Sources */,
 				BACA300A20C989DE00BA6C90 /* docInChatViewCell.swift in Sources */,
 				BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */,
-				BACA300420C96C9800BA6C90 /* messageView.swift in Sources */,
+				BACA300420C96C9800BA6C90 /* messageViewONE.swift in Sources */,
+				BAD9DE0E2118A75300DC13B9 /* messageView.swift in Sources */,
 				BA38D23B20C59F830011ECC3 /* forPaysViewCell.swift in Sources */,
 				BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */,
 				BA75BBE820DAC0A6006B03C6 /* NavigationViewController.swift in Sources */,
