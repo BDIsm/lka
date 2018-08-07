@@ -58,12 +58,17 @@ class messageTextView: UIView, UITextViewDelegate {
     }
     
     @objc func sendTapped() {
-        if let delegate = delegate, let message = textInput.text {
-            delegate.sendWasTapped(message: message)
+        let str = textInput.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let delegate = delegate, str != "" && textInput.textColor != .lightGray {
+            delegate.sendWasTapped(message: str)
             
             textInput.text = ""
             textInput.resignFirstResponder()
-            
+            self.frame = beginFrame
+        }
+        else {
+            textInput.text = ""
+            textInput.resignFirstResponder()
             self.frame = beginFrame
         }
     }

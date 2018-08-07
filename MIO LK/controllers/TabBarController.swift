@@ -15,16 +15,17 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let statusLine = UIImageView(frame: CGRect(x: 0, y: 0, width: self.tabBar.frame.width, height: 3))
-        statusLine.backgroundColor = UIColor.lightText
-        self.tabBar.addSubview(statusLine)
+        let fullLine = UIImageView(frame: CGRect(x: 0, y: -1, width: self.tabBar.frame.width, height: 0.5))
+        fullLine.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+    
+        self.tabBar.addSubview(fullLine)
         
-        line.frame = CGRect(x: 0, y: 0, width: self.tabBar.frame.width/4, height: 3)
+        line.frame = CGRect(x: 0, y: -1, width: self.tabBar.frame.width/4, height: 1)
         self.tabBar.addSubview(line)
         
         let image = UIImageView(frame: self.tabBar.bounds.insetBy(dx: 0, dy: -1))
         image.backgroundColor = .white
-        
+
         self.tabBar.insertSubview(image, at: 0)
         self.tabBar.shadowImage = UIImage()
         // Do any additional setup after loading the view.

@@ -41,7 +41,6 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         
         self.refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(refreshStream), for: .valueChanged)

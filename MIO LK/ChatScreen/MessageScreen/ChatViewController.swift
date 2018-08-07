@@ -8,9 +8,7 @@
 
 import UIKit
 
-class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, messageTextDelegate {
-    var viewForNavigationBar = UIView()
-    
+class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, messageTextDelegate, chatTypeDelegate {
     let defaults = UserDefaults.standard
     var messages = [classMessages]()
     var documents = [classDocuments]()
@@ -19,18 +17,18 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var tapGesture = UITapGestureRecognizer()
     
+    var type: chatType = .unspecified
+    var cellHeight = CGFloat()
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextView: messageTextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "contik"), for: .default)
-        
         messageTextView.delegate = self
         
         tableView.frame.size.height = messageTextView.frame.minY-tableView.frame.minY
         
-        print(newChat)
         if newChat {
         }
         else {
@@ -53,6 +51,14 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -82,12 +88,22 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func tapped(type: chatType, height: CGFloat) {
+        tableView.beginUpdates()
+        self.type = type
+        self.cellHeight = height
+        tableView.endUpdates()
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if newChat {
             if indexPath.row == 0 {
-                let height = greetingTableViewCell.height(documents)
-                print(height)
-                return height
+                if type == .curator {
+                    return 260+cellHeight
+                }
+                else {
+                    return 250
+                }
             }
             else {
                 let height = MessageViewCell.height(for: messages[indexPath.row-1])
@@ -109,6 +125,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.setUp(documents: documents)
                 cell.collectionForDoc.collectionDidLoad(cellWidth: cell.greetingView.frame.width)
                 
+                cell.delegate = self
                 return cell
             } 
             else {

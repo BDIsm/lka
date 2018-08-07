@@ -2,18 +2,16 @@
 //  NavigationViewController.swift
 //  MIO LK
 //
-//  Created by Исматуллоев Бежан on 20.06.2018.
+//  Created by Исматуллоев Бежан on 07.08.2018.
 //  Copyright © 2018 Исматуллоев Бежан. All rights reserved.
 //
 
 import UIKit
 
-class NavigationViewController: UINavigationController, UINavigationBarDelegate {
+class NavigationViewController: UINavigationController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.setBackgroundImage(UIImage(),for: .default)
-        self.navigationBar.shadowImage = UIImage()
-        
 
         // Do any additional setup after loading the view.
     }
@@ -22,6 +20,7 @@ class NavigationViewController: UINavigationController, UINavigationBarDelegate 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     /*
     // MARK: - Navigation

@@ -25,7 +25,6 @@
 		BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73450F20C53A44003E28C8 /* DocViewController.swift */; };
 		BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73451120C53AE4003E28C8 /* docViewCell.swift */; };
 		BA73451620C56561003E28C8 /* payViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73451520C56561003E28C8 /* payViewCell.swift */; };
-		BA75BBE820DAC0A6006B03C6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75BBE720DAC0A6006B03C6 /* NavigationViewController.swift */; };
 		BA9897FC20CC0B4B002458FD /* FullPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9897FB20CC0B4B002458FD /* FullPayViewController.swift */; };
 		BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */; };
 		BAA7D01C20BD94BA00AFEA47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */; };
@@ -39,6 +38,7 @@
 		BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03420BDA14100AFEA47 /* viewPayment.swift */; };
 		BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03620BEB5D500AFEA47 /* taskManager.swift */; };
 		BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03820BEE66A00AFEA47 /* classRequest.swift */; };
+		BABBB3112119F30400405145 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABBB3102119F30400405145 /* NavigationViewController.swift */; };
 		BACA2FFC20C82B4900BA6C90 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */; };
 		BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */; };
 		BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */; };
@@ -74,7 +74,6 @@
 		BA73450F20C53A44003E28C8 /* DocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
 		BA73451120C53AE4003E28C8 /* docViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docViewCell.swift; sourceTree = "<group>"; };
 		BA73451520C56561003E28C8 /* payViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = payViewCell.swift; sourceTree = "<group>"; };
-		BA75BBE720DAC0A6006B03C6 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		BA9897FB20CC0B4B002458FD /* FullPayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPayViewController.swift; sourceTree = "<group>"; };
 		BAA7D01320BD94BA00AFEA47 /* MIO LK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MIO LK.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +89,7 @@
 		BAA7D03420BDA14100AFEA47 /* viewPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewPayment.swift; sourceTree = "<group>"; };
 		BAA7D03620BEB5D500AFEA47 /* taskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskManager.swift; sourceTree = "<group>"; };
 		BAA7D03820BEE66A00AFEA47 /* classRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classRequest.swift; sourceTree = "<group>"; };
+		BABBB3102119F30400405145 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewCell.swift; sourceTree = "<group>"; };
 		BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatReusableView.swift; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 				BA442D1121109F9D00ABC2E5 /* AuthViewController.swift */,
 				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
 				BACA300720C983E400BA6C90 /* TabBarController.swift */,
-				BA75BBE720DAC0A6006B03C6 /* NavigationViewController.swift */,
+				BABBB3102119F30400405145 /* NavigationViewController.swift */,
 				BA9897FB20CC0B4B002458FD /* FullPayViewController.swift */,
 			);
 			path = controllers;
@@ -408,7 +408,6 @@
 				BAD9DE0E2118A75300DC13B9 /* messageView.swift in Sources */,
 				BA38D23B20C59F830011ECC3 /* forPaysViewCell.swift in Sources */,
 				BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */,
-				BA75BBE820DAC0A6006B03C6 /* NavigationViewController.swift in Sources */,
 				BA38D23F20C6CE650011ECC3 /* settingReusableView.swift in Sources */,
 				BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */,
 				BAD9DE1021199EC100DC13B9 /* greetingTableViewCell.swift in Sources */,
@@ -417,6 +416,7 @@
 				BA442D1A2111E3FF00ABC2E5 /* classMessages.swift in Sources */,
 				BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */,
 				BA442D1C2111F5A900ABC2E5 /* offlineView.swift in Sources */,
+				BABBB3112119F30400405145 /* NavigationViewController.swift in Sources */,
 				BA38D23D20C5B66A0011ECC3 /* paymentCell.swift in Sources */,
 				BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */,
 				BA9897FC20CC0B4B002458FD /* FullPayViewController.swift in Sources */,
