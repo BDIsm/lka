@@ -12,8 +12,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     var viewForNavigationBar = UIView()
     
     let defaults = UserDefaults.standard
-    
     var messages = [classMessages]()
+    var documents = [classDocuments]()
+    
+    var newChat = Bool()
     
     var tapGesture = UITapGestureRecognizer()
     
@@ -28,15 +30,24 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.frame.size.height = messageTextView.frame.minY-tableView.frame.minY
         
-        let one = classMessages(date: "15.05.2018", out: "1", id: "1", message: "Добрый день. Возник вопрос по поводу оплаты аренды моего земельного участка")
-        let two = classMessages(date: "15.05.2018", out: "1", id: "1", message: "Кому я мог бы его задать?")
-        let three = classMessages(date: "15.05.2018", out: "0", id: "1", message: "Добрый день, спасибо за Ваше обращение. ")
-        let four = classMessages(date: "15.05.2018", out: "1", id: "1", message: "Отлично, спасибо!")
+        print(newChat)
+        if newChat {
+        }
+        else {
+            let one = classMessages(date: "15.05.2018", out: "1", id: "1", message: "Добрый день. Возник вопрос по поводу оплаты аренды моего земельного участка")
+            let two = classMessages(date: "15.05.2018", out: "1", id: "1", message: "Кому я мог бы его задать?")
+            let three = classMessages(date: "15.05.2018", out: "0", id: "1", message: "Добрый день, спасибо за Ваше обращение. ")
+            let four = classMessages(date: "15.05.2018", out: "1", id: "1", message: "Отлично, спасибо!")
+            
+            messages.append(one)
+            messages.append(two)
+            messages.append(three)
+            messages.append(four)
+        }
         
-        messages.append(one)
-        messages.append(two)
-        messages.append(three)
-        messages.append(four)
+        if let savedDocs = defaults.object(forKey: "documents") as? Data {
+            documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         // Do any additional setup after loading the view.
@@ -54,31 +65,82 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func heightChanged(height: CGFloat) {
         tableView.frame.origin.y -= height
-        tableView.scrollToRow(at: IndexPath(row: messages.count-1, section: 0), at: .bottom, animated: true)
+        if newChat {
+            tableView.scrollToRow(at: IndexPath(row: messages.count, section: 0), at: .bottom, animated: true)
+        }
+        else {
+            tableView.scrollToRow(at: IndexPath(row: messages.count-1, section: 0), at: .bottom, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        if newChat {
+            return messages.count+1
+        }
+        else {
+            return messages.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height = MessageViewCell.height(for: messages[indexPath.row])
-        return height
+        if newChat {
+            if indexPath.row == 0 {
+                let height = greetingTableViewCell.height(documents)
+                print(height)
+                return height
+            }
+            else {
+                let height = MessageViewCell.height(for: messages[indexPath.row-1])
+                return height
+            }
+        }
+        else {
+            let height = MessageViewCell.height(for: messages[indexPath.row])
+            return height
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageViewCell else { fatalError() }
-        cell.selectionStyle = .none
-        
-        let message = messages[indexPath.row]
-        cell.apply(message: message)
-        
-        return cell
+        if newChat {
+            if indexPath.row == 0 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "greetingCell", for: indexPath) as? greetingTableViewCell else { fatalError() }
+                cell.selectionStyle = .none
+                
+                cell.setUp(documents: documents)
+                cell.collectionForDoc.collectionDidLoad(cellWidth: cell.greetingView.frame.width)
+                
+                return cell
+            } 
+            else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageViewCell else { fatalError() }
+                cell.selectionStyle = .none
+                
+                let message = messages[indexPath.row-1]
+                cell.apply(message: message)
+                
+                return cell
+            }
+        }
+        else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageViewCell else { fatalError() }
+            cell.selectionStyle = .none
+            
+            let message = messages[indexPath.row]
+            cell.apply(message: message)
+            
+            return cell
+        }
     }
     
     func insertNewMessageCell(_ message: classMessages) {
         messages.append(message)
-        let indexPath = IndexPath(row: messages.count - 1, section: 0)
+        var indexPath = IndexPath()
+        if newChat {
+            indexPath = IndexPath(row: messages.count, section: 0)
+        }
+        else {
+            indexPath = IndexPath(row: messages.count - 1, section: 0)
+        }
         tableView.beginUpdates()
         tableView.insertRows(at: [indexPath], with: .bottom)
         tableView.endUpdates()
@@ -96,7 +158,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             UIView.animate(withDuration: 0.25) {
                 self.messageTextView.frame.origin.y = viewOriginY
                 self.tableView.frame.origin.y = tableOriginY
-                self.tableView.scrollToRow(at: IndexPath(row: self.messages.count-1, section: 0), at: .bottom, animated: true)
+                if self.newChat {
+                    self.tableView.scrollToRow(at: IndexPath(row: self.messages.count, section: 0), at: .bottom, animated: true)
+                }
+                else {
+                    self.tableView.scrollToRow(at: IndexPath(row: self.messages.count-1, section: 0), at: .bottom, animated: true)
+                }
             }
             
             tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))

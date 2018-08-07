@@ -26,15 +26,15 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet weak var collection: UICollectionView!
     
-    var new = Bool()
+    var newChat = Bool()
     var selectedId = String()
     
     var chats = [classChats]()
     var messages = [classMessages]()
     
     @IBAction func create(_ sender: UIBarButtonItem) {
-        new = true
         DispatchQueue.main.async {
+            self.newChat = true
             self.performSegue(withIdentifier: "toMessages", sender: self)
         }
     }
@@ -151,7 +151,7 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
-        new = false
+        newChat = false
         
         let element = chats[indexPath.item]
         selectedId = element.id
@@ -166,6 +166,7 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ChatViewController {
+            vc.newChat = newChat
             //vc.new = new
             //vc.selected = selectedId
         }

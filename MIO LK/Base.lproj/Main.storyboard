@@ -755,13 +755,13 @@
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="create:" destination="WFE-Oa-LDu" id="wPI-55-YF9"/>
-                                <segue destination="ThN-Yj-9Tq" kind="show" identifier="toMessages" id="0Ai-dx-fGq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activity" destination="gL3-9b-Dq8" id="ad7-qj-iIj"/>
                         <outlet property="collection" destination="jCj-oU-Bc7" id="qqc-im-cA2"/>
+                        <segue destination="ThN-Yj-9Tq" kind="show" identifier="toMessages" id="5c8-gz-xYg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qL6-jh-qb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -914,19 +914,86 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="greetingCell" rowHeight="335" id="DkE-gx-203" customClass="greetingTableViewCell" customModule="MIO_LK" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="335"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DkE-gx-203" id="xhe-Ug-GW1">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="335"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oiY-Du-YL4" customClass="buttonView" customModule="MIO_LK" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="210" width="120" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <state key="normal" title="Тех. поддержка">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="techSuppTapped:" destination="DkE-gx-203" eventType="touchUpInside" id="dNP-bJ-qQZ"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kAP-3A-fru" customClass="buttonView" customModule="MIO_LK" customModuleProvider="target">
+                                                    <rect key="frame" x="135" y="210" width="120" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                    <state key="normal" title="Вопрос по договору">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="curSuppTapped:" destination="DkE-gx-203" eventType="touchUpInside" id="7Cn-K2-ZWy"/>
+                                                    </connections>
+                                                </button>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bkQ-tg-Vj9" customClass="messageView" customModule="MIO_LK" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="10" width="245" height="195"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TvP-T7-gtl">
+                                                            <rect key="frame" x="10" y="3" width="225" height="183"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <string key="text">Добрый день. Прежде чем задать Ваш вопрос, пожалуйста, выберите его категорию. Это поможет нашим специалистам предоставить Вам наиболее полный ответ в короткие сроки:</string>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="25g-Pf-oCi" customClass="collectionDoc" customModule="MIO_LK" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="255" width="300" height="75"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="collectionForDoc" destination="25g-Pf-oCi" id="ftU-Jh-lwc"/>
+                                            <outlet property="curSupportButton" destination="kAP-3A-fru" id="C6y-7v-cgv"/>
+                                            <outlet property="greetingLabel" destination="TvP-T7-gtl" id="hf9-i4-QJi"/>
+                                            <outlet property="greetingView" destination="bkQ-tg-Vj9" id="Vh9-4Z-zLv"/>
+                                            <outlet property="techSupportButton" destination="oiY-Du-YL4" id="SJt-cq-Gpy"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="60" id="mUE-BN-Gvn" customClass="MessageViewCell" customModule="MIO_LK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="363" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mUE-BN-Gvn" id="T5G-XV-GiW">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BT0-7b-rUD" customClass="messageView" customModule="MIO_LK" customModuleProvider="target">
-                                                    <rect key="frame" x="105" y="5" width="205" height="51"/>
+                                                    <rect key="frame" x="65" y="5" width="245" height="51"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBM-rn-Xr0">
-                                                            <rect key="frame" x="8" y="3" width="189" height="45"/>
+                                                            <rect key="frame" x="8" y="3" width="229" height="45"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

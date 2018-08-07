@@ -47,8 +47,9 @@
 		BACA300620C97C9700BA6C90 /* buttonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300520C97C9700BA6C90 /* buttonView.swift */; };
 		BACA300820C983E400BA6C90 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300720C983E400BA6C90 /* TabBarController.swift */; };
 		BACA300A20C989DE00BA6C90 /* docInChatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */; };
-		BACA300C20C98F4000BA6C90 /* collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300B20C98F4000BA6C90 /* collection.swift */; };
+		BACA300C20C98F4000BA6C90 /* collectionDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300B20C98F4000BA6C90 /* collectionDoc.swift */; };
 		BAD9DE0E2118A75300DC13B9 /* messageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD9DE0D2118A75300DC13B9 /* messageView.swift */; };
+		BAD9DE1021199EC100DC13B9 /* greetingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD9DE0F21199EC100DC13B9 /* greetingTableViewCell.swift */; };
 		FD669EE1175C5CF1B10549B3 /* Pods_MIO_LK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6F9D8BB6A283E95649A9E23 /* Pods_MIO_LK.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,8 +98,9 @@
 		BACA300520C97C9700BA6C90 /* buttonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonView.swift; sourceTree = "<group>"; };
 		BACA300720C983E400BA6C90 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docInChatViewCell.swift; sourceTree = "<group>"; };
-		BACA300B20C98F4000BA6C90 /* collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collection.swift; sourceTree = "<group>"; };
+		BACA300B20C98F4000BA6C90 /* collectionDoc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionDoc.swift; sourceTree = "<group>"; };
 		BAD9DE0D2118A75300DC13B9 /* messageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageView.swift; sourceTree = "<group>"; };
+		BAD9DE0F21199EC100DC13B9 /* greetingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = greetingTableViewCell.swift; sourceTree = "<group>"; };
 		CE8697903662023FD0CC91D1 /* Pods-MIO LK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIO LK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIO LK/Pods-MIO LK.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,10 +177,11 @@
 			isa = PBXGroup;
 			children = (
 				BA12213F21184D7900C6D493 /* ChatViewController.swift */,
-				BA122143211870D800C6D493 /* messageTextView.swift */,
 				BA12214121184DC600C6D493 /* messageViewCell.swift */,
+				BAD9DE0F21199EC100DC13B9 /* greetingTableViewCell.swift */,
+				BA122143211870D800C6D493 /* messageTextView.swift */,
 				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
-				BACA300B20C98F4000BA6C90 /* collection.swift */,
+				BACA300B20C98F4000BA6C90 /* collectionDoc.swift */,
 				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
 			);
 			path = MessageScreen;
@@ -391,7 +394,7 @@
 				BA73451620C56561003E28C8 /* payViewCell.swift in Sources */,
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
 				BA12214021184D7900C6D493 /* ChatViewController.swift in Sources */,
-				BACA300C20C98F4000BA6C90 /* collection.swift in Sources */,
+				BACA300C20C98F4000BA6C90 /* collectionDoc.swift in Sources */,
 				BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */,
 				BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */,
 				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
@@ -408,6 +411,7 @@
 				BA75BBE820DAC0A6006B03C6 /* NavigationViewController.swift in Sources */,
 				BA38D23F20C6CE650011ECC3 /* settingReusableView.swift in Sources */,
 				BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */,
+				BAD9DE1021199EC100DC13B9 /* greetingTableViewCell.swift in Sources */,
 				BA442D142110A00100ABC2E5 /* authView.swift in Sources */,
 				BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */,
 				BA442D1A2111E3FF00ABC2E5 /* classMessages.swift in Sources */,

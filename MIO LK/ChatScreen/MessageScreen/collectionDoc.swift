@@ -11,16 +11,19 @@ import UIKit
 
 class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     let defaults = UserDefaults.standard
+    var documents = [classDocuments]()
     
     let cellReuseIdentifier = "docInChat"
     let flowLayout = UICollectionViewFlowLayout()
-    
     var width = CGFloat()
-    
-    var documents = [classDocuments]()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        if let savedDocs = defaults.object(forKey: "documents") as? Data {
+            documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
+        }
+        
+        self.isUserInteractionEnabled = true
     }
     
     override init(frame: CGRect) {
@@ -32,7 +35,7 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
         self.isUserInteractionEnabled = true
     }
     
-    func collection(cellWidth: CGFloat) {
+    func collectionDidLoad(cellWidth: CGFloat) {
         self.isUserInteractionEnabled = true
         
         width = cellWidth
@@ -93,13 +96,9 @@ class collectionDoc: UIView, UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let element = documents[indexPath.row]
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
         
+        let element = documents[indexPath.row]
         NotificationCenter.default.post(name: NSNotification.Name("isChosen"), object: nil, userInfo: ["docID": element.id])
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
-    }
-    
 }

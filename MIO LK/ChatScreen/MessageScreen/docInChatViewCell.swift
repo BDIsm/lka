@@ -17,6 +17,15 @@ class docInChatViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        initialize()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initialize()
+    }
+    
+    func initialize() {
         self.layer.masksToBounds = false
         
         self.backgroundColor = UIColor.white
@@ -35,26 +44,22 @@ class docInChatViewCell: UICollectionViewCell {
         numberLabel.frame = CGRect(x: 40, y: 10, width: (self.frame.width-60)/2, height: 20)
         numberLabel.textAlignment = .left
         numberLabel.textColor = UIColor.lightGray
-        numberLabel.font = UIFont(name: "Helvetica", size: 14)
+        numberLabel.font = UIFont(name: "Helvetica", size: 12)
         
         dateLabel.frame = CGRect(x: 50+numberLabel.frame.width, y: 10, width: (self.frame.width-60)/2, height: 20)
         dateLabel.textAlignment = .right
         dateLabel.textColor = UIColor.lightGray
-        dateLabel.font = UIFont(name: "Helvetica", size: 14)
+        dateLabel.font = UIFont(name: "Helvetica", size: 12)
         
         addressLabel.frame = CGRect(x: 10, y: 40, width: self.frame.width-20, height: self.frame.height-50)
         addressLabel.numberOfLines = 0
         addressLabel.textAlignment = .justified
         addressLabel.textColor = UIColor.gray
-        addressLabel.font = UIFont(name: "Helvetica", size: 11)
+        addressLabel.font = UIFont(name: "Helvetica", size: 9)
         
         self.addSubview(numberLabel)
         self.addSubview(dateLabel)
         self.addSubview(addressLabel)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override var isSelected: Bool {

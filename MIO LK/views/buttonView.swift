@@ -14,24 +14,20 @@ class buttonView: UIButton {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.initialize()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.initialize()
     }
     
-    init(frame: CGRect, title: String) {
-        super.init(frame: frame)
-        self.title = title
-        self.initialize(title: title)
-        self.layer.cornerRadius = 10
-    }
-    
-    func initialize(title: String) {
+    func initialize() {
         self.clipsToBounds = true
+        self.layer.cornerRadius = 10
         
-        self.setTitle(title, for: .normal)
-        self.titleLabel?.font = UIFont(name: "Helvetica", size: 14)
+        //self.setTitle(title, for: .normal)
+        self.titleLabel?.font = UIFont.preferredFont(forTextStyle: .caption2)
         self.setTitleColor(UIColor.white, for: .normal)
         self.setTitleColor(UIColor.lightGray, for: .highlighted)
         self.showsTouchWhenHighlighted = true
