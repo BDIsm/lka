@@ -39,12 +39,14 @@ class messageTextView: UIView, UITextViewDelegate {
         sendButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         sendButton.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin]
         
-        textInput.frame = CGRect(x: 8, y: 8, width: self.bounds.maxX-57, height: self.frame.height-16)
         textInput.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
         textInput.text = "Введите сообщение"
         textInput.textColor = UIColor.lightGray
         textInput.font = UIFont.preferredFont(forTextStyle: .callout)
-        
+        textInput.sizeToFit()
+        textInput.frame.size.width = self.bounds.maxX-57
+        textInput.frame.origin.x = 8
+        textInput.center.y = self.bounds.midY
         textInput.layer.cornerRadius = 10
         textInput.delegate = self
         textInput.autoresizingMask = [.flexibleRightMargin, .flexibleHeight, .flexibleWidth]
@@ -69,7 +71,8 @@ class messageTextView: UIView, UITextViewDelegate {
             self.frame = beginFrame
         }
         else {
-            textInput.text = ""
+            textInput.text = "Введите сообщение"
+            textInput.textColor = .lightGray
             textInput.resignFirstResponder()
             self.frame = beginFrame
         }
