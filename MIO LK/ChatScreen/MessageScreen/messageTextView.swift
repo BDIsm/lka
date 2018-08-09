@@ -24,17 +24,16 @@ class messageTextView: UIView, UITextViewDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        initialize()
-        beginFrame = frame
+        //initialize()
+        //beginFrame = aDecoder.accessibilityFrame
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initialize()
-        beginFrame = frame
+        self.backgroundColor = .white
     }
     
-    func initialize() {
+    func initialize(frame: CGRect) {
         sendButton.frame = CGRect(x: self.bounds.maxX-49, y: 0, width: 49, height: 49)
         sendButton.setImage(#imageLiteral(resourceName: "send"), for: .normal)
         sendButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
@@ -45,9 +44,10 @@ class messageTextView: UIView, UITextViewDelegate {
         textInput.text = "Введите сообщение"
         textInput.textColor = UIColor.lightGray
         textInput.font = UIFont.preferredFont(forTextStyle: .callout)
+        
         textInput.layer.cornerRadius = 10
         textInput.delegate = self
-        textInput.autoresizingMask = [.flexibleRightMargin, .flexibleHeight]
+        textInput.autoresizingMask = [.flexibleRightMargin, .flexibleHeight, .flexibleWidth]
     
         let line = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 1))
         line.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
@@ -55,6 +55,8 @@ class messageTextView: UIView, UITextViewDelegate {
         addSubview(line)
         addSubview(textInput)
         addSubview(sendButton)
+        
+        beginFrame = frame
     }
     
     @objc func sendTapped() {

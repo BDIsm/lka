@@ -30,6 +30,8 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collection.isScrollEnabled = true
+        
         self.refresher = UIRefreshControl()
         refresher.addTarget(self, action: #selector(refreshStream), for: .valueChanged)
         collection.addSubview(refresher)

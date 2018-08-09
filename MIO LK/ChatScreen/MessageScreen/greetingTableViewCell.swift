@@ -11,7 +11,6 @@ import UIKit
 enum chatType: Int {
     case curator
     case common
-    case unspecified
 }
 
 protocol chatTypeDelegate {

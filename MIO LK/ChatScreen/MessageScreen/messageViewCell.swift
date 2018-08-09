@@ -27,6 +27,10 @@ class MessageViewCell: UITableViewCell {
     
     func apply(message: classMessages) {
         messageLabel.text = message.message
+        
+        viewForMessage.frame.size.width = width(message.message, size: viewForMessage.frame.size)
+        viewForMessage.frame.origin.x = self.bounds.maxX-10-viewForMessage.frame.width
+        
         messageOut = message.out
         if messageOut == "0" {
             viewForMessage.frame.origin.x = 10
@@ -34,11 +38,22 @@ class MessageViewCell: UITableViewCell {
         setNeedsLayout()
     }
     
+    func width(_ message: String, size: CGSize) -> CGFloat {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        label.numberOfLines = 0
+        label.text = message
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.sizeToFit()
+        label.setNeedsDisplay()
+        
+        return label.frame.width+20
+    }
+    
     class func height(for message: classMessages) -> CGFloat {
         let maxSize = CGSize(width: 2*(UIScreen.main.bounds.size.width/3), height: CGFloat.greatestFiniteMagnitude)
         let messageHeight = height(forText: message.message, fontSize: 17, maxSize: maxSize)
         
-        return messageHeight + 32 + 16
+        return messageHeight + 20
     }
     
     private class func height(forText text: String, fontSize: CGFloat, maxSize: CGSize) -> CGFloat {
@@ -50,3 +65,4 @@ class MessageViewCell: UITableViewCell {
     }
 
 }
+

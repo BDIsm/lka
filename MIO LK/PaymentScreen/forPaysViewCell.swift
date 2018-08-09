@@ -19,9 +19,6 @@ class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollect
         array = [classPayments]()
         paysCollection.reloadData()
         line.isHidden = false
-        //array = []
-        //paysCollection.reloadData()
-        //paysCollection.layoutSubviews()
     }
     
     override init(frame: CGRect) {
@@ -35,17 +32,17 @@ class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollect
     func customize() {
         paysCollection.dataSource = self
         paysCollection.delegate = self
-        /*
-        self.layer.masksToBounds = false
-        
-        self.backgroundColor = UIColor.white
-        //Shape
-        self.layer.cornerRadius = 10.0
-        //Shadow
-        self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOpacity = 0.8
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 10.0*/
+//
+//        self.layer.masksToBounds = false
+//
+//        self.backgroundColor = UIColor.white
+//        //Shape
+//        self.layer.cornerRadius = 10.0
+//        //Shadow
+//        self.layer.shadowColor = UIColor.lightGray.cgColor
+//        self.layer.shadowOpacity = 0.8
+//        self.layer.shadowOffset = CGSize.zero
+//        self.layer.shadowRadius = 10.0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -17,17 +17,20 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var tapGesture = UITapGestureRecognizer()
     
-    var type: chatType = .unspecified
+    var type: chatType = .common
     var cellHeight = CGFloat()
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var messageTextView: messageTextView!
+    var messTextView = messageTextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        messageTextView.delegate = self
+        messTextView.delegate = self
+        messTextView.frame = (self.tabBarController?.tabBar.frame)!
+        messTextView.initialize(frame: messTextView.frame)
+        self.view.addSubview(messTextView)
         
-        tableView.frame.size.height = messageTextView.frame.minY-tableView.frame.minY
+        tableView.frame.size.height = messTextView.frame.minY-tableView.frame.minY
         
         if newChat {
         }
@@ -70,6 +73,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func heightChanged(height: CGFloat) {
+        print(height)
         tableView.frame.origin.y -= height
         if newChat {
             tableView.scrollToRow(at: IndexPath(row: messages.count, section: 0), at: .bottom, animated: true)
@@ -166,14 +170,14 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func keyboardWillChange(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            let height = messageTextView.frame.height
+            let height = messTextView.frame.height
             let viewOriginY = keyboardSize.origin.y-height
             
             let tHeight = tableView.frame.height
             let tableOriginY = keyboardSize.origin.y-tHeight-49
             
             UIView.animate(withDuration: 0.25) {
-                self.messageTextView.frame.origin.y = viewOriginY
+                self.messTextView.frame.origin.y = viewOriginY
                 self.tableView.frame.origin.y = tableOriginY
                 if self.newChat {
                     self.tableView.scrollToRow(at: IndexPath(row: self.messages.count, section: 0), at: .bottom, animated: true)
