@@ -24,8 +24,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         super.viewDidLoad()
         map.delegate = self
         
-        markerImage.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        markerImage.image = #imageLiteral(resourceName: "ZU")
+        //markerImage.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        //markerImage.image = #imageLiteral(resourceName: "ZU")
         
         if let savedDocs = defaults.object(forKey: "documents") as? Data {
             documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
@@ -90,7 +90,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                         let coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
                         
                         marker.position = coordinates
-                        marker.iconView = self.markerImage
+                        
+                        //marker.iconView = self.markerImage
                         
                         marker.title = id
                         marker.map = self.map

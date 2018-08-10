@@ -74,8 +74,7 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
                     self.request.getChatsFromBack(self.uuid, active: 1)
                 }))
                 ac.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { (_) in
-                    
-                    
+                    self.activity.stopAnimating()
                 }))
                 present(ac, animated: true)
             }

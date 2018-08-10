@@ -72,9 +72,8 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.paysCollection.reloadData()
+        //self.paysCollection.reloadData()
         noPays.removeFromSuperview()
-        
         // reset custom properties to default values
     }
     
@@ -135,13 +134,13 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
         if indexPath.section == 0 {
             if overdue != nil {
                 let element = overdue![indexPath.row]
-                cell.customize(image: #imageLiteral(resourceName: "red"), a: element.accrual, d: element.date)
+                cell.customize(element.status, element.accrual, element.date)
             }
         }
         else {
             if actual != nil {
                 let element = actual![indexPath.row]
-                cell.customize(image: #imageLiteral(resourceName: "blue"), a: element.accrual, d: element.date)
+                cell.customize(element.status, element.accrual, element.date)
             }
         }
         

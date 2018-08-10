@@ -39,6 +39,7 @@
 		BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03620BEB5D500AFEA47 /* taskManager.swift */; };
 		BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03820BEE66A00AFEA47 /* classRequest.swift */; };
 		BABBB3112119F30400405145 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABBB3102119F30400405145 /* NavigationViewController.swift */; };
+		BABBB313211D969800405145 /* gradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABBB312211D969800405145 /* gradientView.swift */; };
 		BACA2FFC20C82B4900BA6C90 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */; };
 		BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */; };
 		BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */; };
@@ -90,6 +91,7 @@
 		BAA7D03620BEB5D500AFEA47 /* taskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskManager.swift; sourceTree = "<group>"; };
 		BAA7D03820BEE66A00AFEA47 /* classRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classRequest.swift; sourceTree = "<group>"; };
 		BABBB3102119F30400405145 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		BABBB312211D969800405145 /* gradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gradientView.swift; sourceTree = "<group>"; };
 		BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewCell.swift; sourceTree = "<group>"; };
 		BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatReusableView.swift; sourceTree = "<group>"; };
@@ -136,9 +138,9 @@
 		BA38D24020C6F53E0011ECC3 /* PaymentScreen */ = {
 			isa = PBXGroup;
 			children = (
-				BA38D23C20C5B66A0011ECC3 /* paymentCell.swift */,
-				BA38D23A20C59F830011ECC3 /* forPaysViewCell.swift */,
 				BA38D23820C59EE60011ECC3 /* PayViewController.swift */,
+				BA38D23A20C59F830011ECC3 /* forPaysViewCell.swift */,
+				BA38D23C20C5B66A0011ECC3 /* paymentCell.swift */,
 			);
 			path = PaymentScreen;
 			sourceTree = "<group>";
@@ -146,10 +148,10 @@
 		BA38D24120C6F5530011ECC3 /* ContractScreen */ = {
 			isa = PBXGroup;
 			children = (
-				BA73451520C56561003E28C8 /* payViewCell.swift */,
-				BA73451120C53AE4003E28C8 /* docViewCell.swift */,
 				BA73450F20C53A44003E28C8 /* DocViewController.swift */,
 				BA38D23E20C6CE650011ECC3 /* settingReusableView.swift */,
+				BA73451120C53AE4003E28C8 /* docViewCell.swift */,
+				BA73451520C56561003E28C8 /* payViewCell.swift */,
 			);
 			path = ContractScreen;
 			sourceTree = "<group>";
@@ -243,6 +245,7 @@
 			children = (
 				BA9897F920CB0597002458FD /* unused */,
 				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
+				BABBB312211D969800405145 /* gradientView.swift */,
 				BA442D1B2111F5A900ABC2E5 /* offlineView.swift */,
 				BA442D132110A00100ABC2E5 /* authView.swift */,
 				BACA300520C97C9700BA6C90 /* buttonView.swift */,
@@ -411,6 +414,7 @@
 				BA38D23F20C6CE650011ECC3 /* settingReusableView.swift in Sources */,
 				BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */,
 				BAD9DE1021199EC100DC13B9 /* greetingTableViewCell.swift in Sources */,
+				BABBB313211D969800405145 /* gradientView.swift in Sources */,
 				BA442D142110A00100ABC2E5 /* authView.swift in Sources */,
 				BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */,
 				BA442D1A2111E3FF00ABC2E5 /* classMessages.swift in Sources */,

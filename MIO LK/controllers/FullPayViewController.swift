@@ -210,14 +210,16 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     }
     
     func setLabels(element: classPayments) {
-        switch element.status {
-        case "Оплачено":
-            imageBack.image = #imageLiteral(resourceName: "gray")
-        case "Не оплачено (неоплаченное начисление прошлого периода)":
-            imageBack.image = #imageLiteral(resourceName: "red")
-        default:
-            imageBack.image = #imageLiteral(resourceName: "blue")
-        }
+//        switch element.status {
+//        case "Оплачено":
+//            imageBack.image = #imageLiteral(resourceName: "gray")
+//        case "Не оплачено (неоплаченное начисление прошлого периода)":
+//            imageBack.image = #imageLiteral(resourceName: "red")
+//        default:
+//            imageBack.image = #imageLiteral(resourceName: "blue")
+//        }
+        let background = gradient.setColour(for: content, status: element.status)
+        content.layer.insertSublayer(background, at: 0)
         
         date.text = "от \(element.date)"
         type.text = element.type

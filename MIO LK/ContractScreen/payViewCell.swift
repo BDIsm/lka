@@ -14,13 +14,21 @@ class payViewCell: UICollectionViewCell {
     @IBOutlet weak var amount: UILabel!
     @IBOutlet weak var date: UILabel!
     
-    func customize(image: UIImage, a: String, d: String) {
+    var background = CALayer()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        background.removeFromSuperlayer()
+    }
+    
+    func customize(_ status: String, _ accrual: String, _ from: String) {
         layer.cornerRadius = 10
         
-        back.image = image
+        background = gradient.setColour(for: self, status: status)
+        self.layer.insertSublayer(background, at: 0)
         
-        amount.text = "\(a) ₽"
-        date.text = "от \(d)"
+        amount.text = "\(accrual) ₽"
+        date.text = "от \(from)"
     }
     
 }

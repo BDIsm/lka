@@ -62,15 +62,7 @@ class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! paymentViewCell
         
         let element = array[indexPath.row]
-        if element.status == "Оплачено" {
-            cell.customize(image: #imageLiteral(resourceName: "gray"), a: element.accrual, d: element.date)
-        }
-        else if element.status == "Не оплачено (неоплаченное начисление прошлого периода)" {
-            cell.customize(image: #imageLiteral(resourceName: "red"), a: element.accrual, d: element.date)
-        }
-        else {
-            cell.customize(image: #imageLiteral(resourceName: "blue"), a: element.accrual, d: element.date)
-        }
+        cell.customize(element.status, element.accrual, element.date)
         
         return cell
     }
