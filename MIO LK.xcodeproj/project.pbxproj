@@ -171,6 +171,7 @@
 				BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */,
 				BAA7D03420BDA14100AFEA47 /* viewPayment.swift */,
 				BACA300320C96C9800BA6C90 /* messageViewONE.swift */,
+				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
 			);
 			path = unused;
 			sourceTree = "<group>";
@@ -182,7 +183,6 @@
 				BA12214121184DC600C6D493 /* messageViewCell.swift */,
 				BAD9DE0F21199EC100DC13B9 /* greetingTableViewCell.swift */,
 				BA122143211870D800C6D493 /* messageTextView.swift */,
-				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
 				BACA300B20C98F4000BA6C90 /* collectionDoc.swift */,
 				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
 			);
@@ -220,6 +220,7 @@
 				BAA7D03D20C05CD600AFEA47 /* views */,
 				BAA7D03C20C05CB300AFEA47 /* class */,
 				BAA7D01D20BD94D200AFEA47 /* Assets.xcassets */,
+				BA9897F920CB0597002458FD /* unused */,
 				BAA7D01F20BD94D200AFEA47 /* LaunchScreen.storyboard */,
 				BAA7D02220BD94D200AFEA47 /* Info.plist */,
 			);
@@ -243,7 +244,6 @@
 		BAA7D03D20C05CD600AFEA47 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				BA9897F920CB0597002458FD /* unused */,
 				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
 				BABBB312211D969800405145 /* gradientView.swift */,
 				BA442D1B2111F5A900ABC2E5 /* offlineView.swift */,
@@ -259,9 +259,9 @@
 			children = (
 				BA442D1121109F9D00ABC2E5 /* AuthViewController.swift */,
 				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
+				BA9897FB20CC0B4B002458FD /* FullPayViewController.swift */,
 				BACA300720C983E400BA6C90 /* TabBarController.swift */,
 				BABBB3102119F30400405145 /* NavigationViewController.swift */,
-				BA9897FB20CC0B4B002458FD /* FullPayViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -575,7 +575,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE8697903662023FD0CC91D1 /* Pods-MIO LK.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4693P6HLX4;
@@ -598,7 +598,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75DBCCD35962EDEAEB19D1CD /* Pods-MIO LK.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4693P6HLX4;

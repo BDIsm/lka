@@ -90,6 +90,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                         let coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
                         
                         marker.position = coordinates
+                        marker.iconView?.backgroundColor = UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0)
                         
                         //marker.iconView = self.markerImage
                         

@@ -66,13 +66,12 @@ class docInChatViewCell: UICollectionViewCell {
         didSet {
             if self.isSelected
             {
-                select.image = #imageLiteral(resourceName: "blue")
-                select.clipsToBounds = true
+                select.backgroundColor = UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0)
+                //select.clipsToBounds = true
                 //select.backgroundColor = UIColor(red:0.60, green:0.78, blue:0.94, alpha:1.0)
             }
             else
             {
-                select.image = UIImage()
                 select.backgroundColor = UIColor(white: 0.95, alpha: 1)
             }
         }
