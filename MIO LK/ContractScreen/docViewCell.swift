@@ -15,6 +15,7 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var number: UILabel!
     @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var rent: UILabel!
     
     @IBOutlet weak var map: GMSMapView!
     @IBOutlet weak var paysCollection: UICollectionView!
@@ -36,6 +37,12 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     var docAddress: String? {
         didSet {
             address.text = docAddress
+        }
+    }
+    
+    var docRent: String? {
+        didSet {
+            rent.text = docRent
         }
     }
     

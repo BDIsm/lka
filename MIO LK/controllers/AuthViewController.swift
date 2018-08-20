@@ -8,8 +8,9 @@
 
 import UIKit
 import SafariServices
+import WebKit
 
-class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewControllerDelegate  {
+class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewControllerDelegate {
     let defaults = UserDefaults.standard
     
     private var uuid = String()
@@ -18,6 +19,8 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     private let urlNot = NSNotification.Name("url")
     
     let request = classRequest()
+    
+    @IBOutlet weak var content: UIView!
     
     @IBOutlet weak var formView: authView!
     @IBOutlet weak var esiaView: authView!
@@ -38,10 +41,10 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         
         let snils = snilsField.text!
         
-        if innField.text?.count == 10 {
-            if snils.count == 13 {
+        if innField.text?.count == 12 {
+            if snils.count == 11 {
                 uuid = UUID().uuidString
-                request.authorizeWithInn(uuid: uuid, inn: innField.text!, ogrn: snils)
+                request.authorizeWithInn(uuid: uuid, inn: innField.text!, snils: snils)
                 
                 NotificationCenter.default.addObserver(self, selector: #selector(authComplete(notification:)), name: authViaInnNot, object: nil)
                 
@@ -99,6 +102,18 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         // Dispose of any resources that can be recreated.
     }
     
+    func loadWebView(_ myURL: URL) {
+        let controller = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
+        self.addChildViewController(controller)
+        
+        // Настройка контроллера
+        self.view.addSubview(controller.view)
+        controller.setUp(myURL)
+        
+        controller.didMove(toParentViewController: self)
+    }
+    
+    
     // Авторизация через ввод данных в форму
     @objc func authComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
@@ -106,7 +121,7 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
                 let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
                     if notification.name == self.authViaInnNot {
-                        self.request.authorizeWithInn(uuid: self.uuid, inn: self.innField.text!, ogrn: self.snilsField.text!)
+                        self.request.authorizeWithInn(uuid: self.uuid, inn: self.innField.text!, snils: self.snilsField.text!)
                     }
                     else if notification.name == self.authViaEsiaNot {
                         self.request.checkAuth(self.uuid)
@@ -123,12 +138,11 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
                 print(authCode!+" – authCode")
                 
                 // -> Loading Docs
-                if authCode == "2"  {
+                if authCode == "2" {
                     // Авторизация прошла успешно
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "goToDownload", sender: self)
                     }
-                    //performSegue(withIdentifier: "goToDownload", sender: self)
                 }
                 // –> User not found
                 else {
@@ -165,23 +179,19 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
             else {
                 let urlString = userInfo["response"]
                 if let url = URL(string: urlString!) {
-                    let vc = SFSafariViewController(url: url)
-                    vc.delegate = self
-                    vc.title = "Авторизация"
-                    
-                    if var topController = UIApplication.shared.keyWindow?.rootViewController {
-                        while let presentedViewController = topController.presentedViewController {
-                            topController = presentedViewController
-                            topController.title = "Авторизация"
-                        }
-                        
-                        topController.present(vc, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self.loadWebView(url)
                     }
+                    //let vc = SFSafariViewController(url: url)
+                    //vc.delegate = self
+                    //vc.title = "Авторизация"
+                    //present(vc, animated: true)
                 }
                 NotificationCenter.default.removeObserver(self, name: urlNot, object: nil)
             }
         }
     }
+    
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         request.checkAuth(uuid)
@@ -191,14 +201,12 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let text = textField.text! as NSString
         let replaceString = text.replacingCharacters(in: range, with: string) as NSString
-
-        print(range.location, range.length, range.lowerBound, range.upperBound)
         
         if textField == snilsField {
-            return replaceString.length <= 13
+            return replaceString.length <= 11
         }
         else {
-            return replaceString.length <= 10
+            return replaceString.length <= 12
         }
     }
     

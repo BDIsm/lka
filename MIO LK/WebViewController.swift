@@ -1,53 +1,20 @@
 //
-//  FullPayViewController.swift
+//  WebViewController.swift
 //  MIO LK
 //
-//  Created by Исматуллоев Бежан on 09.06.2018.
+//  Created by Исматуллоев Бежан on 20.08.2018.
 //  Copyright © 2018 Исматуллоев Бежан. All rights reserved.
 //
 
 import UIKit
-import SafariServices
+import WebKit
 
-class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
-    let defaults = UserDefaults.standard
+class WebViewController: UIViewController, WKUIDelegate {
+    @IBOutlet weak var wk: WKWebView!
     
     var close = Bool()
     
-    var documents = [classDocuments]()
-    
-    @IBOutlet weak var content: UIView!
-    @IBOutlet weak var imageBack: UIImageView!
-    
-    @IBOutlet weak var number: UILabel!
-    @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var type: UILabel!
-    @IBOutlet weak var period: UILabel!
-    @IBOutlet weak var document: UILabel!
-    
-    @IBOutlet weak var payButton: UIButton!
-    
-    @IBAction func pressPay(_ sender: UIButton) {
-        let urlString = "https://www.gosuslugi.ru/help/faq/avtovladelcam/2015"
-        if let url = URL(string: urlString) {
-            let vc = SFSafariViewController(url: url)
-            vc.delegate = self
-            vc.title = "Оплата"
-            
-            UIApplication.shared.statusBarStyle = .default
-            
-            if var topController = UIApplication.shared.keyWindow?.rootViewController {
-                while let presentedViewController = topController.presentedViewController {
-                    topController = presentedViewController
-                    topController.title = "Оплата"
-                }
-                
-                topController.present(vc, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    @IBAction func viewIsMoving(_ sender: UIPanGestureRecognizer) {
+    @IBAction func move(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         let edgePoint = UIScreen.main.bounds.height*9/40
         
@@ -63,20 +30,14 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
                 }
                 else {
                     self.view.frame.origin.y += translation.y
-                    if let vc = parent as? DocViewController {
+                    if let vc = parent as? AuthViewController {
                         scaleOnDragg(view: vc.content, frame: vc.view.frame, edge: edgePoint) // увеличение заднего контроллера
-                    }
-                    else if let vc = parent as? PayViewController {
-                        scaleOnDragg(view: vc.content, frame: vc.view.frame, edge: edgePoint)
                     }
                 }
                 
                 if sender.state == .ended {
-                    if let vc = parent as? DocViewController {
+                    if let vc = parent as? AuthViewController {
                         animateOnDraggingEnding(view: vc.content, frame: vc.view.frame) // анимация, если контроллер не закрыли
-                    }
-                    else if let vc = parent as? PayViewController {
-                        animateOnDraggingEnding(view: vc.content, frame: vc.view.frame)
                     }
                 }
             }
@@ -87,63 +48,33 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let savedDocs = defaults.object(forKey: "documents") as? Data {
-            documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
-        }
         
         // Настройка контроллера
         self.view.layer.masksToBounds = false
         self.view.layer.cornerRadius = 10
         
-        content.layer.masksToBounds = false
-        content.layer.cornerRadius = 10
-        
-        imageBack.layer.cornerRadius = 10
-        date.layer.cornerRadius = 10
-        number.layer.cornerRadius = 10
-        
-        // Углы у кнопки
-        let radiusPath = UIBezierPath(roundedRect: payButton.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = radiusPath.cgPath
-        maskLayer.frame = payButton.bounds
-        
-        payButton.layer.mask = maskLayer
-        
+        wk.uiDelegate = self
         // Do any additional setup after loading the view.
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        UIApplication.shared.statusBarStyle = .lightContent
-    }
-    
     override func didMove(toParentViewController parent: UIViewController?) {
-        if let vc = parent! as? DocViewController {
-            moveTo(view: vc.content, frame: vc.view.frame)
-        }
-        else if let vc = parent! as? PayViewController {
+        if let vc = parent as? AuthViewController {
             moveTo(view: vc.content, frame: vc.view.frame)
         }
     }
     
     override func removeFromParentViewController() {
-        if let vc = parent as? DocViewController {
-            removeFrom(view: vc.content, frame: vc.view.frame)
-        }
-        else if let vc = parent as? PayViewController {
+        if let vc = parent as? AuthViewController {
             removeFrom(view: vc.content, frame: vc.view.frame)
         }
     }
     
     func moveTo(view: UIView, frame: CGRect) {
-        self.tabBarController?.tabBar.isHidden = true
-        
         let scaleX = 1-20/frame.width
         let scaleY = 1-40/frame.height
         
@@ -215,18 +146,15 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         }
     }
     
-    func setLabels(element: classPayments) {
-        let background = gradient.setColour(for: content, status: element.status)
-        content.layer.insertSublayer(background, at: 0)
+    func setUp(_ myUrl: URL) {
+        let js = "document.getElementsByClassName('form-control btn btn-primary wide btn--esia')[0].click();"
         
-        if let contract = documents.first(where: {$0.id == element.docId}) {
-            number.text = contract.number
-            document.text = contract.address
-        }
-        
-        date.text = "от \(element.date)"
-        type.text = element.type
-        period.text = element.period
+        let myRequest = URLRequest(url: myUrl)
+        wk.load(myRequest)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.wk.evaluateJavaScript(js) { (result, error) in
+            }
+        })
     }
     
     func shadow(opacity: Float, color: UIColor, radius: CGFloat) {
@@ -235,21 +163,17 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         self.view.layer.shadowOffset = CGSize.zero
         self.view.layer.shadowRadius = radius
         
-        //Тень
-        self.content.layer.shadowColor = color.cgColor
-        self.content.layer.shadowOpacity = opacity
-        self.content.layer.shadowOffset = CGSize.zero
-        self.content.layer.shadowRadius = radius
     }
     
+
     /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
 }

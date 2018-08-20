@@ -11,6 +11,7 @@
 		BA12214221184DC600C6D493 /* messageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA12214121184DC600C6D493 /* messageViewCell.swift */; };
 		BA122144211870D800C6D493 /* messageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA122143211870D800C6D493 /* messageTextView.swift */; };
 		BA17F69C20D267A9008EDF09 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = BA17F69B20D267A9008EDF09 /* style.json */; };
+		BA1F3A8B212AF755007801FD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1F3A8A212AF755007801FD /* WebViewController.swift */; };
 		BA38D23920C59EE60011ECC3 /* PayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D23820C59EE60011ECC3 /* PayViewController.swift */; };
 		BA38D23B20C59F830011ECC3 /* forPaysViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D23A20C59F830011ECC3 /* forPaysViewCell.swift */; };
 		BA38D23D20C5B66A0011ECC3 /* paymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38D23C20C5B66A0011ECC3 /* paymentCell.swift */; };
@@ -61,6 +62,7 @@
 		BA12214121184DC600C6D493 /* messageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageViewCell.swift; sourceTree = "<group>"; };
 		BA122143211870D800C6D493 /* messageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageTextView.swift; sourceTree = "<group>"; };
 		BA17F69B20D267A9008EDF09 /* style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
+		BA1F3A8A212AF755007801FD /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BA38D23820C59EE60011ECC3 /* PayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayViewController.swift; sourceTree = "<group>"; };
 		BA38D23A20C59F830011ECC3 /* forPaysViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forPaysViewCell.swift; sourceTree = "<group>"; };
 		BA38D23C20C5B66A0011ECC3 /* paymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paymentCell.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			children = (
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
+				BA1F3A8A212AF755007801FD /* WebViewController.swift */,
 				BA75BBE620DAB16F006B03C6 /* MapScreen */,
 				BACA300D20CA86C900BA6C90 /* ChatScreen */,
 				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
@@ -428,6 +431,7 @@
 				BACA300620C97C9700BA6C90 /* buttonView.swift in Sources */,
 				BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */,
 				BA5A341C20D9561F001B6417 /* MapViewController.swift in Sources */,
+				BA1F3A8B212AF755007801FD /* WebViewController.swift in Sources */,
 				BACA300220C840DD00BA6C90 /* MessageViewController.swift in Sources */,
 				BAA7D02B20BD96F700AFEA47 /* classDocuments.swift in Sources */,
 				BACA2FFC20C82B4900BA6C90 /* SupportViewController.swift in Sources */,
@@ -575,7 +579,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE8697903662023FD0CC91D1 /* Pods-MIO LK.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4693P6HLX4;
@@ -598,7 +602,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75DBCCD35962EDEAEB19D1CD /* Pods-MIO LK.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4693P6HLX4;

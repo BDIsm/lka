@@ -41,9 +41,12 @@ class classRequest {
     }
     
     public func authorize(uuid: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/init?uuid=\(uuid)")
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/init?uuid=\(uuid)")!
         
-        _ = TaskManager.shared.dataTask(with: url!) { (data, response, error) in
+        var quest = URLRequest(url: url)
+        quest.timeoutInterval = 10.0
+        
+        let authSession = URLSession.shared.dataTask(with: quest) { (data, response, error) in
             if error != nil {
                 NotificationCenter.default.post(name: self.urlNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
             }
@@ -67,13 +70,15 @@ class classRequest {
                 }
             }
         }
+        authSession.resume()
     }
     
-    public func authorizeWithInn(uuid: String, inn: String, ogrn: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/review?uuid=\(uuid)&inn=\(inn)&snils&ogrn=\(ogrn)")!
+    public func authorizeWithInn(uuid: String, inn: String, snils: String) {
+        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/review?uuid=\(uuid)&inn=\(inn)&snils=\(snils)&ogrn")!
         
         var quest = URLRequest(url: url)
         quest.httpMethod = "POST"
+        quest.timeoutInterval = 5.0
         
         let session = URLSession.shared.dataTask(with: quest) { (data, response, error) in
             if error != nil {

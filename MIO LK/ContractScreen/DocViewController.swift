@@ -65,17 +65,9 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         }
     }
     
-    // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return documents.count
     }
-    /*
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.width-20
-        let multiple = width/300
-     
-        return CGSize(width: width, height: 400*multiple)
-    }*/
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! docViewCell
@@ -117,17 +109,13 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "reusableView", for: indexPath) as! settingReusableView
         
-        //switch kind {
-        //case UICollectionElementKindSectionHeader:
-            let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "reusableView", for: indexPath) as! settingReusableView
-            
-            reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
-            reusableview.decrease()
-            
-            return reusableview
-        //default:  fatalError("Unexpected element kind")
-        //}
+        reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
+        reusableview.decrease()
+        
+        return reusableview
+        
     }
     // MARK: - UICollectionViewDelegate protocol
     
