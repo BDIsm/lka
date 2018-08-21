@@ -181,7 +181,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="481.875" y="-1328.8732394366198"/>
+            <point key="canvasLocation" x="442" y="-1330"/>
         </scene>
         <!--Doc View Controller-->
         <scene sceneID="lB8-f0-ta9">
@@ -595,7 +595,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1509.375" y="-1329.9295774647887"/>
+            <point key="canvasLocation" x="-516" y="-1330"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="h9Q-Hj-AHK">
@@ -762,7 +762,7 @@
                         <barButtonItem key="backBarButtonItem" id="Apf-HY-yrl">
                             <color key="tintColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="addChat" style="plain" id="xse-kQ-Mcz">
+                        <barButtonItem key="rightBarButtonItem" image="addChat" id="xse-kQ-Mcz">
                             <inset key="imageInsets" minX="0.0" minY="0.0" maxX="-35" maxY="0.0"/>
                             <inset key="largeContentSizeImageInsets" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <connections>
@@ -1159,20 +1159,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1rn-wE-DOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1509.375" y="981.33802816901414"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="PX1-5X-kUF">
-            <objects>
-                <viewController id="cOf-18-1qU" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ect-iD-qw5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="oi3-N8-nhr"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aQf-Qy-Dkw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>
