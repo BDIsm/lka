@@ -26,7 +26,6 @@ class buttonView: UIButton {
         self.clipsToBounds = true
         self.layer.cornerRadius = 10
         
-        //self.setTitle(title, for: .normal)
         self.titleLabel?.font = UIFont.preferredFont(forTextStyle: .caption2)
         self.setTitleColor(UIColor.white, for: .normal)
         self.setTitleColor(UIColor.lightGray, for: .highlighted)

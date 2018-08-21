@@ -9,10 +9,25 @@
 import UIKit
 import WebKit
 
-class WebViewController: UIViewController, WKUIDelegate {
-    @IBOutlet weak var wk: WKWebView!
+class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+    private let wkDismissNot = Notification.Name("wkDismiss")
     
     var close = Bool()
+    
+    var mosregURL: URL? {
+        didSet {
+            let myRequest = URLRequest(url: mosregURL!)
+            wk.load(myRequest)
+            wk.isHidden = true
+        }
+    }
+    
+    var esiaURL: URL?
+    
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var wk: WKWebView!
+    @IBOutlet weak var progress: UIProgressView!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     
     @IBAction func move(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
@@ -54,7 +69,30 @@ class WebViewController: UIViewController, WKUIDelegate {
         self.view.layer.cornerRadius = 10
         
         wk.uiDelegate = self
+        wk.navigationDelegate = self
+        
+        wk.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         // Do any additional setup after loading the view.
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            progress.progress = Float(wk.estimatedProgress)
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let shadowLayer = CAShapeLayer()
+        shadowLayer.path = UIBezierPath(roundedRect: topView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10)).cgPath
+        shadowLayer.fillColor = UIColor.white.cgColor
+        shadowLayer.shadowColor = UIColor.lightGray.cgColor
+        shadowLayer.shadowPath = shadowLayer.path
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
+        shadowLayer.shadowOpacity = 0.8
+        shadowLayer.shadowRadius = 2.0
+        
+        topView.layer.mask = shadowLayer
+        topView.layer.insertSublayer(shadowLayer, below: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,8 +108,37 @@ class WebViewController: UIViewController, WKUIDelegate {
     
     override func removeFromParentViewController() {
         if let vc = parent as? AuthViewController {
+            NotificationCenter.default.post(name: wkDismissNot, object: nil)
             removeFrom(view: vc.content, frame: vc.view.frame)
         }
+    }
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        let currentURL = parseURL(wk.url!)
+        
+        if currentURL[1] == "mob.razvitie-mo.ru" {
+            removeFromParentViewController()
+        }
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        let currentURL = parseURL(wk.url!)
+    
+        if currentURL[1] == "sso.mosreg.ru" {
+            let javaScriptClick = "document.getElementsByClassName('form-control btn btn-primary wide btn--esia')[0].click();"
+            self.wk.evaluateJavaScript(javaScriptClick)
+        }
+        else if currentURL[1] == "esia.gosuslugi.ru" && currentURL[2] == "idp" {
+            wk.isHidden = false
+            activity.stopAnimating()
+        }
+    }
+    
+    func parseURL(_ myUrl: URL) -> [String.SubSequence] {
+        let urlStr = myUrl.absoluteString
+        let partsOfUrl = urlStr.split(separator: "/")
+        print(partsOfUrl)
+        return partsOfUrl
     }
     
     func moveTo(view: UIView, frame: CGRect) {
@@ -100,7 +167,7 @@ class WebViewController: UIViewController, WKUIDelegate {
     func removeFrom(view: UIView, frame: CGRect) {
         self.tabBarController?.tabBar.isHidden = false
         
-        self.shadow(opacity: 0, color: .white, radius: 0)
+        self.shadow(opacity: 0, color: .clear, radius: 0)
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
             let transformScale = CGAffineTransform(scaleX: 1, y: 1)
@@ -142,18 +209,6 @@ class WebViewController: UIViewController, WKUIDelegate {
             
             // Анимация child контроллера
             self.view.frame.origin.y = 30
-        }) { (true) in
-        }
-    }
-    
-    func setUp(_ myUrl: URL) {
-        let js = "document.getElementsByClassName('form-control btn btn-primary wide btn--esia')[0].click();"
-        
-        let myRequest = URLRequest(url: myUrl)
-        wk.load(myRequest)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-            self.wk.evaluateJavaScript(js) { (result, error) in
-            }
         })
     }
     
@@ -162,7 +217,6 @@ class WebViewController: UIViewController, WKUIDelegate {
         self.view.layer.shadowOpacity = opacity
         self.view.layer.shadowOffset = CGSize.zero
         self.view.layer.shadowRadius = radius
-        
     }
     
 

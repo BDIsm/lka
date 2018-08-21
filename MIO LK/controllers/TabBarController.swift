@@ -9,7 +9,7 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    let line = UIImageView(image: #imageLiteral(resourceName: "blue"))
+    let line = UIImageView()
     
     var offline = Bool()
 
@@ -21,6 +21,7 @@ class TabBarController: UITabBarController {
         self.tabBar.addSubview(fullLine)
         
         line.frame = CGRect(x: 0, y: -1, width: self.tabBar.frame.width/4, height: 1)
+        line.backgroundColor = UIColor(white: 0.95, alpha: 1)
         self.tabBar.addSubview(line)
         
         let image = UIImageView(frame: self.tabBar.bounds.insetBy(dx: 0, dy: -1))

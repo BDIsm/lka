@@ -29,7 +29,7 @@ class authView: UIView {
         //Shadow
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowOpacity = 0.8
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 10.0
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+        self.layer.shadowRadius = 3
     }
 }

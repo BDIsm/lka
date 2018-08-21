@@ -12,7 +12,6 @@ class classRequest {
     let defaults = UserDefaults.standard
     
     private let authNot = NSNotification.Name("authViaEsia")
-    private let authWithInnNot = NSNotification.Name("authViaInn")
     private let urlNot = NSNotification.Name("url")
     
     private let docNot = NSNotification.Name("documents")
@@ -44,7 +43,7 @@ class classRequest {
         let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/init?uuid=\(uuid)")!
         
         var quest = URLRequest(url: url)
-        quest.timeoutInterval = 10.0
+        quest.timeoutInterval = 5.0
         
         let authSession = URLSession.shared.dataTask(with: quest) { (data, response, error) in
             if error != nil {
@@ -71,40 +70,6 @@ class classRequest {
             }
         }
         authSession.resume()
-    }
-    
-    public func authorizeWithInn(uuid: String, inn: String, snils: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/review?uuid=\(uuid)&inn=\(inn)&snils=\(snils)&ogrn")!
-        
-        var quest = URLRequest(url: url)
-        quest.httpMethod = "POST"
-        quest.timeoutInterval = 5.0
-        
-        let session = URLSession.shared.dataTask(with: quest) { (data, response, error) in
-            if error != nil {
-                NotificationCenter.default.post(name: self.authWithInnNot, object: nil, userInfo: ["error": error!.localizedDescription, "response": "nil"])
-            }
-            else if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 200 {
-                    if let content = data {
-                        do {
-                            if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
-                                print(myJsonObject)
-                                if let authCode = myJsonObject["Code:"] as? String {
-                                    NotificationCenter.default.post(name: self.authWithInnNot, object: nil, userInfo: ["error": "nil", "response": authCode])
-                                }
-                            }
-                        }
-                        catch {
-                        }
-                    }
-                }
-                else {
-                    NotificationCenter.default.post(name: self.authWithInnNot, object: nil, userInfo: ["error": "\(httpResponse.statusCode)", "response": "nil"])
-                }
-            }
-        }
-        session.resume()
     }
     
     public func checkAuth(_ uuid: String) {
@@ -151,9 +116,6 @@ class classRequest {
                 if httpResponse.statusCode == 200 {
                     if let content = data {
                         do {
-//                            guard let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSMutableDictionary else {
-//                                throw NetworkError.invalidResponse
-//                            }
                             if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSMutableDictionary {
                                 print(myJsonObject)
                                 if let response = myJsonObject["response"] as? NSDictionary {                                    if let items = response["items"] as? NSArray {

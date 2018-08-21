@@ -519,72 +519,6 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O1R-qZ-4ex" customClass="authView" customModule="MIO_LK" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="356" width="288" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ok3-Ul-0zR">
-                                                <rect key="frame" x="-1" y="0.0" width="288" height="64"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <state key="normal" title="Вход для юридических лиц">
-                                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="authAsALaw:" destination="CWH-4L-JQR" eventType="touchUpInside" id="Ch9-oY-B35"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DWU-Bl-Lmo" customClass="authView" customModule="MIO_LK" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="84" width="288" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ИНН" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ive-4n-gbH">
-                                                <rect key="frame" x="25" y="14" width="239" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="CWH-4L-JQR" id="XKp-Zu-h3T"/>
-                                                </connections>
-                                            </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3y-dI-NnA">
-                                                <rect key="frame" x="25" y="90" width="239" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <state key="normal" title="Войти">
-                                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="authViaInn:" destination="CWH-4L-JQR" eventType="touchUpInside" id="uBh-ng-15k"/>
-                                                </connections>
-                                            </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="СНИЛС" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GAa-3e-EyL">
-                                                <rect key="frame" x="25" y="52" width="239" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="CWH-4L-JQR" id="RDH-Xx-YqL"/>
-                                                </connections>
-                                            </textField>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -594,14 +528,8 @@
                     </view>
                     <connections>
                         <outlet property="content" destination="zvy-IH-Nj9" id="deN-Xy-yqV"/>
-                        <outlet property="enterButton" destination="d3y-dI-NnA" id="Sgl-AX-GEc"/>
                         <outlet property="esiaButton" destination="7Y5-V8-DMG" id="ncg-JW-axp"/>
                         <outlet property="esiaView" destination="Gr0-1r-YgV" id="guh-Dv-1wo"/>
-                        <outlet property="formView" destination="DWU-Bl-Lmo" id="Zog-rc-oB2"/>
-                        <outlet property="innField" destination="ive-4n-gbH" id="ecL-Co-Oxi"/>
-                        <outlet property="lawButton" destination="ok3-Ul-0zR" id="VvH-V5-8Im"/>
-                        <outlet property="lawView" destination="O1R-qZ-4ex" id="imo-ns-B7O"/>
-                        <outlet property="snilsField" destination="GAa-3e-EyL" id="nzH-Xs-x5P"/>
                         <segue destination="q50-J9-vf1" kind="presentation" identifier="goToDownload" id="7mc-jB-i1E"/>
                     </connections>
                 </viewController>
@@ -613,12 +541,12 @@
         <scene sceneID="gUc-nS-fuL">
             <objects>
                 <viewController storyboardIdentifier="webView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="e9U-Ay-YO0" customClass="WebViewController" customModule="MIO_LK" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ebI-0e-ZPh">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="ebI-0e-ZPh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="weA-qC-Psq">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            <wkWebView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="weA-qC-Psq">
+                                <rect key="frame" x="0.0" y="48" width="320" height="520"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -627,23 +555,43 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="SnN-kI-RGQ">
+                                <rect key="frame" x="151" y="263" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.0" green="0.58823529409999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                            <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kE1-vZ-1lw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RsY-QK-MVi">
+                                        <rect key="frame" x="0.0" y="46" width="320" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <color key="progressTintColor" red="0.0" green="0.58823529409999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </progressView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="AKM-8e-b5z"/>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="pSK-vU-pOQ" appends="YES" id="dsr-H6-1ef"/>
+                            <outletCollection property="gestureRecognizers" destination="wlj-9F-Qsp" appends="YES" id="4DQ-Q5-9iT"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="gYM-FL-dO5"/>
                     <connections>
+                        <outlet property="activity" destination="SnN-kI-RGQ" id="hr6-8l-Uk8"/>
+                        <outlet property="progress" destination="RsY-QK-MVi" id="Vqo-Uh-f6x"/>
+                        <outlet property="topView" destination="kE1-vZ-1lw" id="gml-w4-vdA"/>
                         <outlet property="wk" destination="weA-qC-Psq" id="h2W-PU-ORo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adQ-ay-u4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="pSK-vU-pOQ">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="wlj-9F-Qsp">
                     <connections>
-                        <action selector="move:" destination="e9U-Ay-YO0" id="jtT-2q-3Yt"/>
+                        <action selector="move:" destination="e9U-Ay-YO0" id="U7g-Zu-Ny5"/>
                     </connections>
                 </panGestureRecognizer>
             </objects>
