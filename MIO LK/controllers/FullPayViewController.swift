@@ -14,6 +14,22 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     
     var close = Bool()
     
+    var element: classPayments? {
+        didSet {
+            let background = gradient.setColour(for: content, status: element!.status)
+            content.layer.insertSublayer(background, at: 0)
+            
+            if let contract = documents.first(where: {$0.id == element!.docId}) {
+                number.text = contract.number
+                document.text = contract.address
+            }
+            
+            date.text = "от \(element!.date)"
+            type.text = element!.type
+            period.text = element!.period
+        }
+    }
+    
     var documents = [classDocuments]()
     
     @IBOutlet weak var content: UIView!
@@ -28,22 +44,14 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     @IBOutlet weak var payButton: UIButton!
     
     @IBAction func pressPay(_ sender: UIButton) {
-        let urlString = "https://www.gosuslugi.ru/help/faq/avtovladelcam/2015"
-        if let url = URL(string: urlString) {
-            let vc = SFSafariViewController(url: url)
-            vc.delegate = self
-            vc.title = "Оплата"
-            
-            UIApplication.shared.statusBarStyle = .default
-            
-            if var topController = UIApplication.shared.keyWindow?.rootViewController {
-                while let presentedViewController = topController.presentedViewController {
-                    topController = presentedViewController
-                    topController.title = "Оплата"
-                }
-                
-                topController.present(vc, animated: true, completion: nil)
-            }
+        print(element?.uin)
+        if element?.uin != "<null>" {
+            performSegue(withIdentifier: "toPayURL", sender: self)
+        }
+        else {
+            let ac = UIAlertController(title: nil, message: "УИН не найден", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+            present(ac, animated: true)
         }
     }
     
@@ -134,10 +142,10 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     
     override func removeFromParentViewController() {
         if let vc = parent as? DocViewController {
-            removeFrom(view: vc.content, frame: vc.view.frame)
+            removeFrom(view: vc.content, frame: vc.view.frame, bg: vc.bgView)
         }
         else if let vc = parent as? PayViewController {
-            removeFrom(view: vc.content, frame: vc.view.frame)
+            removeFrom(view: vc.content, frame: vc.view.frame, bg: vc.bgView)
         }
     }
     
@@ -166,7 +174,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         }
     }
     
-    func removeFrom(view: UIView, frame: CGRect) {
+    func removeFrom(view: UIView, frame: CGRect, bg: UIView) {
         self.tabBarController?.tabBar.isHidden = false
         
         self.shadow(opacity: 0, color: .white, radius: 0)
@@ -180,10 +188,17 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
             
             // Закругление углов
             view.layer.cornerRadius = 0
+            
+            bg.alpha = 0
+            
             // Анимация child контроллера
             self.view.frame.origin.y = frame.maxY-40
         }) { (true) in
             self.view.removeFromSuperview()
+            
+            bg.removeFromSuperview()
+            bg.alpha = 1
+            
             view.isUserInteractionEnabled = true
         }
     }
@@ -215,25 +230,11 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         }
     }
     
-    func setLabels(element: classPayments) {
-        let background = gradient.setColour(for: content, status: element.status)
-        content.layer.insertSublayer(background, at: 0)
-        
-        if let contract = documents.first(where: {$0.id == element.docId}) {
-            number.text = contract.number
-            document.text = contract.address
-        }
-        
-        date.text = "от \(element.date)"
-        type.text = element.type
-        period.text = element.period
-    }
-    
     func shadow(opacity: Float, color: UIColor, radius: CGFloat) {
-        self.view.layer.shadowColor = color.cgColor
-        self.view.layer.shadowOpacity = opacity
-        self.view.layer.shadowOffset = CGSize.zero
-        self.view.layer.shadowRadius = radius
+//        self.view.layer.shadowColor = color.cgColor
+//        self.view.layer.shadowOpacity = opacity
+//        self.view.layer.shadowOffset = CGSize.zero
+//        self.view.layer.shadowRadius = radius
         
         //Тень
         self.content.layer.shadowColor = color.cgColor
@@ -242,14 +243,15 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         self.content.layer.shadowRadius = radius
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? UINavigationController {
+            if let wkVc = vc.topViewController as? BrowserViewController {
+                UIApplication.shared.statusBarStyle = .default
+                wkVc.payURL = URL(string: "https://www.gosuslugi.ru/payment/\(element?.uin ?? "")")
+            }
+        }
+    }
     
 }

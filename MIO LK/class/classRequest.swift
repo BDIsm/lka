@@ -193,8 +193,9 @@ class classRequest {
                                                 let period = pay["period"] as AnyObject
                                                 let status = pay["status"] as AnyObject
                                                 let type = pay["type"] as AnyObject
+                                                let uin = pay["uin"] as AnyObject
                                                 
-                                                let element = classPayments(id: "\(idPay)", accrual: "\(accrual)", date: "\(date)", payment: "\(payment)", period: "\(period)", status: "\(status)", type: "\(type)", docId: "\(id)")
+                                                let element = classPayments(id: "\(idPay)", accrual: "\(accrual)", date: "\(date)", payment: "\(payment)", period: "\(period)", status: "\(status)", type: "\(type)", docId: "\(id)", uin: "\(uin)")
                                                 
                                                 switch "\(status)" {
                                                 case "Не оплачено (неоплаченное начисление прошлого периода)":

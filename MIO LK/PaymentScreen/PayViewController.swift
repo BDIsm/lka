@@ -25,6 +25,8 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var content: UIView!
     @IBOutlet weak var collection: UICollectionView!
     
+    let bgView = UIView()
+    
     var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -87,9 +89,13 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
                 self.addChildViewController(controller)
                 
+                bgView.frame = self.view.bounds
+                bgView.backgroundColor = UIColor(white: 0.3, alpha: 0.5)
+                self.view.addSubview(bgView)
+                
                 // Настройка контроллера
                 self.view.addSubview(controller.view)
-                controller.setLabels(element: element)
+                controller.element = element
                 
                 controller.didMove(toParentViewController: self)
             }

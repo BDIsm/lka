@@ -26,6 +26,8 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     @IBOutlet weak var esiaView: authView!
     @IBOutlet weak var esiaButton: UIButton!
     
+    let bgView = UIView()
+    
     let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     @IBAction func authViaEsia(_ sender: UIButton) {
@@ -48,14 +50,15 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     }
     
     func loadWebView(_ myURL: URL) {
+        bgView.frame = self.view.bounds
+        bgView.backgroundColor = UIColor(white: 0.3, alpha: 0.5)
+        self.view.addSubview(bgView)
+        
         let controller = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
         self.addChildViewController(controller)
-        
-        // Настройка контроллера
         self.view.addSubview(controller.view)
         
         controller.mosregURL = myURL
-        
         controller.didMove(toParentViewController: self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(wkDismiss), name: wkDismissNot, object: nil)
@@ -85,9 +88,18 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         }
     }
     
-    @objc func wkDismiss() {
-        request.checkAuth(uuid)
-        NotificationCenter.default.addObserver(self, selector: #selector(authComplete(notification:)), name: authViaEsiaNot, object: nil)
+    @objc func wkDismiss(notification: Notification) {
+        bgView.removeFromSuperview()
+        
+        if let userInfo = notification.userInfo as? Dictionary<String, Bool> {
+            if userInfo["authCheck"]! {
+                request.checkAuth(uuid)
+                NotificationCenter.default.addObserver(self, selector: #selector(authComplete(notification:)), name: authViaEsiaNot, object: nil)
+            }
+            else {
+                self.stopIndicator()
+            }
+        }
     }
     
     // Авторизация через ввод данных в форму

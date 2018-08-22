@@ -22,6 +22,8 @@
 		BA442D182111E15C00ABC2E5 /* classChats.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D172111E15B00ABC2E5 /* classChats.swift */; };
 		BA442D1A2111E3FF00ABC2E5 /* classMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D192111E3FF00ABC2E5 /* classMessages.swift */; };
 		BA442D1C2111F5A900ABC2E5 /* offlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D1B2111F5A900ABC2E5 /* offlineView.swift */; };
+		BA485DC1212D78740067D932 /* arrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485DC0212D78740067D932 /* arrowView.swift */; };
+		BA485DC3212DB0FD0067D932 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485DC2212DB0FD0067D932 /* BrowserViewController.swift */; };
 		BA5A341C20D9561F001B6417 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A341B20D9561F001B6417 /* MapViewController.swift */; };
 		BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73450F20C53A44003E28C8 /* DocViewController.swift */; };
 		BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73451120C53AE4003E28C8 /* docViewCell.swift */; };
@@ -73,6 +75,8 @@
 		BA442D172111E15B00ABC2E5 /* classChats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classChats.swift; sourceTree = "<group>"; };
 		BA442D192111E3FF00ABC2E5 /* classMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classMessages.swift; sourceTree = "<group>"; };
 		BA442D1B2111F5A900ABC2E5 /* offlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = offlineView.swift; path = "MIO LK/views/offlineView.swift"; sourceTree = SOURCE_ROOT; };
+		BA485DC0212D78740067D932 /* arrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arrowView.swift; sourceTree = "<group>"; };
+		BA485DC2212DB0FD0067D932 /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		BA5A341B20D9561F001B6417 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BA73450F20C53A44003E28C8 /* DocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
 		BA73451120C53AE4003E28C8 /* docViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docViewCell.swift; sourceTree = "<group>"; };
@@ -214,7 +218,7 @@
 			children = (
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
-				BA1F3A8A212AF755007801FD /* WebViewController.swift */,
+				BA485DC2212DB0FD0067D932 /* BrowserViewController.swift */,
 				BA75BBE620DAB16F006B03C6 /* MapScreen */,
 				BACA300D20CA86C900BA6C90 /* ChatScreen */,
 				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
@@ -249,6 +253,7 @@
 			children = (
 				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
 				BABBB312211D969800405145 /* gradientView.swift */,
+				BA485DC0212D78740067D932 /* arrowView.swift */,
 				BA442D1B2111F5A900ABC2E5 /* offlineView.swift */,
 				BA442D132110A00100ABC2E5 /* authView.swift */,
 				BACA300520C97C9700BA6C90 /* buttonView.swift */,
@@ -263,6 +268,7 @@
 				BA442D1121109F9D00ABC2E5 /* AuthViewController.swift */,
 				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
 				BA9897FB20CC0B4B002458FD /* FullPayViewController.swift */,
+				BA1F3A8A212AF755007801FD /* WebViewController.swift */,
 				BACA300720C983E400BA6C90 /* TabBarController.swift */,
 				BABBB3102119F30400405145 /* NavigationViewController.swift */,
 			);
@@ -401,6 +407,7 @@
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
 				BA12214021184D7900C6D493 /* ChatViewController.swift in Sources */,
 				BACA300C20C98F4000BA6C90 /* collectionDoc.swift in Sources */,
+				BA485DC1212D78740067D932 /* arrowView.swift in Sources */,
 				BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */,
 				BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */,
 				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
@@ -421,6 +428,7 @@
 				BA442D142110A00100ABC2E5 /* authView.swift in Sources */,
 				BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */,
 				BA442D1A2111E3FF00ABC2E5 /* classMessages.swift in Sources */,
+				BA485DC3212DB0FD0067D932 /* BrowserViewController.swift in Sources */,
 				BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */,
 				BA442D1C2111F5A900ABC2E5 /* offlineView.swift in Sources */,
 				BABBB3112119F30400405145 /* NavigationViewController.swift in Sources */,

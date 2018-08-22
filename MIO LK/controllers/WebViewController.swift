@@ -13,6 +13,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     private let wkDismissNot = Notification.Name("wkDismiss")
     
     var close = Bool()
+    var checkNeeded = Bool()
     
     var mosregURL: URL? {
         didSet {
@@ -21,8 +22,6 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
             wk.isHidden = true
         }
     }
-    
-    var esiaURL: URL?
     
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var wk: WKWebView!
@@ -37,6 +36,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         }
         else {
             if self.view.frame.origin.y > edgePoint { // контроллер прошел через точку закрытия
+                checkNeeded = false
                 removeFromParentViewController()
                 close = true
             }
@@ -64,10 +64,6 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Настройка контроллера
-        self.view.layer.masksToBounds = false
-        self.view.layer.cornerRadius = 10
-        
         wk.uiDelegate = self
         wk.navigationDelegate = self
         
@@ -78,13 +74,19 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
             progress.progress = Float(wk.estimatedProgress)
+            if Float(wk.estimatedProgress) == 1.0 {
+                progress.isHidden = true
+            }
+            else {
+                progress.isHidden = false
+            }
         }
     }
     
     override func viewDidLayoutSubviews() {
         let shadowLayer = CAShapeLayer()
         shadowLayer.path = UIBezierPath(roundedRect: topView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10)).cgPath
-        shadowLayer.fillColor = UIColor.white.cgColor
+        shadowLayer.fillColor = UIColor(white: 0.97, alpha: 1.0).cgColor
         shadowLayer.shadowColor = UIColor.lightGray.cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
@@ -102,13 +104,20 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     override func didMove(toParentViewController parent: UIViewController?) {
         if let vc = parent as? AuthViewController {
+            let arrow = arrowView(origin: topView.center)
+            topView.addSubview(arrow)
+            
+            // Настройка контроллера
+            self.view.layer.masksToBounds = false
+            self.view.layer.cornerRadius = 10
+            
             moveTo(view: vc.content, frame: vc.view.frame)
         }
     }
     
     override func removeFromParentViewController() {
         if let vc = parent as? AuthViewController {
-            NotificationCenter.default.post(name: wkDismissNot, object: nil)
+            NotificationCenter.default.post(name: wkDismissNot, object: nil, userInfo: ["authCheck": checkNeeded])
             removeFrom(view: vc.content, frame: vc.view.frame)
         }
     }
@@ -117,6 +126,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         let currentURL = parseURL(wk.url!)
         
         if currentURL[1] == "mob.razvitie-mo.ru" {
+            checkNeeded = true
             removeFromParentViewController()
         }
     }
@@ -137,7 +147,6 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     func parseURL(_ myUrl: URL) -> [String.SubSequence] {
         let urlStr = myUrl.absoluteString
         let partsOfUrl = urlStr.split(separator: "/")
-        print(partsOfUrl)
         return partsOfUrl
     }
     
@@ -159,15 +168,13 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
             // Анимация child контроллера
             self.view.frame.origin.y = 30
         }) { (true) in
-            self.shadow(opacity: 0.8, color: .lightGray, radius: 10.0)
+            //self.shadow(opacity: 0.8, color: .lightGray, radius: 10.0)
             view.isUserInteractionEnabled = false
         }
     }
     
     func removeFrom(view: UIView, frame: CGRect) {
         self.tabBarController?.tabBar.isHidden = false
-        
-        self.shadow(opacity: 0, color: .clear, radius: 0)
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
             let transformScale = CGAffineTransform(scaleX: 1, y: 1)
@@ -211,14 +218,6 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
             self.view.frame.origin.y = 30
         })
     }
-    
-    func shadow(opacity: Float, color: UIColor, radius: CGFloat) {
-        self.view.layer.shadowColor = color.cgColor
-        self.view.layer.shadowOpacity = opacity
-        self.view.layer.shadowOffset = CGSize.zero
-        self.view.layer.shadowRadius = radius
-    }
-    
 
     /*
     // MARK: - Navigation
