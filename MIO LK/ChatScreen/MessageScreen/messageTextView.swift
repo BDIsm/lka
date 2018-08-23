@@ -39,10 +39,10 @@ class messageTextView: UIView, UITextViewDelegate {
         sendButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         sendButton.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin]
         
-        textInput.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        textInput.backgroundColor = UIColor(white: 0.97, alpha: 1.0)
         textInput.text = "Введите сообщение"
         textInput.textColor = UIColor.lightGray
-        textInput.font = UIFont.preferredFont(forTextStyle: .callout)
+        textInput.font = UIFont(name: "Helvetica Neue", size: 17)
         textInput.sizeToFit()
         textInput.frame.size.width = self.bounds.maxX-57
         textInput.frame.origin.x = 8
@@ -120,10 +120,4 @@ class messageTextView: UIView, UITextViewDelegate {
         }
     }
 }
-//
-//extension MessageInputView: UITextViewDelegate {
-//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-//        return true
-//    }
-//}
 

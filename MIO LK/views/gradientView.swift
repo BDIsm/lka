@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class gradient {
-    class func setColour(for view: UIView, status: String) -> CALayer {
+    class func setColour(for view: UIView, status: String, radius: CGFloat) -> (CALayer, UIColor) {
         var colorTop = UIColor()
         var colorBottom = UIColor()
             
@@ -36,8 +36,8 @@ class gradient {
         gradientLayer.colors = [colorTop.cgColor, colorBottom.cgColor]
         gradientLayer.locations = [0.0, 1.0]
         gradientLayer.frame = view.bounds
-        gradientLayer.cornerRadius = 10
+        gradientLayer.cornerRadius = radius
         
-        return gradientLayer
+        return (gradientLayer, colorBottom)
     }
 }

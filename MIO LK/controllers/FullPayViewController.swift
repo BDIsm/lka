@@ -16,35 +16,54 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     
     var element: classPayments? {
         didSet {
-            let background = gradient.setColour(for: content, status: element!.status)
-            content.layer.insertSublayer(background, at: 0)
+            let background = gradient.setColour(for: content, status: element!.status, radius: 20)
+            content.layer.insertSublayer(background.0, at: 0)
+            payButton.setTitleColor(background.1, for: .normal)
             
             if let contract = documents.first(where: {$0.id == element!.docId}) {
-                number.text = contract.number
-                document.text = contract.address
+                number.text = "по договору №\(contract.number)"
+                address.text = contract.address
             }
             
-            date.text = "от \(element!.date)"
+            date.text = element?.date != "" ? element!.date : "не указана"
             type.text = element!.type
             period.text = element!.period
+            if let pay = Float(element!.payment), let acc = Float(element!.accrual)  {
+                amount.text = "\(acc)₽, из которых оплачено \(acc-pay)₽"
+            }
+            else {
+                amount.text = element?.accrual
+            }
+            
+            switch element?.status {
+            case "Оплачено":
+                payButton.isEnabled = false
+                payButton.setTitle("Оплачено", for: .disabled)
+            default:
+                if element?.payment != nil {
+                    payButton.setTitle("Оплатить "+element!.payment+"₽", for: .normal)
+                }
+                else {
+                    payButton.setTitle("Оплатить", for: .normal)
+                }
+            }
         }
     }
     
     var documents = [classDocuments]()
     
     @IBOutlet weak var content: UIView!
-    @IBOutlet weak var imageBack: UIImageView!
     
     @IBOutlet weak var number: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var type: UILabel!
     @IBOutlet weak var period: UILabel!
-    @IBOutlet weak var document: UILabel!
+    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var amount: UILabel!
     
     @IBOutlet weak var payButton: UIButton!
     
     @IBAction func pressPay(_ sender: UIButton) {
-        print(element?.uin)
         if element?.uin != "<null>" {
             performSegue(withIdentifier: "toPayURL", sender: self)
         }
@@ -104,14 +123,14 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         self.view.layer.cornerRadius = 10
         
         content.layer.masksToBounds = false
-        content.layer.cornerRadius = 10
-        
-        imageBack.layer.cornerRadius = 10
-        date.layer.cornerRadius = 10
-        number.layer.cornerRadius = 10
+        content.layer.cornerRadius = 20.0
+        content.layer.shadowColor = UIColor.gray.cgColor
+        content.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        content.layer.shadowRadius = 12.0
+        content.layer.shadowOpacity = 0.7
         
         // Углы у кнопки
-        let radiusPath = UIBezierPath(roundedRect: payButton.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 10, height: 10))
+        let radiusPath = UIBezierPath(roundedRect: payButton.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 19, height: 19))
         
         let maskLayer = CAShapeLayer()
         maskLayer.path = radiusPath.cgPath
@@ -169,15 +188,12 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
             // Анимация child контроллера
             self.view.frame.origin.y = 30
         }) { (true) in
-            self.shadow(opacity: 0.8, color: .lightGray, radius: 10.0)
             view.isUserInteractionEnabled = false
         }
     }
     
     func removeFrom(view: UIView, frame: CGRect, bg: UIView) {
         self.tabBarController?.tabBar.isHidden = false
-        
-        self.shadow(opacity: 0, color: .white, radius: 0)
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
             let transformScale = CGAffineTransform(scaleX: 1, y: 1)
@@ -230,18 +246,6 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         }
     }
     
-    func shadow(opacity: Float, color: UIColor, radius: CGFloat) {
-//        self.view.layer.shadowColor = color.cgColor
-//        self.view.layer.shadowOpacity = opacity
-//        self.view.layer.shadowOffset = CGSize.zero
-//        self.view.layer.shadowRadius = radius
-        
-        //Тень
-        self.content.layer.shadowColor = color.cgColor
-        self.content.layer.shadowOpacity = opacity
-        self.content.layer.shadowOffset = CGSize.zero
-        self.content.layer.shadowRadius = radius
-    }
     
     // MARK: - Navigation
     

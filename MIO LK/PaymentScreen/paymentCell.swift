@@ -25,11 +25,11 @@ class paymentViewCell: UICollectionViewCell {
     func customize(_ status: String, _ accrual: String, _ from: String) {
         layer.cornerRadius = 10
         
-        background = gradient.setColour(for: self, status: status)
+        background = gradient.setColour(for: self, status: status, radius: 10).0
         self.layer.insertSublayer(background, at: 0)
         
         amount.text = "\(accrual) ₽"
-        date.text = "от \(from)"
+        date.text = from != "" ? "от \(from)" : "нет даты"
     }
     
 }

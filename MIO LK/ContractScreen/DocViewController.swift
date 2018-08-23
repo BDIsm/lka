@@ -23,6 +23,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     @IBOutlet weak var content: UIView!
     @IBOutlet weak var docsCollection: UICollectionView!
     
+    
     let bgView = UIView()
     
     override func viewDidLoad() {
@@ -96,7 +97,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         cell.paysCollection.reloadData()
     
         // Информация в ячейке
-        cell.docNumber = "№ \(element.number)"
+        cell.docNumber = "Договор №\(element.number)"
         cell.docDate = "от \(element.date)"
         cell.docType = element.type
         cell.docOwner = element.owner
@@ -121,7 +122,6 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         reusableview.decrease()
         
         return reusableview
-        
     }
     // MARK: - UICollectionViewDelegate protocol
     

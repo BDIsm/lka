@@ -24,6 +24,12 @@
 		BA442D1C2111F5A900ABC2E5 /* offlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA442D1B2111F5A900ABC2E5 /* offlineView.swift */; };
 		BA485DC1212D78740067D932 /* arrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485DC0212D78740067D932 /* arrowView.swift */; };
 		BA485DC3212DB0FD0067D932 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485DC2212DB0FD0067D932 /* BrowserViewController.swift */; };
+		BA485DCE212EBC500067D932 /* Ekibastuz-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA485DC8212EBC4F0067D932 /* Ekibastuz-Light.otf */; };
+		BA485DCF212EBC500067D932 /* Ekibastuz-ExtraBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA485DC9212EBC4F0067D932 /* Ekibastuz-ExtraBlack.otf */; };
+		BA485DD0212EBC500067D932 /* Ekibastuz-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA485DCA212EBC500067D932 /* Ekibastuz-Black.otf */; };
+		BA485DD1212EBC500067D932 /* Ekibastuz-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA485DCB212EBC500067D932 /* Ekibastuz-Heavy.otf */; };
+		BA485DD2212EBC500067D932 /* Ekibastuz-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA485DCC212EBC500067D932 /* Ekibastuz-Regular.otf */; };
+		BA485DD3212EBC500067D932 /* Ekibastuz-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA485DCD212EBC500067D932 /* Ekibastuz-Bold.otf */; };
 		BA5A341C20D9561F001B6417 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A341B20D9561F001B6417 /* MapViewController.swift */; };
 		BA73451020C53A44003E28C8 /* DocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73450F20C53A44003E28C8 /* DocViewController.swift */; };
 		BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA73451120C53AE4003E28C8 /* docViewCell.swift */; };
@@ -77,6 +83,12 @@
 		BA442D1B2111F5A900ABC2E5 /* offlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = offlineView.swift; path = "MIO LK/views/offlineView.swift"; sourceTree = SOURCE_ROOT; };
 		BA485DC0212D78740067D932 /* arrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arrowView.swift; sourceTree = "<group>"; };
 		BA485DC2212DB0FD0067D932 /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		BA485DC8212EBC4F0067D932 /* Ekibastuz-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ekibastuz-Light.otf"; sourceTree = "<group>"; };
+		BA485DC9212EBC4F0067D932 /* Ekibastuz-ExtraBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ekibastuz-ExtraBlack.otf"; sourceTree = "<group>"; };
+		BA485DCA212EBC500067D932 /* Ekibastuz-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ekibastuz-Black.otf"; sourceTree = "<group>"; };
+		BA485DCB212EBC500067D932 /* Ekibastuz-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ekibastuz-Heavy.otf"; sourceTree = "<group>"; };
+		BA485DCC212EBC500067D932 /* Ekibastuz-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ekibastuz-Regular.otf"; sourceTree = "<group>"; };
+		BA485DCD212EBC500067D932 /* Ekibastuz-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ekibastuz-Bold.otf"; sourceTree = "<group>"; };
 		BA5A341B20D9561F001B6417 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BA73450F20C53A44003E28C8 /* DocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocViewController.swift; sourceTree = "<group>"; };
 		BA73451120C53AE4003E28C8 /* docViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docViewCell.swift; sourceTree = "<group>"; };
@@ -162,6 +174,19 @@
 			path = ContractScreen;
 			sourceTree = "<group>";
 		};
+		BA485DC7212EBC420067D932 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BA485DCA212EBC500067D932 /* Ekibastuz-Black.otf */,
+				BA485DCD212EBC500067D932 /* Ekibastuz-Bold.otf */,
+				BA485DC9212EBC4F0067D932 /* Ekibastuz-ExtraBlack.otf */,
+				BA485DCB212EBC500067D932 /* Ekibastuz-Heavy.otf */,
+				BA485DC8212EBC4F0067D932 /* Ekibastuz-Light.otf */,
+				BA485DCC212EBC500067D932 /* Ekibastuz-Regular.otf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BA75BBE620DAB16F006B03C6 /* MapScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +252,7 @@
 				BAA7D03D20C05CD600AFEA47 /* views */,
 				BAA7D03C20C05CB300AFEA47 /* class */,
 				BAA7D01D20BD94D200AFEA47 /* Assets.xcassets */,
+				BA485DC7212EBC420067D932 /* Resources */,
 				BA9897F920CB0597002458FD /* unused */,
 				BAA7D01F20BD94D200AFEA47 /* LaunchScreen.storyboard */,
 				BAA7D02220BD94D200AFEA47 /* Info.plist */,
@@ -346,10 +372,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA485DCE212EBC500067D932 /* Ekibastuz-Light.otf in Resources */,
+				BA485DD3212EBC500067D932 /* Ekibastuz-Bold.otf in Resources */,
 				BAA7D02120BD94D200AFEA47 /* LaunchScreen.storyboard in Resources */,
+				BA485DCF212EBC500067D932 /* Ekibastuz-ExtraBlack.otf in Resources */,
 				BAA7D01E20BD94D200AFEA47 /* Assets.xcassets in Resources */,
+				BA485DD1212EBC500067D932 /* Ekibastuz-Heavy.otf in Resources */,
 				BAA7D01C20BD94BA00AFEA47 /* Main.storyboard in Resources */,
+				BA485DD0212EBC500067D932 /* Ekibastuz-Black.otf in Resources */,
 				BA17F69C20D267A9008EDF09 /* style.json in Resources */,
+				BA485DD2212EBC500067D932 /* Ekibastuz-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

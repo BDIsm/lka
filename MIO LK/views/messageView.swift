@@ -21,7 +21,7 @@ class messageView: UIView {
     }
     
     func initialize() {
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 20
         self.layer.borderColor = UIColor(white: 0.9, alpha: 1.0).cgColor
         self.layer.borderWidth = 1
         self.backgroundColor = .white

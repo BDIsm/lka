@@ -28,6 +28,12 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     @IBOutlet weak var progress: UIProgressView!
     @IBOutlet weak var activity: UIActivityIndicatorView!
     
+    @IBAction func tapToClose(_ sender: UITapGestureRecognizer) {
+        checkNeeded = false
+        removeFromParentViewController()
+        close = true
+    }
+    
     @IBAction func move(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         let edgePoint = UIScreen.main.bounds.height*9/40
@@ -68,7 +74,6 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         wk.navigationDelegate = self
         
         wk.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        // Do any additional setup after loading the view.
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

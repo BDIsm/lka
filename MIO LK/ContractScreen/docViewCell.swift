@@ -81,20 +81,18 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
         super.prepareForReuse()
         //self.paysCollection.reloadData()
         noPays.removeFromSuperview()
-        // reset custom properties to default values
     }
     
     func customize() {
         self.layer.masksToBounds = false
         
         self.backgroundColor = UIColor.white
-        //Shape
-        self.layer.cornerRadius = 10.0
-        //Shadow
-        self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOpacity = 0.8
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 10.0
+        
+        self.layer.cornerRadius = 20.0
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        self.layer.shadowRadius = 12.0
+        self.layer.shadowOpacity = 0.7
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -29,13 +29,12 @@ class docInChatViewCell: UICollectionViewCell {
         self.layer.masksToBounds = false
         
         self.backgroundColor = UIColor.white
-        //Shape
-        self.layer.cornerRadius = 10.0
-        //Shadow
-        self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOpacity = 0.8
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 10.0
+        
+        self.layer.cornerRadius = 20.0
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        self.layer.shadowRadius = 12.0
+        self.layer.shadowOpacity = 0.7
         
         select.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
@@ -43,19 +42,19 @@ class docInChatViewCell: UICollectionViewCell {
         
         numberLabel.frame = CGRect(x: 40, y: 10, width: (self.frame.width-60)/2, height: 20)
         numberLabel.textAlignment = .left
-        numberLabel.textColor = UIColor.lightGray
-        numberLabel.font = UIFont(name: "Helvetica", size: 12)
+        numberLabel.textColor = UIColor(red: 0.0, green: 150.0/255.0, blue: 1.0, alpha: 1.0)
+        numberLabel.font = UIFont(name: "Ekibastuz-Bold", size: 12)
         
         dateLabel.frame = CGRect(x: 50+numberLabel.frame.width, y: 10, width: (self.frame.width-60)/2, height: 20)
         dateLabel.textAlignment = .right
-        dateLabel.textColor = UIColor.lightGray
-        dateLabel.font = UIFont(name: "Helvetica", size: 12)
+        dateLabel.textColor = UIColor(red: 0.0, green: 150.0/255.0, blue: 1.0, alpha: 1.0)
+        dateLabel.font = UIFont(name: "Ekibastuz-Bold", size: 12)
         
         addressLabel.frame = CGRect(x: 10, y: 40, width: self.frame.width-20, height: self.frame.height-50)
         addressLabel.numberOfLines = 0
         addressLabel.textAlignment = .justified
         addressLabel.textColor = UIColor.gray
-        addressLabel.font = UIFont(name: "Helvetica", size: 9)
+        addressLabel.font = UIFont(name: "Helvetica Neue", size: 9)
         
         self.addSubview(numberLabel)
         self.addSubview(dateLabel)
@@ -64,22 +63,18 @@ class docInChatViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            if self.isSelected
-            {
-                select.backgroundColor = UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0)
-                //select.clipsToBounds = true
-                //select.backgroundColor = UIColor(red:0.60, green:0.78, blue:0.94, alpha:1.0)
+            if self.isSelected {
+                select.backgroundColor = UIColor(red: 0.0, green: 150.0/255.0, blue: 1.0, alpha: 1.0)
             }
-            else
-            {
-                select.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            else {
+                select.backgroundColor = UIColor(white: 0.97, alpha: 1)
             }
         }
     }
     
     func redraw() {
         select.layer.cornerRadius = select.frame.width/2
-        select.layer.borderColor = UIColor(white: 0.85, alpha: 1).cgColor
+        select.layer.borderColor = UIColor(white: 0.9, alpha: 1).cgColor
         select.layer.borderWidth = 1
         
         self.addSubview(select)
