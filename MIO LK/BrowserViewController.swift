@@ -27,8 +27,9 @@ class BrowserViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         super.viewDidLoad()
         
         let bar = (navigationController?.navigationBar.bounds)!
-        progress.frame.origin = CGPoint(x: 0, y: bar.maxY-2)
-        progress.frame.size = CGSize(width: bar.width, height: 2)
+        progress.frame.origin = CGPoint(x: 0, y: bar.maxY-1)
+        progress.frame.size = CGSize(width: bar.width, height: 1)
+        progress.trackTintColor = UIColor(white: 0.97, alpha: 1)
         navigationController?.navigationBar.addSubview(progress)
 
         wk.uiDelegate = self

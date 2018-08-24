@@ -187,6 +187,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		BA485DD4213004690067D932 /* Curator Question */ = {
+			isa = PBXGroup;
+			children = (
+				BACA300B20C98F4000BA6C90 /* collectionDoc.swift */,
+				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
+			);
+			path = "Curator Question";
+			sourceTree = "<group>";
+		};
 		BA75BBE620DAB16F006B03C6 /* MapScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,8 +223,7 @@
 				BA12214121184DC600C6D493 /* messageViewCell.swift */,
 				BAD9DE0F21199EC100DC13B9 /* greetingTableViewCell.swift */,
 				BA122143211870D800C6D493 /* messageTextView.swift */,
-				BACA300B20C98F4000BA6C90 /* collectionDoc.swift */,
-				BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */,
+				BA485DD4213004690067D932 /* Curator Question */,
 			);
 			path = MessageScreen;
 			sourceTree = "<group>";
@@ -304,9 +312,9 @@
 		BACA300D20CA86C900BA6C90 /* ChatScreen */ = {
 			isa = PBXGroup;
 			children = (
+				BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */,
 				BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */,
 				BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */,
-				BACA2FFB20C82B4900BA6C90 /* SupportViewController.swift */,
 				BA9897FA20CB05A6002458FD /* MessageScreen */,
 			);
 			path = ChatScreen;

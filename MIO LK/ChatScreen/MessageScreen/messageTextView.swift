@@ -24,8 +24,6 @@ class messageTextView: UIView, UITextViewDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        //initialize()
-        //beginFrame = aDecoder.accessibilityFrame
     }
     
     override init(frame: CGRect) {
@@ -78,6 +76,7 @@ class messageTextView: UIView, UITextViewDelegate {
         }
     }
     
+    // Изменение высоты текстового поля при вводе
     func textViewDidChange(_ textView: UITextView) {
         textInput.isScrollEnabled = false
         let heightChange = getHeightChange(fixedWidth: textInput.frame.width, text: textInput.text)
@@ -95,6 +94,7 @@ class messageTextView: UIView, UITextViewDelegate {
         }
     }
     
+    // Вычисление высоты текстового поля
     func getHeightChange(fixedWidth: CGFloat, text: String) -> CGFloat {
         let newSize: CGSize = textInput.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat(MAXFLOAT)))
         

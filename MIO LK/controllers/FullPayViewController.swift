@@ -169,8 +169,6 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     }
     
     func moveTo(view: UIView, frame: CGRect) {
-        self.tabBarController?.tabBar.isHidden = true
-        
         let scaleX = 1-20/frame.width
         let scaleY = 1-40/frame.height
         
@@ -180,6 +178,8 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
             let transformScale = CGAffineTransform(scaleX: scaleX, y: scaleY)
             view.transform = transformScale
+            
+            self.tabBarController?.tabBar.frame.origin.y = UIScreen.main.bounds.maxY
             
             // Смена статус бара
             UIApplication.shared.statusBarStyle = .lightContent
@@ -193,11 +193,12 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     }
     
     func removeFrom(view: UIView, frame: CGRect, bg: UIView) {
-        self.tabBarController?.tabBar.isHidden = false
-        
         UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
             let transformScale = CGAffineTransform(scaleX: 1, y: 1)
             view.transform = transformScale
+            
+            let tbFrame = (self.tabBarController?.tabBar.frame)!
+            self.tabBarController?.tabBar.frame.origin.y = UIScreen.main.bounds.maxY - tbFrame.height
             
             // Смена статус бара
             UIApplication.shared.statusBarStyle = .default

@@ -60,7 +60,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
                 self.addChildViewController(controller)
                 
                 bgView.frame = self.view.bounds
-                bgView.backgroundColor = UIColor(white: 0.3, alpha: 0.5)
+                bgView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
                 self.view.addSubview(bgView)
                 
                 // Настройка контроллера

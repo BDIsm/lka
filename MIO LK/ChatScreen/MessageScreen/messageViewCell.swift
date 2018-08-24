@@ -38,6 +38,7 @@ class MessageViewCell: UITableViewCell {
         setNeedsLayout()
     }
     
+    // Ширина view начисления в ячейке
     func width(_ message: String, size: CGSize) -> CGFloat {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         label.numberOfLines = 0
@@ -49,6 +50,7 @@ class MessageViewCell: UITableViewCell {
         return label.frame.width+20
     }
     
+    // Размер ячейки сообщения в TableView
     class func height(for message: classMessages) -> CGFloat {
         let maxSize = CGSize(width: 2*(UIScreen.main.bounds.size.width/3), height: CGFloat.greatestFiniteMagnitude)
         let messageHeight = height(forText: message.message, fontSize: 17, maxSize: maxSize)

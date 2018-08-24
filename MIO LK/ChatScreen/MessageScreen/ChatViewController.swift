@@ -67,22 +67,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    func sendWasTapped(message: String) {
-        let element = classMessages(date: "", out: "1", id: "1", message: message)
-        insertNewMessageCell(element)
-    }
-    
-    func heightChanged(height: CGFloat) {
-        print(height)
-        tableView.frame.origin.y -= height
-        if newChat {
-            tableView.scrollToRow(at: IndexPath(row: messages.count, section: 0), at: .bottom, animated: true)
-        }
-        else {
-            tableView.scrollToRow(at: IndexPath(row: messages.count-1, section: 0), at: .bottom, animated: true)
-        }
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if newChat {
             return messages.count+1
@@ -90,13 +74,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         else {
             return messages.count
         }
-    }
-    
-    func tapped(type: chatType, height: CGFloat) {
-        tableView.beginUpdates()
-        self.type = type
-        self.cellHeight = height
-        tableView.endUpdates()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -151,6 +128,30 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             return cell
         }
+    }
+    
+    // Выбран тип вопроса (общий/куратору)
+    func tapped(type: chatType, height: CGFloat) {
+        tableView.beginUpdates()
+        self.type = type
+        self.cellHeight = height
+        tableView.endUpdates()
+    }
+    
+    // Изменен размер текстового поля
+    func heightChanged(height: CGFloat) {
+        tableView.frame.origin.y -= height
+        if newChat {
+            tableView.scrollToRow(at: IndexPath(row: messages.count, section: 0), at: .bottom, animated: true)
+        }
+        else {
+            tableView.scrollToRow(at: IndexPath(row: messages.count-1, section: 0), at: .bottom, animated: true)
+        }
+    }
+    
+    func sendWasTapped(message: String) {
+        let element = classMessages(date: "", out: "1", id: "1", message: message)
+        insertNewMessageCell(element)
     }
     
     func insertNewMessageCell(_ message: classMessages) {
