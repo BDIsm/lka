@@ -17,6 +17,9 @@ class arrowView: UIView {
     let gradientOne = UIColor(red: 44.0/255.0, green: 191.0/255.0, blue: 248.0/255.0, alpha: 1.0).cgColor
     let gradientTwo = UIColor(red: 38.0/255.0, green: 127.0/255.0, blue: 241.0/255.0, alpha: 1.0).cgColor
     
+    var colorTop: UIColor?
+    var colorBottom: UIColor?
+    
     init(origin: CGPoint) {
         super.init(frame: CGRect(x: 0.0, y: 0.0, width: 40, height: 10))
         self.center = origin
@@ -57,8 +60,8 @@ class arrowView: UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         
-        gradientSet.append([gradientOne, gradientTwo])
-        gradientSet.append([gradientTwo, gradientOne])
+        gradientSet.append([colorTop?.cgColor ?? gradientOne, colorBottom?.cgColor ?? gradientTwo])
+        gradientSet.append([colorBottom?.cgColor ?? gradientTwo, colorTop?.cgColor ?? gradientOne])
         
         gradient.mask = shapeLayer
         gradient.masksToBounds = false

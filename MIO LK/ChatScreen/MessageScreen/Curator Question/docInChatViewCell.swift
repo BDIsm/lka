@@ -30,11 +30,11 @@ class docInChatViewCell: UICollectionViewCell {
         
         self.backgroundColor = UIColor.white
         
-        self.layer.cornerRadius = 20.0
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-        self.layer.shadowRadius = 12.0
-        self.layer.shadowOpacity = 0.7
+        self.layer.cornerRadius = 10.0
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOpacity = 0.8
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+        self.layer.shadowRadius = 3
         
         select.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
@@ -54,7 +54,7 @@ class docInChatViewCell: UICollectionViewCell {
         addressLabel.numberOfLines = 0
         addressLabel.textAlignment = .justified
         addressLabel.textColor = UIColor.gray
-        addressLabel.font = UIFont(name: "Helvetica Neue", size: 9)
+        addressLabel.font = UIFont(name: "Ekibastuz-Regular", size: 9)
         
         self.addSubview(numberLabel)
         self.addSubview(dateLabel)

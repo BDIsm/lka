@@ -91,7 +91,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLayoutSubviews() {
         let shadowLayer = CAShapeLayer()
         shadowLayer.path = UIBezierPath(roundedRect: topView.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10)).cgPath
-        shadowLayer.fillColor = UIColor(white: 0.97, alpha: 1.0).cgColor
+        shadowLayer.fillColor = UIColor.white.cgColor
         shadowLayer.shadowColor = UIColor.lightGray.cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: 0, height: 2)

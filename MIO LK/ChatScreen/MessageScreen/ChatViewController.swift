@@ -80,10 +80,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         if newChat {
             if indexPath.row == 0 {
                 if type == .curator {
-                    return 260+cellHeight
+                    return 235+cellHeight
                 }
                 else {
-                    return 250
+                    return 225
                 }
             }
             else {

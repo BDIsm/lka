@@ -24,6 +24,7 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     var refresher: UIRefreshControl!
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var noChatsView: UIView!
     @IBOutlet weak var collection: UICollectionView!
     
     var newChat = Bool()
@@ -60,6 +61,8 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @objc func refreshStream() {
+        noChatsView.isHidden = true
+        
         uuid = defaults.string(forKey: "uuid")!
         request.getChatsFromBack(uuid, active: 1)
         NotificationCenter.default.addObserver(self, selector: #selector(downloadComplete(notification:)), name: chatNot, object: nil)
@@ -99,6 +102,11 @@ class SupportViewController: UIViewController, UICollectionViewDelegate, UIColle
                     DispatchQueue.main.async {
                         self.refresher.endRefreshing()
                         self.activity.stopAnimating()
+                        
+                        if self.chats.count == 0 {
+                            self.noChatsView.isHidden = false
+                        }
+                        
                         self.collection.reloadData()
                         self.collection.isHidden = false
                     }

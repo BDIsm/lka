@@ -25,7 +25,7 @@ class authView: UIView {
         
         self.backgroundColor = UIColor.white
         //Shape
-        self.layer.cornerRadius = 10.0
+        self.layer.cornerRadius = 20.0
         //Shadow
         self.layer.shadowColor = UIColor.lightGray.cgColor
         self.layer.shadowOpacity = 0.8

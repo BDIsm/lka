@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleMaps
 
 class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var type: UILabel!
@@ -17,7 +16,6 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var rent: UILabel!
     
-    @IBOutlet weak var map: GMSMapView!
     @IBOutlet weak var paysCollection: UICollectionView!
     
     var noPays = UILabel()

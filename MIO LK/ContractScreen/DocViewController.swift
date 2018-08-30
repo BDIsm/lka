@@ -23,7 +23,6 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     @IBOutlet weak var content: UIView!
     @IBOutlet weak var docsCollection: UICollectionView!
     
-    
     let bgView = UIView()
     
     override func viewDidLoad() {
@@ -129,7 +128,6 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
     }
-    
     
     /*
     // MARK: - Navigation

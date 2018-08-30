@@ -20,6 +20,12 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
             content.layer.insertSublayer(background.0, at: 0)
             payButton.setTitleColor(background.1, for: .normal)
             
+            let arrow = arrowView(origin: topView.center)
+            let colors = gradient.setColour(for: arrow, status: element!.status, radius: 0)
+            arrow.colorBottom = colors.1
+            arrow.colorTop = colors.2
+            topView.addSubview(arrow)
+            
             if let contract = documents.first(where: {$0.id == element!.docId}) {
                 number.text = "по договору №\(contract.number)"
                 address.text = contract.address
@@ -53,6 +59,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     var documents = [classDocuments]()
     
     @IBOutlet weak var content: UIView!
+    @IBOutlet weak var topView: UIView!
     
     @IBOutlet weak var number: UILabel!
     @IBOutlet weak var date: UILabel!
@@ -246,7 +253,6 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         }) { (true) in
         }
     }
-    
     
     // MARK: - Navigation
     

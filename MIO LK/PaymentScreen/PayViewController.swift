@@ -107,7 +107,7 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.view.frame.width-20
+        let width = self.view.frame.width//-20
         
         if indexPath.row == 0 {
             return getHeight(array: overdue, width: width)

@@ -40,7 +40,7 @@ class messageTextView: UIView, UITextViewDelegate {
         textInput.backgroundColor = UIColor(white: 0.97, alpha: 1.0)
         textInput.text = "Введите сообщение"
         textInput.textColor = UIColor.lightGray
-        textInput.font = UIFont(name: "Helvetica Neue", size: 17)
+        textInput.font = UIFont(name: "Ekibastuz-Regular", size: 17)
         textInput.sizeToFit()
         textInput.frame.size.width = self.bounds.maxX-57
         textInput.frame.origin.x = 8
@@ -49,8 +49,8 @@ class messageTextView: UIView, UITextViewDelegate {
         textInput.delegate = self
         textInput.autoresizingMask = [.flexibleRightMargin, .flexibleHeight, .flexibleWidth]
     
-        let line = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 1))
-        line.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+        let line = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 0.5))
+        line.backgroundColor = UIColor(white: 0.8, alpha: 1.0)
         
         addSubview(line)
         addSubview(textInput)

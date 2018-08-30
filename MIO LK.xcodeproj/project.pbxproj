@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA0F9EF42130172B000435C2 /* infoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F9EF32130172B000435C2 /* infoMapView.swift */; };
+		BA0F9EF821343B22000435C2 /* mapInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0F9EF721343B22000435C2 /* mapInfoViewCell.swift */; };
 		BA12214021184D7900C6D493 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA12213F21184D7900C6D493 /* ChatViewController.swift */; };
 		BA12214221184DC600C6D493 /* messageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA12214121184DC600C6D493 /* messageViewCell.swift */; };
 		BA122144211870D800C6D493 /* messageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA122143211870D800C6D493 /* messageTextView.swift */; };
@@ -42,9 +44,6 @@
 		BAA7D02920BD956600AFEA47 /* classPayments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02820BD956600AFEA47 /* classPayments.swift */; };
 		BAA7D02B20BD96F700AFEA47 /* classDocuments.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */; };
 		BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */; };
-		BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */; };
-		BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03220BD9DC300AFEA47 /* BALabel.swift */; };
-		BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03420BDA14100AFEA47 /* viewPayment.swift */; };
 		BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03620BEB5D500AFEA47 /* taskManager.swift */; };
 		BAA7D03920BEE66A00AFEA47 /* classRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA7D03820BEE66A00AFEA47 /* classRequest.swift */; };
 		BABBB3112119F30400405145 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABBB3102119F30400405145 /* NavigationViewController.swift */; };
@@ -53,8 +52,6 @@
 		BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */; };
 		BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */; };
 		BACA300220C840DD00BA6C90 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300120C840DC00BA6C90 /* MessageViewController.swift */; };
-		BACA300420C96C9800BA6C90 /* messageViewONE.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300320C96C9800BA6C90 /* messageViewONE.swift */; };
-		BACA300620C97C9700BA6C90 /* buttonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300520C97C9700BA6C90 /* buttonView.swift */; };
 		BACA300820C983E400BA6C90 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300720C983E400BA6C90 /* TabBarController.swift */; };
 		BACA300A20C989DE00BA6C90 /* docInChatViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */; };
 		BACA300C20C98F4000BA6C90 /* collectionDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACA300B20C98F4000BA6C90 /* collectionDoc.swift */; };
@@ -66,6 +63,8 @@
 /* Begin PBXFileReference section */
 		75DBCCD35962EDEAEB19D1CD /* Pods-MIO LK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIO LK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIO LK/Pods-MIO LK.release.xcconfig"; sourceTree = "<group>"; };
 		A6F9D8BB6A283E95649A9E23 /* Pods_MIO_LK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MIO_LK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA0F9EF32130172B000435C2 /* infoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoMapView.swift; sourceTree = "<group>"; };
+		BA0F9EF721343B22000435C2 /* mapInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapInfoViewCell.swift; sourceTree = "<group>"; };
 		BA12213F21184D7900C6D493 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BA12214121184DC600C6D493 /* messageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageViewCell.swift; sourceTree = "<group>"; };
 		BA122143211870D800C6D493 /* messageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageTextView.swift; sourceTree = "<group>"; };
@@ -103,9 +102,6 @@
 		BAA7D02820BD956600AFEA47 /* classPayments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classPayments.swift; sourceTree = "<group>"; };
 		BAA7D02A20BD96F700AFEA47 /* classDocuments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classDocuments.swift; sourceTree = "<group>"; };
 		BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
-		BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewDocument.swift; sourceTree = "<group>"; };
-		BAA7D03220BD9DC300AFEA47 /* BALabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BALabel.swift; sourceTree = "<group>"; };
-		BAA7D03420BDA14100AFEA47 /* viewPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewPayment.swift; sourceTree = "<group>"; };
 		BAA7D03620BEB5D500AFEA47 /* taskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskManager.swift; sourceTree = "<group>"; };
 		BAA7D03820BEE66A00AFEA47 /* classRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classRequest.swift; sourceTree = "<group>"; };
 		BABBB3102119F30400405145 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -114,8 +110,6 @@
 		BACA2FFD20C82C0D00BA6C90 /* chatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatViewCell.swift; sourceTree = "<group>"; };
 		BACA2FFF20C82C2C00BA6C90 /* chatReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatReusableView.swift; sourceTree = "<group>"; };
 		BACA300120C840DC00BA6C90 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
-		BACA300320C96C9800BA6C90 /* messageViewONE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = messageViewONE.swift; sourceTree = "<group>"; };
-		BACA300520C97C9700BA6C90 /* buttonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonView.swift; sourceTree = "<group>"; };
 		BACA300720C983E400BA6C90 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		BACA300920C989DE00BA6C90 /* docInChatViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = docInChatViewCell.swift; sourceTree = "<group>"; };
 		BACA300B20C98F4000BA6C90 /* collectionDoc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionDoc.swift; sourceTree = "<group>"; };
@@ -151,6 +145,25 @@
 				A6F9D8BB6A283E95649A9E23 /* Pods_MIO_LK.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA0B58BA2138100F00041EC5 /* PaymentProcedure */ = {
+			isa = PBXGroup;
+			children = (
+				BA9897FB20CC0B4B002458FD /* FullPayViewController.swift */,
+				BA485DC2212DB0FD0067D932 /* BrowserViewController.swift */,
+			);
+			path = PaymentProcedure;
+			sourceTree = "<group>";
+		};
+		BA0B58BB2138104400041EC5 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				BA442D1121109F9D00ABC2E5 /* AuthViewController.swift */,
+				BA1F3A8A212AF755007801FD /* WebViewController.swift */,
+				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		BA38D24020C6F53E0011ECC3 /* PaymentScreen */ = {
@@ -200,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				BA5A341B20D9561F001B6417 /* MapViewController.swift */,
+				BA0F9EF32130172B000435C2 /* infoMapView.swift */,
+				BA0F9EF721343B22000435C2 /* mapInfoViewCell.swift */,
 				BA17F69B20D267A9008EDF09 /* style.json */,
 			);
 			path = MapScreen;
@@ -208,9 +223,6 @@
 		BA9897F920CB0597002458FD /* unused */ = {
 			isa = PBXGroup;
 			children = (
-				BAA7D03020BD9D9700AFEA47 /* viewDocument.swift */,
-				BAA7D03420BDA14100AFEA47 /* viewPayment.swift */,
-				BACA300320C96C9800BA6C90 /* messageViewONE.swift */,
 				BACA300120C840DC00BA6C90 /* MessageViewController.swift */,
 			);
 			path = unused;
@@ -251,11 +263,12 @@
 			children = (
 				BAA7D01620BD94BA00AFEA47 /* AppDelegate.swift */,
 				BAA7D01A20BD94BA00AFEA47 /* Main.storyboard */,
-				BA485DC2212DB0FD0067D932 /* BrowserViewController.swift */,
-				BA75BBE620DAB16F006B03C6 /* MapScreen */,
-				BACA300D20CA86C900BA6C90 /* ChatScreen */,
-				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
+				BA0B58BB2138104400041EC5 /* Authentication */,
 				BA38D24120C6F5530011ECC3 /* ContractScreen */,
+				BA38D24020C6F53E0011ECC3 /* PaymentScreen */,
+				BACA300D20CA86C900BA6C90 /* ChatScreen */,
+				BA75BBE620DAB16F006B03C6 /* MapScreen */,
+				BA0B58BA2138100F00041EC5 /* PaymentProcedure */,
 				BAA7D03E20C05CE800AFEA47 /* controllers */,
 				BAA7D03D20C05CD600AFEA47 /* views */,
 				BAA7D03C20C05CB300AFEA47 /* class */,
@@ -285,13 +298,11 @@
 		BAA7D03D20C05CD600AFEA47 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				BAA7D03220BD9DC300AFEA47 /* BALabel.swift */,
-				BABBB312211D969800405145 /* gradientView.swift */,
-				BA485DC0212D78740067D932 /* arrowView.swift */,
-				BA442D1B2111F5A900ABC2E5 /* offlineView.swift */,
 				BA442D132110A00100ABC2E5 /* authView.swift */,
-				BACA300520C97C9700BA6C90 /* buttonView.swift */,
+				BA485DC0212D78740067D932 /* arrowView.swift */,
+				BABBB312211D969800405145 /* gradientView.swift */,
 				BAD9DE0D2118A75300DC13B9 /* messageView.swift */,
+				BA442D1B2111F5A900ABC2E5 /* offlineView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -299,10 +310,6 @@
 		BAA7D03E20C05CE800AFEA47 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BA442D1121109F9D00ABC2E5 /* AuthViewController.swift */,
-				BAA7D02C20BD9A0E00AFEA47 /* InitialViewController.swift */,
-				BA9897FB20CC0B4B002458FD /* FullPayViewController.swift */,
-				BA1F3A8A212AF755007801FD /* WebViewController.swift */,
 				BACA300720C983E400BA6C90 /* TabBarController.swift */,
 				BABBB3102119F30400405145 /* NavigationViewController.swift */,
 			);
@@ -445,6 +452,7 @@
 				BA442D182111E15C00ABC2E5 /* classChats.swift in Sources */,
 				BA73451620C56561003E28C8 /* payViewCell.swift in Sources */,
 				BAA7D02D20BD9A0E00AFEA47 /* InitialViewController.swift in Sources */,
+				BA0F9EF42130172B000435C2 /* infoMapView.swift in Sources */,
 				BA12214021184D7900C6D493 /* ChatViewController.swift in Sources */,
 				BACA300C20C98F4000BA6C90 /* collectionDoc.swift in Sources */,
 				BA485DC1212D78740067D932 /* arrowView.swift in Sources */,
@@ -453,30 +461,26 @@
 				BAA7D03720BEB5D500AFEA47 /* taskManager.swift in Sources */,
 				BA442D1221109F9D00ABC2E5 /* AuthViewController.swift in Sources */,
 				BA122144211870D800C6D493 /* messageTextView.swift in Sources */,
+				BA0F9EF821343B22000435C2 /* mapInfoViewCell.swift in Sources */,
 				BA442D162110B25900ABC2E5 /* switcher.swift in Sources */,
 				BA38D23920C59EE60011ECC3 /* PayViewController.swift in Sources */,
 				BACA300A20C989DE00BA6C90 /* docInChatViewCell.swift in Sources */,
 				BACA300020C82C2C00BA6C90 /* chatReusableView.swift in Sources */,
-				BACA300420C96C9800BA6C90 /* messageViewONE.swift in Sources */,
 				BAD9DE0E2118A75300DC13B9 /* messageView.swift in Sources */,
 				BA38D23B20C59F830011ECC3 /* forPaysViewCell.swift in Sources */,
-				BAA7D03320BD9DC300AFEA47 /* BALabel.swift in Sources */,
 				BA38D23F20C6CE650011ECC3 /* settingReusableView.swift in Sources */,
 				BA73451220C53AE4003E28C8 /* docViewCell.swift in Sources */,
 				BAD9DE1021199EC100DC13B9 /* greetingTableViewCell.swift in Sources */,
 				BABBB313211D969800405145 /* gradientView.swift in Sources */,
 				BA442D142110A00100ABC2E5 /* authView.swift in Sources */,
-				BAA7D03120BD9D9700AFEA47 /* viewDocument.swift in Sources */,
 				BA442D1A2111E3FF00ABC2E5 /* classMessages.swift in Sources */,
 				BA485DC3212DB0FD0067D932 /* BrowserViewController.swift in Sources */,
 				BAA7D01720BD94BA00AFEA47 /* AppDelegate.swift in Sources */,
 				BA442D1C2111F5A900ABC2E5 /* offlineView.swift in Sources */,
 				BABBB3112119F30400405145 /* NavigationViewController.swift in Sources */,
 				BA38D23D20C5B66A0011ECC3 /* paymentCell.swift in Sources */,
-				BAA7D03520BDA14100AFEA47 /* viewPayment.swift in Sources */,
 				BA9897FC20CC0B4B002458FD /* FullPayViewController.swift in Sources */,
 				BACA300820C983E400BA6C90 /* TabBarController.swift in Sources */,
-				BACA300620C97C9700BA6C90 /* buttonView.swift in Sources */,
 				BACA2FFE20C82C0D00BA6C90 /* chatViewCell.swift in Sources */,
 				BA5A341C20D9561F001B6417 /* MapViewController.swift in Sources */,
 				BA1F3A8B212AF755007801FD /* WebViewController.swift in Sources */,
@@ -627,7 +631,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE8697903662023FD0CC91D1 /* Pods-MIO LK.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4693P6HLX4;
@@ -650,7 +654,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75DBCCD35962EDEAEB19D1CD /* Pods-MIO LK.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-4";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4693P6HLX4;
