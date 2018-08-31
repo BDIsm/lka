@@ -26,7 +26,7 @@ class viewOffline: UIView {
         
         if let actualDate = defaults.object(forKey: "actualDate") as? String {
             let label = UILabel()
-            label.text = "Данные актуальны на \n \(actualDate)"
+            label.text = "Данные актуальны на \(actualDate)"
             label.font = UIFont(name: "Ekibastuz-Bold", size: 15)
             label.numberOfLines = 1
             label.textColor = UIColor.darkGray
@@ -37,7 +37,6 @@ class viewOffline: UIView {
             let blur = UIVisualEffectView.init(effect: UIBlurEffect(style: .light))
             blur.frame = self.bounds
             blur.clipsToBounds = true
-            blur.layer.cornerRadius = 10.0
             
             blur.contentView.addSubview(label)
             self.addSubview(blur)
