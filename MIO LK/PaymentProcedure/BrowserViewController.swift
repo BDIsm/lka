@@ -23,6 +23,13 @@ class BrowserViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
         }
     }
     
+    @IBAction func done(_ sender: UIBarButtonItem) {
+        dismiss(animated: true) {
+            UIApplication.shared.statusBarStyle = .lightContent
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

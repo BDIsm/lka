@@ -31,6 +31,10 @@ class settingReusableView: UICollectionReusableView {
         //Switcher.updateRootVC()
     }
     
+    @IBAction func reloadTapped(_ sender: UIButton) {
+    }
+    
+    
     @IBAction func settingsTap(_ sender: Any) {
         if open {
             rotateView(view: settings, direct: 1.0)
