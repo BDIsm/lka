@@ -12,27 +12,37 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     let reuseIdentifier = "forPays"
     
     let defaults = UserDefaults.standard
+    let request = classRequest()
+    let payNot = NSNotification.Name("pay")
     
+    var numberOfPays = Int()
+    
+    var documents = [classDocuments]()
     var overdue = [classPayments]()
     var actual = [classPayments]()
     var payed = [classPayments]()
 
     @IBOutlet weak var content: UIView!
+    @IBOutlet weak var collection: UICollectionView!
+    
+    let bgView = UIView()
+    
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let savedOverdues = defaults.object(forKey: "overdue") as? Data {
-            overdue = NSKeyedUnarchiver.unarchiveObject(with: savedOverdues) as! [classPayments]
+        collection.isScrollEnabled = true
+        
+        self.refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(refreshStream), for: .valueChanged)
+        collection.addSubview(refresher)
+        
+        if let savedDocs = defaults.object(forKey: "documents") as? Data {
+            documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
         }
-        // Актуальные
-        if let savedActual = defaults.object(forKey: "actual") as? Data {
-            actual = NSKeyedUnarchiver.unarchiveObject(with: savedActual) as! [classPayments]
-        }
-        // Оплаченные
-        if let savedPayed = defaults.object(forKey: "payed") as? Data {
-            payed = NSKeyedUnarchiver.unarchiveObject(with: savedPayed) as! [classPayments]
-        }
+        
+        loadAndSort()
         
         NotificationCenter.default.addObserver(self, selector: #selector(showFullPayment(notification: )), name: NSNotification.Name("chooseCellInPays"), object: nil)
         // Do any additional setup after loading the view.
@@ -43,15 +53,49 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func refreshStream() {
+        NotificationCenter.default.addObserver(self, selector: #selector(payComplete), name: payNot, object: nil)
+        
+        numberOfPays = 0
+        let uuid = defaults.object(forKey: "uuid") as! String
+        
+        request.allOverdues.removeAll()
+        request.allActual.removeAll()
+        request.allPayed.removeAll()
+        
+        for i in documents {
+            request.getPaymentsFromBack(uuid, id: i.id)
+        }
+    }
+    
+    @objc func payComplete() {
+        self.numberOfPays += 1
+        print(numberOfPays, documents.count)
+        if numberOfPays == documents.count {
+            NotificationCenter.default.removeObserver(self, name: payNot, object: nil)
+            
+            loadAndSort()
+            
+            DispatchQueue.main.async {
+                self.collection.reloadData()
+                self.refresher.endRefreshing()
+            }
+        }
+    }
+    
     @objc func showFullPayment(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String,classPayments> {
             if let element = userInfo["chosenPayInPays"] {
                 let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
                 self.addChildViewController(controller)
                 
+                bgView.frame = self.view.bounds
+                bgView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+                self.view.addSubview(bgView)
+                
                 // Настройка контроллера
                 self.view.addSubview(controller.view)
-                controller.setLabels(element: element)
+                controller.element = element
                 
                 controller.didMove(toParentViewController: self)
             }
@@ -63,11 +107,10 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.view.frame.width-20
+        let width = self.view.frame.width//-20
         
         if indexPath.row == 0 {
-            let size = getHeight(array: overdue, width: width)
-            return size
+            return getHeight(array: overdue, width: width)
         }
         else if indexPath.row == 1 {
             return getHeight(array: actual, width: width)
@@ -91,11 +134,6 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
         
         cell.customize()
         
-        if cell.frame.height == 200 {
-            cell.paysCollection.frame.origin.y -= 70
-            cell.paysCollection.frame.size.height = 130
-        }
-        
         if indexPath.row == 0 {
             cell.titleLabel.text = "Просроченные"
             cell.array = overdue
@@ -109,6 +147,19 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
             cell.array = payed
             cell.line.isHidden = true
         }
+        cell.paysCollection.reloadData()
+        
+        cell.layoutSubviews()
+        cell.line.frame.origin.y = cell.bounds.maxY-1
+        
+        if cell.frame.height == 200 {
+            cell.paysCollection.frame.size.height = 130
+            cell.paysCollection.frame.origin.y = 60
+        }
+        else {
+            cell.paysCollection.frame.size.height = 60
+            cell.paysCollection.frame.origin.y = 60
+        }
         
         return cell
     }
@@ -119,6 +170,98 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
             return CGSize(width: width, height: 130)
         default:
             return CGSize(width: width, height: 200)
+        }
+    }
+    
+    func loadAndSort() {
+        overdue.removeAll()
+        actual.removeAll()
+        payed.removeAll()
+        
+        if let savedOverdues = defaults.object(forKey: "overdue") as? Data {
+            overdue = NSKeyedUnarchiver.unarchiveObject(with: savedOverdues) as! [classPayments]
+        }
+        // Актуальные
+        if let savedActual = defaults.object(forKey: "actual") as? Data {
+            actual = NSKeyedUnarchiver.unarchiveObject(with: savedActual) as! [classPayments]
+        }
+        // Оплаченные
+        if let savedPayed = defaults.object(forKey: "payed") as? Data {
+            payed = NSKeyedUnarchiver.unarchiveObject(with: savedPayed) as! [classPayments]
+        }
+        
+        sortPaymentsToTop(array: &overdue)
+        sortPaymentsToTop(array: &actual)
+        sortPaymentsFromTop(array: &payed)
+    }
+    
+    func sortPaymentsFromTop(array: inout [classPayments]) {
+        array.sort {
+            if $0.date != "" && $1.date != "" {
+                let first = $0.date.split(separator: ".")
+                let last = $1.date.split(separator: ".")
+                
+                if first[2] < last[2] {
+                    return false
+                }
+                else if first[2] == last[2] {
+                    if first[1] < last[1] {
+                        return false
+                    }
+                    else if first[1] == last[1] {
+                        if first[0] < last[0] {
+                            return false
+                        }
+                        else {
+                            return true
+                        }
+                    }
+                    else {
+                        return true
+                    }
+                }
+                else {
+                    return true
+                }
+            }
+            else {
+                return true
+            }
+        }
+    }
+    
+    func sortPaymentsToTop(array: inout [classPayments]) {
+        array.sort {
+            if $0.date != "" && $1.date != "" {
+                let first = $0.date.split(separator: ".")
+                let last = $1.date.split(separator: ".")
+                
+                if first[2] < last[2] { // Сравнение года
+                    return true
+                }
+                else if first[2] == last[2] { // Один год
+                    if first[1] < last[1] { // Сравнение месяца
+                        return true
+                    }
+                    else if first[1] == last[1] { // Один месяц
+                        if first[0] < last[0] { // Сравнение числа
+                            return true
+                        }
+                        else {
+                            return false
+                        }
+                    }
+                    else {
+                        return false
+                    }
+                }
+                else {
+                    return false
+                }
+            }
+            else {
+                return false
+            }
         }
     }
 

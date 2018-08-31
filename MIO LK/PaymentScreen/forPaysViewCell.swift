@@ -15,20 +15,34 @@ class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollect
     
     var array = [classPayments]()
     
+    override func prepareForReuse() {
+        array = [classPayments]()
+        paysCollection.reloadData()
+        line.isHidden = false
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     func customize() {
         paysCollection.dataSource = self
         paysCollection.delegate = self
-        /*
-        self.layer.masksToBounds = false
-        
-        self.backgroundColor = UIColor.white
-        //Shape
-        self.layer.cornerRadius = 10.0
-        //Shadow
-        self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOpacity = 0.8
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 10.0*/
+//
+//        self.layer.masksToBounds = false
+//
+//        self.backgroundColor = UIColor.white
+//        //Shape
+//        self.layer.cornerRadius = 10.0
+//        //Shadow
+//        self.layer.shadowColor = UIColor.lightGray.cgColor
+//        self.layer.shadowOpacity = 0.8
+//        self.layer.shadowOffset = CGSize.zero
+//        self.layer.shadowRadius = 10.0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -48,15 +62,7 @@ class forPaysViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! paymentViewCell
         
         let element = array[indexPath.row]
-        if element.status == "Оплачено" {
-            cell.customize(image: #imageLiteral(resourceName: "gray"), a: element.accrual, d: element.date)
-        }
-        else if element.status == "Не оплачено (неоплаченное начисление прошлого периода)" {
-            cell.customize(image: #imageLiteral(resourceName: "red"), a: element.accrual, d: element.date)
-        }
-        else {
-            cell.customize(image: #imageLiteral(resourceName: "blue"), a: element.accrual, d: element.date)
-        }
+        cell.customize(element.status, element.accrual, element.date)
         
         return cell
     }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleMaps
 
 class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var type: UILabel!
@@ -15,8 +14,8 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var number: UILabel!
     @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var rent: UILabel!
     
-    @IBOutlet weak var map: GMSMapView!
     @IBOutlet weak var paysCollection: UICollectionView!
     
     var noPays = UILabel()
@@ -36,6 +35,12 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     var docAddress: String? {
         didSet {
             address.text = docAddress
+        }
+    }
+    
+    var docRent: String? {
+        didSet {
+            rent.text = docRent
         }
     }
     
@@ -72,23 +77,20 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.paysCollection.reloadData()
+        //self.paysCollection.reloadData()
         noPays.removeFromSuperview()
-        
-        // reset custom properties to default values
     }
     
     func customize() {
         self.layer.masksToBounds = false
         
         self.backgroundColor = UIColor.white
-        //Shape
-        self.layer.cornerRadius = 10.0
-        //Shadow
-        self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOpacity = 0.8
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 10.0
+        
+        self.layer.cornerRadius = 20.0
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        self.layer.shadowRadius = 12.0
+        self.layer.shadowOpacity = 0.7
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -135,13 +137,13 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
         if indexPath.section == 0 {
             if overdue != nil {
                 let element = overdue![indexPath.row]
-                cell.customize(image: #imageLiteral(resourceName: "red"), a: element.accrual, d: element.date)
+                cell.customize(element.status, element.accrual, element.date)
             }
         }
         else {
             if actual != nil {
                 let element = actual![indexPath.row]
-                cell.customize(image: #imageLiteral(resourceName: "blue"), a: element.accrual, d: element.date)
+                cell.customize(element.status, element.accrual, element.date)
             }
         }
         

@@ -13,6 +13,7 @@ import MapKit
 
 class DocViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     let defaults = UserDefaults.standard
+    var offline = Bool()
     
     var documents = [classDocuments]()
     var payDict = [String:[classPayments]]()
@@ -22,8 +23,17 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     @IBOutlet weak var content: UIView!
     @IBOutlet weak var docsCollection: UICollectionView!
     
+    let bgView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let vc = tabBarController as! TabBarController
+        let offline: Bool = vc.offline
+        if offline {
+            let offlineView = viewOffline(frame: CGRect(x: view.bounds.midX-view.frame.width/4.0, y: 20, width: view.frame.width/2.0, height: 40))
+            view.addSubview(offlineView)
+        }
         
         if let savedDocs = defaults.object(forKey: "documents") as? Data {
             documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
@@ -48,26 +58,22 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
                 let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
                 self.addChildViewController(controller)
                 
+                bgView.frame = self.view.bounds
+                bgView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
+                self.view.addSubview(bgView)
+                
                 // Настройка контроллера
                 self.view.addSubview(controller.view)
-                controller.setLabels(element: element)
+                controller.element = element
                 
                 controller.didMove(toParentViewController: self)
             }
         }
     }
     
-    // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return documents.count
     }
-    /*
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.width-20
-        let multiple = width/300
-     
-        return CGSize(width: width, height: 400*multiple)
-    }*/
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath as IndexPath) as! docViewCell
@@ -90,7 +96,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         cell.paysCollection.reloadData()
     
         // Информация в ячейке
-        cell.docNumber = "№ \(element.number)"
+        cell.docNumber = "Договор №\(element.number)"
         cell.docDate = "от \(element.date)"
         cell.docType = element.type
         cell.docOwner = element.owner
@@ -109,17 +115,12 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "reusableView", for: indexPath) as! settingReusableView
         
-        //switch kind {
-        //case UICollectionElementKindSectionHeader:
-            let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "reusableView", for: indexPath) as! settingReusableView
-            
-            reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
-            reusableview.decrease()
-            
-            return reusableview
-        //default:  fatalError("Unexpected element kind")
-        //}
+        reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
+        reusableview.decrease()
+        
+        return reusableview
     }
     // MARK: - UICollectionViewDelegate protocol
     
@@ -127,7 +128,6 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
     }
-    
     
     /*
     // MARK: - Navigation

@@ -28,7 +28,14 @@ class classDocuments: NSObject, NSCoding, MKMapViewDelegate {
         self.number = number
         self.id = id
         self.type = type
-        self.owner = owner
+        
+        var tempOwner = owner
+        
+        var fullOwner = String()
+        fullOwner.append(tempOwner.removeFirst())
+        fullOwner.append(tempOwner.localizedLowercase)
+        
+        self.owner = fullOwner
         self.payDate = payDate
         self.rent = rent
         
@@ -77,6 +84,7 @@ class classDocuments: NSObject, NSCoding, MKMapViewDelegate {
         }
         return text
     }
+    
     /*
     func getLocation(address: String) -> CLLocationCoordinate2D {
         print(address)

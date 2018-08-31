@@ -9,6 +9,7 @@
 import UIKit
 
 class settingReusableView: UICollectionReusableView {
+    let defaults = UserDefaults.standard
     //Для настроек:
     @IBOutlet weak var viewWithButtons: UIView!
     @IBOutlet weak var settings: UIButton!
@@ -24,6 +25,11 @@ class settingReusableView: UICollectionReusableView {
     var widthClose = CGFloat()
     var xClose = CGFloat()
     var xOpen = CGFloat()
+    
+    @IBAction func exitTap(_ sender: UIButton) {
+        defaults.set(false, forKey: "isAuthorized")
+        //Switcher.updateRootVC()
+    }
     
     @IBAction func settingsTap(_ sender: Any) {
         if open {

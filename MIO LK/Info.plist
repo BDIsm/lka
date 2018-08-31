@@ -53,5 +53,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Ekibastuz-Bold.otf</string>
+		<string>Ekibastuz-Light.otf</string>
+		<string>Ekibastuz-Regular.otf</string>
+	</array>
 </dict>
 </plist>

@@ -2,7 +2,7 @@
 //  messageView.swift
 //  MIO LK
 //
-//  Created by Исматуллоев Бежан on 07.06.2018.
+//  Created by Исматуллоев Бежан on 06.08.2018.
 //  Copyright © 2018 Исматуллоев Бежан. All rights reserved.
 //
 
@@ -10,44 +10,20 @@ import Foundation
 import UIKit
 
 class messageView: UIView {
-    var text = String()
-    var width = CGFloat()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initialize()
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        initialize()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = UIColor.clear
-    }
-    
-    init(frame: CGRect, text: String, width: CGFloat) {
-        super.init(frame: frame)
-        self.text = text
-        self.width = width
-        customize()
-    }
-    
-    func customize() {
-        // Инициализация лейбла
-        let myLabel = UILabel(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width, height: 35.0)))
-        myLabel.numberOfLines = 0
-        myLabel.text = text
-        myLabel.textColor = UIColor.white
-        myLabel.sizeToFit()
-        myLabel.setNeedsDisplay()
-        
-        // Инициализация View для лейбла
-        let viewForLbl = UIImageView(frame: myLabel.bounds.insetBy(dx: -10, dy: -5).offsetBy(dx: 10, dy: 5))
-        viewForLbl.backgroundColor = UIColor(red:0.60, green:0.78, blue:0.94, alpha:1.0)
-        viewForLbl.clipsToBounds = true
-        viewForLbl.layer.cornerRadius = 10.0
-        viewForLbl.insertSubview(myLabel, at: 1)
-        
-        myLabel.center = viewForLbl.center
-        
-        self.frame = viewForLbl.frame
-        self.addSubview(viewForLbl)
+    func initialize() {
+        self.layer.cornerRadius = 10
+        self.layer.borderColor = UIColor(white: 0.97, alpha: 1).cgColor
+        self.layer.borderWidth = 1
+        self.backgroundColor = .white
     }
 }

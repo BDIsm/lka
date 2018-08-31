@@ -15,17 +15,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     
     var documents = [classDocuments]()
     
-    var markerImage = UIImageView()
-
     @IBOutlet weak var map: GMSMapView!
-    @IBOutlet weak var markerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
-        
-        markerImage.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        markerImage.image = #imageLiteral(resourceName: "ZU")
         
         if let savedDocs = defaults.object(forKey: "documents") as? Data {
             documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
@@ -43,12 +37,13 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
         
-        let camera = GMSCameraPosition.camera(withLatitude: 55.752023, longitude: 37.617499, zoom: 9.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 55.752023, longitude: 37.617499, zoom: 7.0)
         self.map.animate(to: camera)
 
         for i in documents {
             setMarkers(address: i.address, id: i.id)
         }
+        
         // Do any additional setup after loading the view.
     }
 
@@ -58,19 +53,19 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        return nil
-    }
-    
-    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 280, height: 178))
-        view.clipsToBounds = true
-        view.backgroundColor = .clear
-        
+        let inf = infoMapView(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
+
         if let element = documents.first(where: {$0.id == marker.title!}) {
-            addInfoOnWindow(view, number: element.number, date: element.date, object: element.type, owner: element.owner)
+            inf.document = element
+            inf.addInfoTable()
         }
-        
-        return view
+
+        inf.isUserInteractionEnabled = true
+        return inf
+    }
+
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        return nil
     }
     
     func setMarkers(address: String, id: String) {
@@ -90,8 +85,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                         let coordinates = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
                         
                         marker.position = coordinates
-                        marker.iconView = self.markerImage
-                        
+                        marker.icon = GMSMarker.markerImage(with: UIColor(red:0.00, green:0.59, blue:1.00, alpha:1.0))
+                    
+                        //marker.iconView = self.markerImage
+                        marker.tracksInfoWindowChanges = true
                         marker.title = id
                         marker.map = self.map
                     }
