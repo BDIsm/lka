@@ -27,8 +27,8 @@ class viewOffline: UIView {
         if let actualDate = defaults.object(forKey: "actualDate") as? String {
             let label = UILabel()
             label.text = "Данные актуальны на \n \(actualDate)"
-            label.font = UIFont(name: "Helvetica Neue", size: 12)
-            label.numberOfLines = 2
+            label.font = UIFont(name: "Ekibastuz-Bold", size: 15)
+            label.numberOfLines = 1
             label.textColor = UIColor.darkGray
             label.frame = self.bounds.insetBy(dx: 8.0, dy: 8.0)
             label.textAlignment = .center

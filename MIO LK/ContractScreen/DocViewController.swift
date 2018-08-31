@@ -31,7 +31,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         let vc = tabBarController as! TabBarController
         let offline: Bool = vc.offline
         if offline {
-            let offlineView = viewOffline(frame: CGRect(x: view.bounds.midX-view.frame.width/4.0, y: 20, width: view.frame.width/2.0, height: 40))
+            let offlineView = viewOffline(frame: CGRect(x: 0, y: vc.tabBar.frame.minY-40, width: view.frame.width, height: 40))
             view.addSubview(offlineView)
         }
         

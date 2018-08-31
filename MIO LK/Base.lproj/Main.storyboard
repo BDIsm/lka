@@ -231,6 +231,12 @@
                                 <action selector="cancel:" destination="vhm-fW-4NE" id="khq-RV-UNR"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Готово" id="pOb-5d-HpR">
+                            <color key="tintColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                            <connections>
+                                <action selector="done:" destination="vhm-fW-4NE" id="Qs3-Hg-Hfw"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="wk" destination="p8v-bA-jDF" id="OWC-Lt-2Li"/>
@@ -472,6 +478,10 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <state key="normal" image="reload"/>
+                                                            <connections>
+                                                                <action selector="reloadTapped:" destination="GP3-TC-uhu" eventType="touchUpInside" id="hx7-NR-0vo"/>
+                                                                <segue destination="q50-J9-vf1" kind="show" id="YO2-EH-B3H"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1206,4 +1216,7 @@
         <image name="reload" width="100" height="100"/>
         <image name="sett" width="100" height="100"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="YO2-EH-B3H"/>
+    </inferredMetricsTieBreakers>
 </document>
