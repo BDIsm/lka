@@ -15,9 +15,6 @@
         <array key="Ekibastuz-Bold.otf">
             <string>Ekibastuz-Bold</string>
         </array>
-        <array key="Ekibastuz-Light.otf">
-            <string>Ekibastuz-Light</string>
-        </array>
         <array key="Ekibastuz-Regular.otf">
             <string>Ekibastuz-Regular</string>
         </array>
@@ -302,10 +299,10 @@
                                                             <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Оплата по договору:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vS4-81-vzN">
-                                                            <rect key="frame" x="10" y="270" width="280" height="15"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="Ekibastuz-Bold" family="Ekibastuz" pointSize="15"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Начисления:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vS4-81-vzN">
+                                                            <rect key="frame" x="10" y="280" width="280" height="25"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Ekibastuz-Black" family="Ekibastuz" pointSize="22"/>
                                                             <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -345,13 +342,6 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i4K-1Z-wzJ">
                                                             <rect key="frame" x="10" y="225" width="280" height="35"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="Ekibastuz-Regular" family="Ekibastuz" pointSize="13"/>
-                                                            <color key="textColor" red="0.32549019610000002" green="0.35686274509999999" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2K-cr-uAE">
-                                                            <rect key="frame" x="10" y="290" width="280" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Ekibastuz-Regular" family="Ekibastuz" pointSize="13"/>
                                                             <color key="textColor" red="0.32549019610000002" green="0.35686274509999999" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -441,7 +431,6 @@
                                                     <outlet property="number" destination="3Q1-zT-gcE" id="GLm-Yn-jUU"/>
                                                     <outlet property="owner" destination="N1J-sR-rAL" id="UPQ-RH-ltf"/>
                                                     <outlet property="paysCollection" destination="9TR-al-J6z" id="Cwl-SI-isC"/>
-                                                    <outlet property="rent" destination="Z2K-cr-uAE" id="MA0-H8-83y"/>
                                                     <outlet property="type" destination="YOu-id-kom" id="RfH-z8-dhD"/>
                                                 </connections>
                                             </collectionViewCell>
@@ -544,15 +533,14 @@
                                                     <action selector="authViaEsia:" destination="CWH-4L-JQR" eventType="touchUpInside" id="8uf-cj-Eaw"/>
                                                 </connections>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="esia" translatesAutoresizingMaskIntoConstraints="NO" id="o4N-yr-l7W">
-                                                <rect key="frame" x="19" y="46" width="251" height="71"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo_nobeta" translatesAutoresizingMaskIntoConstraints="NO" id="o4N-yr-l7W">
+                                                <rect key="frame" x="42" y="57" width="204" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Войти через" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myr-PT-fKb">
-                                                <rect key="frame" x="38" y="12" width="211" height="33"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="Ekibastuz-Light" family="Ekibastuz" pointSize="22"/>
-                                                <color key="textColor" red="0.32549019610000002" green="0.35686274509999999" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="42" y="22" width="204" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Ekibastuz-Black" family="Ekibastuz" pointSize="22"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -579,7 +567,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWz-Mb-bNq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3214" y="-568"/>
+            <point key="canvasLocation" x="-3215.625" y="-568.30985915492954"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="gUc-nS-fuL">
@@ -1207,8 +1195,8 @@
         <image name="chatS" width="50" height="50"/>
         <image name="dog" width="50" height="50"/>
         <image name="dogS" width="50" height="50"/>
-        <image name="esia" width="150" height="50"/>
         <image name="exit" width="100" height="100"/>
+        <image name="logo_nobeta" width="190" height="30"/>
         <image name="map" width="50" height="50"/>
         <image name="mapS" width="50" height="50"/>
         <image name="pay" width="50" height="50"/>

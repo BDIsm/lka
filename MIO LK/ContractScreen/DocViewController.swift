@@ -104,7 +104,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         
         if cell.overdue?.count == 0 && cell.actual?.count == 0 {
             cell.noPays.frame = cell.paysCollection.frame
-            cell.noPays.font = UIFont.preferredFont(forTextStyle: .title2)
+            cell.noPays.font = UIFont(name: "Ekibastuz-Bold", size: 15.0)
             cell.noPays.textColor = .gray
             cell.noPays.textAlignment = .center
             cell.noPays.text = "Нет текущих начислений"

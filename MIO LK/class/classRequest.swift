@@ -42,6 +42,8 @@ class classRequest {
     public func authorize(uuid: String) {
         let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/init?uuid=\(uuid)")!
         
+        print(url)
+        
         var quest = URLRequest(url: url)
         quest.timeoutInterval = 5.0
         
