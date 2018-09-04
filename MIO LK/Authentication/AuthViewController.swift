@@ -69,7 +69,8 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             // #1 -> Error
             if userInfo["error"] != "nil" {
-                let ac = UIAlertController.init(title: nil, message: "Что-то пошло не так \(userInfo["error"]!)", preferredStyle: .alert)
+                print(userInfo["error"]!)
+                let ac = UIAlertController.init(title: nil, message: "Проблемы соединения с сервером", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
                     self.stopIndicator()
                 }))
@@ -106,7 +107,8 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     @objc func authComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             if userInfo["error"] != "nil" {
-                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)", preferredStyle: .alert)
+                print(userInfo["error"]!)
+                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
                     self.request.checkAuth(self.uuid)
                 }))

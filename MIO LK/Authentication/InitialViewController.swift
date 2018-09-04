@@ -72,8 +72,10 @@ class InitialViewController: UIViewController {
                         let acSaved = UIAlertController(title: "", message: "Войти с последними сохраненными данными?", preferredStyle: .alert)
                         acSaved.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
                             // Войти с сохранением
-                            self.offline = true
-                            self.performSegue(withIdentifier: "loginComplete", sender: self)
+                            DispatchQueue.main.async {
+                                self.offline = true
+                                self.performSegue(withIdentifier: "loginComplete", sender: self)
+                            }
                         }))
                         acSaved.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: { (_) in
                             self.container.isHidden = true
@@ -128,7 +130,9 @@ class InitialViewController: UIViewController {
             let actualDateTime = dateString + " \(hour):\(minutes)"
             defaults.set(actualDateTime, forKey: "actualDate")
             
-            performSegue(withIdentifier: "loginComplete", sender: self)
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "loginComplete", sender: self)
+            }
         }
     }
     

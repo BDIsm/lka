@@ -101,6 +101,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         cell.docType = element.type
         cell.docOwner = element.owner
         cell.docAddress = element.address
+        cell.docRent = "\(element.rent)₽"
         
         if cell.overdue?.count == 0 && cell.actual?.count == 0 {
             cell.noPays.frame = cell.paysCollection.frame
