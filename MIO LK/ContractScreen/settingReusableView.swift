@@ -27,6 +27,11 @@ class settingReusableView: UICollectionReusableView {
     var xOpen = CGFloat()
     
     @IBAction func exitTap(_ sender: UIButton) {
+        let domain = Bundle.main.bundleIdentifier!
+        defaults.removePersistentDomain(forName: domain)
+        defaults.synchronize()
+        print(Array(defaults.dictionaryRepresentation().keys).count)
+        
         defaults.set(false, forKey: "isAuthorized")
         //Switcher.updateRootVC()
     }
