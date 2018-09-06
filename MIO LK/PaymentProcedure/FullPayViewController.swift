@@ -13,6 +13,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     let defaults = UserDefaults.standard
     
     var close = Bool()
+    var tabBarOrigin = CGPoint()
     
     var element: classPayments? {
         didSet {
@@ -186,6 +187,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
             let transformScale = CGAffineTransform(scaleX: scaleX, y: scaleY)
             view.transform = transformScale
             
+            self.tabBarOrigin = (self.tabBarController?.tabBar.frame.origin)!
             self.tabBarController?.tabBar.frame.origin.y = UIScreen.main.bounds.maxY
             
             // Смена статус бара
@@ -204,8 +206,8 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
             let transformScale = CGAffineTransform(scaleX: 1, y: 1)
             view.transform = transformScale
             
-            let tbFrame = (self.tabBarController?.tabBar.frame)!
-            self.tabBarController?.tabBar.frame.origin.y = UIScreen.main.bounds.maxY - tbFrame.height
+            //let tbFrame = (self.tabBarController?.tabBar.frame)!
+            self.tabBarController?.tabBar.frame.origin = self.tabBarOrigin
             
             // Смена статус бара
             UIApplication.shared.statusBarStyle = .default

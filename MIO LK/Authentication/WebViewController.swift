@@ -70,6 +70,15 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let dataStore = WKWebsiteDataStore.default()
+        dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { (records) in
+            for record in records {
+                dataStore.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), for: [record], completionHandler: {
+                    print("Deleted: " + record.displayName);
+                })
+            }
+        }
+        
         wk.uiDelegate = self
         wk.navigationDelegate = self
         
