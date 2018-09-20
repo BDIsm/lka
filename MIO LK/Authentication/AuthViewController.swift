@@ -39,6 +39,12 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         NotificationCenter.default.addObserver(self, selector: #selector(initComplete(notification:)), name: urlNot, object: nil)
     }
     
+    var statusStyleLight = Bool()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return statusStyleLight ? .lightContent : .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -47,21 +53,6 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func loadWebView(_ myURL: URL) {
-        bgView.frame = self.view.bounds
-        bgView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        self.view.addSubview(bgView)
-        
-        let controller = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
-        self.addChildViewController(controller)
-        self.view.addSubview(controller.view)
-        
-        controller.mosregURL = myURL
-        controller.didMove(toParentViewController: self)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(wkDismiss), name: wkDismissNot, object: nil)
     }
     
     // Авторизация через ЕСИА
@@ -87,6 +78,25 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
                 NotificationCenter.default.removeObserver(self, name: urlNot, object: nil)
             }
         }
+    }
+    
+    func loadWebView(_ myURL: URL) {
+        bgView.frame = self.view.bounds
+        bgView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        self.view.addSubview(bgView)
+        
+        let controller = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
+        self.addChildViewController(controller)
+       
+        self.statusStyleLight = true
+        self.setNeedsStatusBarAppearanceUpdate()
+        
+        self.view.addSubview(controller.view)
+        
+        controller.mosregURL = myURL
+        controller.didMove(toParentViewController: self)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(wkDismiss), name: wkDismissNot, object: nil)
     }
     
     @objc func wkDismiss(notification: Notification) {

@@ -19,27 +19,27 @@ class BrowserViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true) {
-            UIApplication.shared.statusBarStyle = .lightContent
+//            UIApplication.shared.statusBarStyle = .lightContent
         }
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
         if UserDefaults.standard.bool(forKey: "hideAlert") {
             dismiss(animated: true) {
-                UIApplication.shared.statusBarStyle = .lightContent
+//                UIApplication.shared.statusBarStyle = .lightContent
             }
         }
         else {
             let ac = UIAlertController(title: nil, message: "Обращаем Ваше внимание, что срок поступления платежа может составлять до 7 рабочих дней", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
                 self.dismiss(animated: true) {
-                    UIApplication.shared.statusBarStyle = .lightContent
+//                    UIApplication.shared.statusBarStyle = .lightContent
                 }
             }))
             ac.addAction(UIAlertAction(title: "Больше не показывать", style: .default, handler: { (_) in
                 self.dismiss(animated: true) {
                     UserDefaults.standard.set(true, forKey: "hideAlert")
-                    UIApplication.shared.statusBarStyle = .lightContent
+//                    UIApplication.shared.statusBarStyle = .lightContent
                 }
             }))
             present(ac, animated: true)

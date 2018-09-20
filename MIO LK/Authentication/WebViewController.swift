@@ -131,6 +131,9 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     override func removeFromParentViewController() {
         if let vc = parent as? AuthViewController {
+            vc.statusStyleLight = false
+            vc.setNeedsStatusBarAppearanceUpdate()
+            
             NotificationCenter.default.post(name: wkDismissNot, object: nil, userInfo: ["authCheck": checkNeeded])
             removeFrom(view: vc.content, frame: vc.view.frame)
         }
@@ -175,8 +178,6 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
             let transformScale = CGAffineTransform(scaleX: scaleX, y: scaleY)
             view.transform = transformScale
             
-            // Смена статус бара
-            UIApplication.shared.statusBarStyle = .lightContent
             // Закругление углов
             view.layer.cornerRadius = 10
             // Анимация child контроллера
@@ -193,9 +194,6 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         UIView.animate(withDuration: 0.5, delay: 0, options: .preferredFramesPerSecond60, animations: {
             let transformScale = CGAffineTransform(scaleX: 1, y: 1)
             view.transform = transformScale
-            
-            // Смена статус бара
-            UIApplication.shared.statusBarStyle = .default
             
             // Закругление углов
             view.layer.cornerRadius = 0
