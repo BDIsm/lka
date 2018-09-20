@@ -9,8 +9,6 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    let line = UIImageView()
-    
     var offline = Bool()
 
     override func viewDidLoad() {

@@ -13,6 +13,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     let defaults = UserDefaults.standard
     
     var close = Bool()
+    var tabBarOrigin = CGPoint()
     
     var element: classPayments? {
         didSet {
@@ -118,6 +119,10 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
+//
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +149,6 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         maskLayer.frame = payButton.bounds
         
         payButton.layer.mask = maskLayer
-        
         // Do any additional setup after loading the view.
     }
     
@@ -154,7 +158,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        UIApplication.shared.statusBarStyle = .lightContent
+//        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     override func didMove(toParentViewController parent: UIViewController?) {
@@ -168,9 +172,15 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     
     override func removeFromParentViewController() {
         if let vc = parent as? DocViewController {
+            vc.statusStyleLight = false
+            vc.setNeedsStatusBarAppearanceUpdate()
+            
             removeFrom(view: vc.content, frame: vc.view.frame, bg: vc.bgView)
         }
         else if let vc = parent as? PayViewController {
+            vc.statusStyleLight = false
+            vc.setNeedsStatusBarAppearanceUpdate()
+            
             removeFrom(view: vc.content, frame: vc.view.frame, bg: vc.bgView)
         }
     }
@@ -186,10 +196,9 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
             let transformScale = CGAffineTransform(scaleX: scaleX, y: scaleY)
             view.transform = transformScale
             
+            self.tabBarOrigin = (self.tabBarController?.tabBar.frame.origin)!
             self.tabBarController?.tabBar.frame.origin.y = UIScreen.main.bounds.maxY
             
-            // Смена статус бара
-            UIApplication.shared.statusBarStyle = .lightContent
             // Закругление углов
             view.layer.cornerRadius = 10
             // Анимация child контроллера
@@ -204,11 +213,10 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
             let transformScale = CGAffineTransform(scaleX: 1, y: 1)
             view.transform = transformScale
             
-            let tbFrame = (self.tabBarController?.tabBar.frame)!
-            self.tabBarController?.tabBar.frame.origin.y = UIScreen.main.bounds.maxY - tbFrame.height
+            self.tabBarController?.tabBar.frame.origin = self.tabBarOrigin
             
             // Смена статус бара
-            UIApplication.shared.statusBarStyle = .default
+//            UIApplication.shared.statusBarStyle = .default
             
             // Закругление углов
             view.layer.cornerRadius = 0
@@ -259,7 +267,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? UINavigationController {
             if let wkVc = vc.topViewController as? BrowserViewController {
-                UIApplication.shared.statusBarStyle = .default
+//                UIApplication.shared.statusBarStyle = .default
                 wkVc.payURL = URL(string: "https://www.gosuslugi.ru/payment/\(element?.uin ?? "")")
             }
         }

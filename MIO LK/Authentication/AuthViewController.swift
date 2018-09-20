@@ -39,6 +39,12 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         NotificationCenter.default.addObserver(self, selector: #selector(initComplete(notification:)), name: urlNot, object: nil)
     }
     
+    var statusStyleLight = Bool()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return statusStyleLight ? .lightContent : .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -49,27 +55,13 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         // Dispose of any resources that can be recreated.
     }
     
-    func loadWebView(_ myURL: URL) {
-        bgView.frame = self.view.bounds
-        bgView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        self.view.addSubview(bgView)
-        
-        let controller = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
-        self.addChildViewController(controller)
-        self.view.addSubview(controller.view)
-        
-        controller.mosregURL = myURL
-        controller.didMove(toParentViewController: self)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(wkDismiss), name: wkDismissNot, object: nil)
-    }
-    
     // Авторизация через ЕСИА
     @objc func initComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             // #1 -> Error
             if userInfo["error"] != "nil" {
-                let ac = UIAlertController.init(title: nil, message: "Что-то пошло не так \(userInfo["error"]!)", preferredStyle: .alert)
+                print(userInfo["error"]!)
+                let ac = UIAlertController.init(title: nil, message: "Проблемы соединения с сервером", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
                     self.stopIndicator()
                 }))
@@ -86,6 +78,25 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
                 NotificationCenter.default.removeObserver(self, name: urlNot, object: nil)
             }
         }
+    }
+    
+    func loadWebView(_ myURL: URL) {
+        bgView.frame = self.view.bounds
+        bgView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        self.view.addSubview(bgView)
+        
+        let controller = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
+        self.addChildViewController(controller)
+       
+        self.statusStyleLight = true
+        self.setNeedsStatusBarAppearanceUpdate()
+        
+        self.view.addSubview(controller.view)
+        
+        controller.mosregURL = myURL
+        controller.didMove(toParentViewController: self)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(wkDismiss), name: wkDismissNot, object: nil)
     }
     
     @objc func wkDismiss(notification: Notification) {
@@ -106,7 +117,8 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     @objc func authComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             if userInfo["error"] != "nil" {
-                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса: \(userInfo["error"]!)", preferredStyle: .alert)
+                print(userInfo["error"]!)
+                let ac = UIAlertController.init(title: nil, message: "Ошибка при обработке запроса", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
                     self.request.checkAuth(self.uuid)
                 }))

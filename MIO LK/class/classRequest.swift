@@ -87,7 +87,7 @@ class classRequest {
                     if let content = data {
                         do {
                             if let myJsonObject = try JSONSerialization.jsonObject(with: content, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
-                                if let code = myJsonObject["Code:"] as? String {
+                                if let code = myJsonObject["Code"] as? String {
                                     NotificationCenter.default.post(name: self.authNot, object: nil, userInfo: ["error": "nil", "response": code])
                                 }
                             }

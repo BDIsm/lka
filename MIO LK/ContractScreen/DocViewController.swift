@@ -25,6 +25,12 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     
     let bgView = UIView()
     
+    var statusStyleLight = Bool()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return statusStyleLight ? .lightContent : .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,6 +63,9 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
             if let element = userInfo["chosenPayInDoc"] {
                 let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
                 self.addChildViewController(controller)
+                
+                self.statusStyleLight = true
+                self.setNeedsStatusBarAppearanceUpdate()
                 
                 bgView.frame = self.view.bounds
                 bgView.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
@@ -101,6 +110,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         cell.docType = element.type
         cell.docOwner = element.owner
         cell.docAddress = element.address
+        cell.docRent = "\(element.rent)₽"
         
         if cell.overdue?.count == 0 && cell.actual?.count == 0 {
             cell.noPays.frame = cell.paysCollection.frame

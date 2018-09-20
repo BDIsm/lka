@@ -29,6 +29,11 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
     
     var refresher: UIRefreshControl!
     
+    var statusStyleLight = Bool()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return statusStyleLight ? .lightContent : .default
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,6 +93,9 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
             if let element = userInfo["chosenPayInPays"] {
                 let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
                 self.addChildViewController(controller)
+                
+                self.statusStyleLight = true
+                self.setNeedsStatusBarAppearanceUpdate()
                 
                 bgView.frame = self.view.bounds
                 bgView.backgroundColor = UIColor(white: 0, alpha: 0.5)
