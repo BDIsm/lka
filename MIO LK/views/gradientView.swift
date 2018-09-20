@@ -27,9 +27,6 @@ class gradient {
             // Orange
             colorTop =  UIColor(red: 255.0/255.0, green: 174.0/255.0, blue: 0.0/255.0, alpha: 1.0)
             colorBottom = UIColor(red: 237.0/255.0, green: 98.0/255.0, blue: 7.0/255.0, alpha: 1.0)
-
-//            colorTop =  UIColor(red: 255.0/255.0, green: 149.0/255.0, blue: 0.0/255.0, alpha: 1.0)
-//            colorBottom = UIColor(red: 255.0/255.0, green: 94.0/255.0, blue: 58.0/255.0, alpha: 1.0)
         }
         
         let gradientLayer = CAGradientLayer()

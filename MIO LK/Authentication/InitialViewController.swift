@@ -97,7 +97,21 @@ class InitialViewController: UIViewController {
                 numberOfDocuments = Int(userInfo["response"]!)!
                 
                 DispatchQueue.main.async {
-                    self.updateProgress("base")
+                    if self.numberOfDocuments == 0 {
+                        let ac = UIAlertController(title: nil, message: "Нет действующих договоров", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
+                            let domain = Bundle.main.bundleIdentifier!
+                            self.defaults.removePersistentDomain(forName: domain)
+                            self.defaults.synchronize()
+                            
+                            self.defaults.set(false, forKey: "isAuthorized")
+                            self.performSegue(withIdentifier: "noDocuments", sender: self)
+                        }))
+                        self.present(ac, animated: true)
+                    }
+                    else {
+                        self.updateProgress("base")
+                    }
                 }
             }
         }

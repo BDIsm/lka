@@ -728,6 +728,7 @@
                         <outlet property="repeatLabel" destination="Wzb-ko-BaP" id="fF7-iK-Zx3"/>
                         <outlet property="viewLoading" destination="KA8-mw-hyP" id="SFZ-Xc-FoF"/>
                         <segue destination="wKq-PP-aLl" kind="show" identifier="loginComplete" id="jfW-cL-em4"/>
+                        <segue destination="CWH-4L-JQR" kind="show" identifier="noDocuments" id="yQC-vn-v2h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fg1-wB-y7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1214,5 +1215,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="YO2-EH-B3H"/>
+        <segue reference="yQC-vn-v2h"/>
     </inferredMetricsTieBreakers>
 </document>

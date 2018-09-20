@@ -148,7 +148,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         let currentURL = parseURL(wk.url!)
     
-        if currentURL[1] == "sso.mosreg.ru" {
+        if currentURL[1] == "sso.mosreg.ru" && wk.isHidden {
             let javaScriptClick = "document.getElementsByClassName('form-control btn btn-primary wide btn--esia')[0].click();"
             self.wk.evaluateJavaScript(javaScriptClick)
         }
