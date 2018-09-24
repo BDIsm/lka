@@ -63,7 +63,7 @@ class InitialViewController: UIViewController {
     @objc func docComplete(notification: Notification) {
         if let userInfo = notification.userInfo as? Dictionary<String, String> {
             if userInfo["error"] != "nil" {
-                let ac = UIAlertController(title: "", message: "Ошибка при обработке запроса \(userInfo["error"]!)", preferredStyle: .alert)
+                let ac = UIAlertController(title: "", message: "Ошибка при обработке запроса", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (_) in
                     self.request.getContractsFromBack(self.uuid)
                 }))

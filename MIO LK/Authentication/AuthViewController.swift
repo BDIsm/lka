@@ -61,7 +61,7 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
             // #1 -> Error
             if userInfo["error"] != "nil" {
                 print(userInfo["error"]!)
-                let ac = UIAlertController.init(title: nil, message: "Проблемы соединения с сервером", preferredStyle: .alert)
+                let ac = UIAlertController.init(title: nil, message: "Проблема соединения с сервером", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "ОК", style: .default, handler: { (_) in
                     self.stopIndicator()
                 }))
