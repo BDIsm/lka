@@ -62,7 +62,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
         if let userInfo = notification.userInfo as? Dictionary<String,classPayments> {
             if let element = userInfo["chosenPayInDoc"] {
                 let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
-                self.addChildViewController(controller)
+                self.addChild(controller)
                 
                 self.statusStyleLight = true
                 self.setNeedsStatusBarAppearanceUpdate()
@@ -75,7 +75,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
                 self.view.addSubview(controller.view)
                 controller.element = element
                 
-                controller.didMove(toParentViewController: self)
+                controller.didMove(toParent: self)
             }
         }
     }
@@ -125,7 +125,7 @@ class DocViewController: UIViewController, UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "reusableView", for: indexPath) as! settingReusableView
+        let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "reusableView", for: indexPath) as! settingReusableView
         
         reusableview.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
         reusableview.decrease()

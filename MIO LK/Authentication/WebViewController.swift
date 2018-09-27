@@ -30,7 +30,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     @IBAction func tapToClose(_ sender: UITapGestureRecognizer) {
         checkNeeded = false
-        removeFromParentViewController()
+        removeFromParent()
         close = true
     }
     
@@ -43,7 +43,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         else {
             if self.view.frame.origin.y > edgePoint { // контроллер прошел через точку закрытия
                 checkNeeded = false
-                removeFromParentViewController()
+                removeFromParent()
                 close = true
             }
             else {
@@ -116,7 +116,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
+    override func didMove(toParent parent: UIViewController?) {
         if let vc = parent as? AuthViewController {
             let arrow = arrowView(origin: topView.center)
             topView.addSubview(arrow)
@@ -129,7 +129,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         }
     }
     
-    override func removeFromParentViewController() {
+    override func removeFromParent() {
         if let vc = parent as? AuthViewController {
             vc.statusStyleLight = false
             vc.setNeedsStatusBarAppearanceUpdate()
@@ -144,7 +144,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         
         if currentURL[1] == "mob.razvitie-mo.ru" {
             checkNeeded = true
-            removeFromParentViewController()
+            removeFromParent()
         }
     }
     

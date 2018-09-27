@@ -72,7 +72,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
         let queue = DispatchQueue.init(label: "myQueue", qos: .utility, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         
         queue.async {
-            let localSearchRequest = MKLocalSearchRequest()
+            let localSearchRequest = MKLocalSearch.Request()
             localSearchRequest.naturalLanguageQuery = address
             
             let localSearch = MKLocalSearch(request: localSearchRequest)

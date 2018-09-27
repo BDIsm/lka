@@ -28,7 +28,7 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
     
     let bgView = UIView()
     
-    let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    let indicator = UIActivityIndicatorView(style: .gray)
     
     @IBAction func authViaEsia(_ sender: UIButton) {
         startIndicator(view: esiaView)
@@ -86,7 +86,7 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         self.view.addSubview(bgView)
         
         let controller = storyboard?.instantiateViewController(withIdentifier: "webView") as! WebViewController
-        self.addChildViewController(controller)
+        self.addChild(controller)
        
         self.statusStyleLight = true
         self.setNeedsStatusBarAppearanceUpdate()
@@ -94,7 +94,7 @@ class AuthViewController: UIViewController, UITextFieldDelegate, SFSafariViewCon
         self.view.addSubview(controller.view)
         
         controller.mosregURL = myURL
-        controller.didMove(toParentViewController: self)
+        controller.didMove(toParent: self)
         
         NotificationCenter.default.addObserver(self, selector: #selector(wkDismiss), name: wkDismissNot, object: nil)
     }

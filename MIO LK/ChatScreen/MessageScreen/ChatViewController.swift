@@ -50,7 +50,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             documents = NSKeyedUnarchiver.unarchiveObject(with: savedDocs) as! [classDocuments]
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         // Do any additional setup after loading the view.
     }
 
@@ -170,7 +170,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func keyboardWillChange(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let height = messTextView.frame.height
             let viewOriginY = keyboardSize.origin.y-height
             

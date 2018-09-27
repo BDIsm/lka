@@ -100,14 +100,14 @@ class docViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if section != 0 {
             if overdue?.count == 0 {
-                return UIEdgeInsetsMake(0, 0, 0, 10)
+                return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 10)
             }
             else {
-                return UIEdgeInsetsMake(0, 10, 0, 10)
+                return UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
             }
         }
         else {
-            return UIEdgeInsetsMake(0, 10, 0, 0)
+            return UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 0)
         }
     }
     

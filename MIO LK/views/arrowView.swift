@@ -88,7 +88,7 @@ class arrowView: UIView {
         let gradientChangeAnimation = CABasicAnimation(keyPath: "colors")
         gradientChangeAnimation.duration = 1.0
         gradientChangeAnimation.toValue = gradientSet[currentGradient]
-        gradientChangeAnimation.fillMode = kCAFillModeForwards
+        gradientChangeAnimation.fillMode = CAMediaTimingFillMode.forwards
         gradientChangeAnimation.isRemovedOnCompletion = false
         gradient.add(gradientChangeAnimation, forKey: "colorChange")
     }

@@ -90,7 +90,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         }
         else {
             if self.view.frame.origin.y > edgePoint { // контроллер прошел через точку закрытия
-                removeFromParentViewController()
+                removeFromParent()
                 close = true
             }
             else {
@@ -161,7 +161,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
 //        UIApplication.shared.statusBarStyle = .lightContent
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
+    override func didMove(toParent parent: UIViewController?) {
         if let vc = parent! as? DocViewController {
             moveTo(view: vc.content, frame: vc.view.frame)
         }
@@ -170,7 +170,7 @@ class FullPayViewController: UIViewController, SFSafariViewControllerDelegate {
         }
     }
     
-    override func removeFromParentViewController() {
+    override func removeFromParent() {
         if let vc = parent as? DocViewController {
             vc.statusStyleLight = false
             vc.setNeedsStatusBarAppearanceUpdate()

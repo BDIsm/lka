@@ -92,7 +92,7 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
         if let userInfo = notification.userInfo as? Dictionary<String,classPayments> {
             if let element = userInfo["chosenPayInPays"] {
                 let controller = storyboard?.instantiateViewController(withIdentifier: "fullPay") as! FullPayViewController
-                self.addChildViewController(controller)
+                self.addChild(controller)
                 
                 self.statusStyleLight = true
                 self.setNeedsStatusBarAppearanceUpdate()
@@ -105,7 +105,7 @@ class PayViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 self.view.addSubview(controller.view)
                 controller.element = element
                 
-                controller.didMove(toParentViewController: self)
+                controller.didMove(toParent: self)
             }
         }
     }

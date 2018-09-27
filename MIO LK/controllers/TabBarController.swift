@@ -13,8 +13,8 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Ekibastuz-Bold", size: 10)!], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Ekibastuz-Black", size: 10)!], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Ekibastuz-Bold", size: 10)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Ekibastuz-Black", size: 10)!], for: .selected)
 
         let fullLine = UIImageView(frame: CGRect(x: 0, y: -1, width: self.tabBar.frame.width, height: 0.5))
         fullLine.backgroundColor = UIColor(white: 0.8, alpha: 1.0)
