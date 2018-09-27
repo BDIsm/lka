@@ -40,7 +40,7 @@ class classRequest {
     }
     
     public func authorize(uuid: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/init?uuid=\(uuid)")!
+        let url = URL(string: "testRequestURL")!
         
         print(url)
         
@@ -76,7 +76,7 @@ class classRequest {
     }
     
     public func checkAuth(_ uuid: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/author?uuid=\(uuid)")
+        let url = URL(string: "testRequestURL")
         
         _ = TaskManager.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {
@@ -104,7 +104,7 @@ class classRequest {
     }
     
     public func getContractsFromBack(_ uuid: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2FleaseContract%3FsecurityToken%3D%5ftoken%5f%26showClosed%3D0")
+        let url = URL(string: "testRequestURL")
         
         var request = URLRequest(url: url!)
         request.httpMethod = "GET"
@@ -173,7 +173,7 @@ class classRequest {
         var overdue = [classPayments]()
         var actual = [classPayments]()
         
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2FleaseContract%2F\(id)%3FsecurityToken%3D%5ftoken%5f%26payedAccruals%3D1")
+        let url = URL(string: "testRequestURL")
         
         let session = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {
@@ -247,7 +247,7 @@ class classRequest {
     }
     
     public func getChatsFromBack(_ uuid: String, active: Int) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2Fchat%3FsecurityToken%3D%5ftoken%5f%26active%3D\(active)")
+        let url = URL(string: "testRequestURL")
         
         var request = URLRequest(url: url!)
         request.timeoutInterval = 5
@@ -300,7 +300,7 @@ class classRequest {
     }
     
     public func getChatMFromBack(_ uuid: String, id: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2Fchat%2F\(id)%3FsecurityToken%3D%5ftoken%5f")
+        let url = URL(string: "testRequestURL")
         
         let newTask = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {
@@ -344,7 +344,7 @@ class classRequest {
     }
     
     public func chatInit(_ uuid: String, _ type: String, _ message: String, _ id: String) {
-        let url = URL(string: "https://mob.razvitie-mo.ru/backend/api/v1/lka?uuid=\(uuid)&query=%2Fchat%2Finit%3FsecurityToken%3D%5ftoken%5f%26chatType%3D\(type)%26chatTheme%26chatMessage%3D\(message)%26lawInstanceId%3D\(id)")!
+        let url = URL(string: "testRequestURL")!
         
         print(url)
         var quest = URLRequest(url: url)
@@ -389,7 +389,7 @@ class classRequest {
     //            ogrn = ""
     //        }
     //
-    //        let url = URL(string: "https://srv-saumi-ci.bftcom.com/ws/tpo/login?sessionId=4324234&tenantType=\(type)&inn=\(inn)&snils\(snils)&ogrn\(ogrn)")
+    //        let url = URL(string: "testRequestURL")
     //
     //        _ = TaskManager.shared.dataTask(with: url!) { (data, response, error) in
     //            if error != nil {
@@ -424,7 +424,7 @@ class classRequest {
     //    }
     
     //    public func getContracts(token: String) {
-    //        let url = URL(string: "https://srv-saumi-ci.bftcom.com/ws/tpo/leaseContract?securityToken=\(token)&showClosed=0")
+    //        let url = URL(string: "testRequestURL")
     //
     //        TaskManager.shared.dataTask(with: url!) { (data, response, error) in
     //            if error != nil {
@@ -478,7 +478,7 @@ class classRequest {
     //        var overdue = [classPayments]()
     //        var actual = [classPayments]()
     //
-    //        let url = URL(string: "https://srv-saumi-ci.bftcom.com/ws/tpo/leaseContract/\(id)?securityToken=\(token)&payedAccruals=1")
+    //        let url = URL(string: "testRequestURL")
     //
     //        TaskManager.shared.dataTask(with: url!) { (data, response, error) in
     //            if error != nil {
